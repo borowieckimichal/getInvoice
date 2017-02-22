@@ -1,0 +1,99 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Invoices list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Invoiceno</th>
+                <th>Dateissue</th>
+                <th>Datesale</th>
+                <th>Datepayment</th>
+                <th>Paymentmethod</th>
+                <th>Bank</th>
+                <th>Iban</th>
+                <th>Sellername</th>
+                <th>Selleraddressstreet</th>
+                <th>Selleraddresslocalno</th>
+                <th>Selleraddressflatno</th>
+                <th>Sellerpostalcode</th>
+                <th>Selleraddresscity</th>
+                <th>Sellerphone</th>
+                <th>Sellernip</th>
+                <th>Customername</th>
+                <th>Customeraddressstreet</th>
+                <th>Customeraddresslocalno</th>
+                <th>Customeraddressflatno</th>
+                <th>Customeraddresspostalcode</th>
+                <th>Customeraddresscity</th>
+                <th>Customerphone</th>
+                <th>Customernip</th>
+                <th>Totalvaluenet</th>
+                <th>Totalamountvat</th>
+                <th>Totalvaluegross</th>
+                <th>Paid</th>
+                <th>Remaintopay</th>
+                <th>Topayinwords</th>
+                <th>Authorisedtoissue</th>
+                <th>Allowedtoreceive</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for invoice in invoices %}
+            <tr>
+                <td><a href="{{ path('invoice_show', { 'id': invoice.id }) }}">{{ invoice.id }}</a></td>
+                <td>{{ invoice.invoiceNo }}</td>
+                <td>{% if invoice.dateIssue %}{{ invoice.dateIssue|date('Y-m-d') }}{% endif %}</td>
+                <td>{% if invoice.dateSale %}{{ invoice.dateSale|date('Y-m-d') }}{% endif %}</td>
+                <td>{% if invoice.datePayment %}{{ invoice.datePayment|date('Y-m-d') }}{% endif %}</td>
+                <td>{{ invoice.paymentMethod }}</td>
+                <td>{{ invoice.bank }}</td>
+                <td>{{ invoice.iban }}</td>
+                <td>{{ invoice.sellerName }}</td>
+                <td>{{ invoice.sellerAddressStreet }}</td>
+                <td>{{ invoice.sellerAddressLocalNo }}</td>
+                <td>{{ invoice.sellerAddressFlatNo }}</td>
+                <td>{{ invoice.sellerPostalCode }}</td>
+                <td>{{ invoice.sellerAddressCity }}</td>
+                <td>{{ invoice.sellerPhone }}</td>
+                <td>{{ invoice.sellerNip }}</td>
+                <td>{{ invoice.customerName }}</td>
+                <td>{{ invoice.customerAddressStreet }}</td>
+                <td>{{ invoice.customerAddressLocalNo }}</td>
+                <td>{{ invoice.customerAddressFlatNo }}</td>
+                <td>{{ invoice.customerAddressPostalCode }}</td>
+                <td>{{ invoice.customerAddressCity }}</td>
+                <td>{{ invoice.customerPhone }}</td>
+                <td>{{ invoice.customerNip }}</td>
+                <td>{{ invoice.totalValueNet }}</td>
+                <td>{{ invoice.totalAmountVAT }}</td>
+                <td>{{ invoice.totalValueGross }}</td>
+                <td>{{ invoice.paid }}</td>
+                <td>{{ invoice.remainToPay }}</td>
+                <td>{{ invoice.toPayInWords }}</td>
+                <td>{{ invoice.authorisedToIssue }}</td>
+                <td>{{ invoice.allowedToReceive }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('invoice_show', { 'id': invoice.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('invoice_edit', { 'id': invoice.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('invoice_new') }}">Create a new invoice</a>
+        </li>
+    </ul>
+{% endblock %}

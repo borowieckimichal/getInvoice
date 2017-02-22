@@ -1,0 +1,152 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Invoice</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ invoice.id }}</td>
+            </tr>
+            <tr>
+                <th>Invoiceno</th>
+                <td>{{ invoice.invoiceNo }}</td>
+            </tr>
+            <tr>
+                <th>Dateissue</th>
+                <td>{% if invoice.dateIssue %}{{ invoice.dateIssue|date('Y-m-d') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Datesale</th>
+                <td>{% if invoice.dateSale %}{{ invoice.dateSale|date('Y-m-d') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Datepayment</th>
+                <td>{% if invoice.datePayment %}{{ invoice.datePayment|date('Y-m-d') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Paymentmethod</th>
+                <td>{{ invoice.paymentMethod }}</td>
+            </tr>
+            <tr>
+                <th>Bank</th>
+                <td>{{ invoice.bank }}</td>
+            </tr>
+            <tr>
+                <th>Iban</th>
+                <td>{{ invoice.iban }}</td>
+            </tr>
+            <tr>
+                <th>Sellername</th>
+                <td>{{ invoice.sellerName }}</td>
+            </tr>
+            <tr>
+                <th>Selleraddressstreet</th>
+                <td>{{ invoice.sellerAddressStreet }}</td>
+            </tr>
+            <tr>
+                <th>Selleraddresslocalno</th>
+                <td>{{ invoice.sellerAddressLocalNo }}</td>
+            </tr>
+            <tr>
+                <th>Selleraddressflatno</th>
+                <td>{{ invoice.sellerAddressFlatNo }}</td>
+            </tr>
+            <tr>
+                <th>Sellerpostalcode</th>
+                <td>{{ invoice.sellerPostalCode }}</td>
+            </tr>
+            <tr>
+                <th>Selleraddresscity</th>
+                <td>{{ invoice.sellerAddressCity }}</td>
+            </tr>
+            <tr>
+                <th>Sellerphone</th>
+                <td>{{ invoice.sellerPhone }}</td>
+            </tr>
+            <tr>
+                <th>Sellernip</th>
+                <td>{{ invoice.sellerNip }}</td>
+            </tr>
+            <tr>
+                <th>Customername</th>
+                <td>{{ invoice.customerName }}</td>
+            </tr>
+            <tr>
+                <th>Customeraddressstreet</th>
+                <td>{{ invoice.customerAddressStreet }}</td>
+            </tr>
+            <tr>
+                <th>Customeraddresslocalno</th>
+                <td>{{ invoice.customerAddressLocalNo }}</td>
+            </tr>
+            <tr>
+                <th>Customeraddressflatno</th>
+                <td>{{ invoice.customerAddressFlatNo }}</td>
+            </tr>
+            <tr>
+                <th>Customeraddresspostalcode</th>
+                <td>{{ invoice.customerAddressPostalCode }}</td>
+            </tr>
+            <tr>
+                <th>Customeraddresscity</th>
+                <td>{{ invoice.customerAddressCity }}</td>
+            </tr>
+            <tr>
+                <th>Customerphone</th>
+                <td>{{ invoice.customerPhone }}</td>
+            </tr>
+            <tr>
+                <th>Customernip</th>
+                <td>{{ invoice.customerNip }}</td>
+            </tr>
+            <tr>
+                <th>Totalvaluenet</th>
+                <td>{{ invoice.totalValueNet }}</td>
+            </tr>
+            <tr>
+                <th>Totalamountvat</th>
+                <td>{{ invoice.totalAmountVAT }}</td>
+            </tr>
+            <tr>
+                <th>Totalvaluegross</th>
+                <td>{{ invoice.totalValueGross }}</td>
+            </tr>
+            <tr>
+                <th>Paid</th>
+                <td>{{ invoice.paid }}</td>
+            </tr>
+            <tr>
+                <th>Remaintopay</th>
+                <td>{{ invoice.remainToPay }}</td>
+            </tr>
+            <tr>
+                <th>Topayinwords</th>
+                <td>{{ invoice.toPayInWords }}</td>
+            </tr>
+            <tr>
+                <th>Authorisedtoissue</th>
+                <td>{{ invoice.authorisedToIssue }}</td>
+            </tr>
+            <tr>
+                <th>Allowedtoreceive</th>
+                <td>{{ invoice.allowedToReceive }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('invoice_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('invoice_edit', { 'id': invoice.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}
