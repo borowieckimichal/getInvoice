@@ -12,15 +12,47 @@
         <meta name="author" content="">
 
         <meta name="msapplication-TileColor" content="#5bc0de" />
-        <meta name="msapplication-TileImage" content="assets/img/metis-tile.png" />
-        
+        <meta name="msapplication-TileImage" content="{{ asset('/img/metis-tile.png') }}" />
+
         {% block stylesheets %}
-            
-            
-            
-            
-            
+            <!-- Bootstrap -->
+            <link rel="stylesheet" href="{{asset('/lib/bootstrap/css/bootstrap.css')}}">
+
+            <!-- Font Awesome -->
+            <link rel="stylesheet" href="{{asset('/lib/font-awesome/css/font-awesome.css')}}">
+
+            <!-- Metis core stylesheet -->
+            <link rel="stylesheet" href="{{asset('/css/main.css')}}">
+
+            <!-- metisMenu stylesheet -->
+            <link rel="stylesheet" href="{{asset('/lib/metismenu/metisMenu.css')}}">
+
+            <!-- animate.css stylesheet -->
+            <link rel="stylesheet" href="{{asset('/lib/animate.css/animate.css')}}">
+
+
+
+            <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+            <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+            <!--[if lt IE 9]>
+                <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+                <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+            <![endif]-->
+
+            <!--For Development Only. Not required -->
+            <!--script>
+                less = {
+                    env: "development",
+                    relativeUrls: false,
+                    rootpath: "/assets/"
+                };
+            </script-->
+            <link rel="stylesheet" href="{{ asset('/css/style-switcher.css') }}">
+            <link rel="stylesheet/less" type="text/css" href="{{asset('/less/theme.less') }}">
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/less.js/2.7.1/less.js"></script>
+
         {% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
         <div>
@@ -48,5 +80,27 @@
             {% block fos_user_content %}
             {% endblock fos_user_content %}
         </div>
+        <!--jQuery -->
+        <script src="{{asset('/lib/jquery/jquery.js')}}"></script>
+
+        <!--Bootstrap -->
+        <script src="{{asset('/lib/bootstrap/js/bootstrap.js')}}"></script>
+
+
+        <script type="text/javascript">
+            (function ($) {
+                $(document).ready(function () {
+                    $('.list-inline li > a').click(function () {
+                        var activeForm = $(this).attr('href') + ' > form';
+                        //console.log(activeForm);
+                        $(activeForm).addClass('animated fadeIn');
+                        //set timer to 1 seconds, after that, unload the animate animation
+                        setTimeout(function () {
+                            $(activeForm).removeClass('animated fadeIn');
+                        }, 1000);
+                    });
+                });
+            })(jQuery);
+        </script>
     </body>
 </html>

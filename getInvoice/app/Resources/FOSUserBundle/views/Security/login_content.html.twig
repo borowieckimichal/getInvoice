@@ -1,22 +1,51 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
-{% if error %}
-    <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-{% endif %}
 
-<form action="{{ path("fos_user_security_check") }}" method="post">
-    {% if csrf_token %}
-        <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+
+{% block fos_user_content %}
+    {% if error %}
+        <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
 
-    <label for="username">{{ 'security.login.username'|trans }}</label>
-    <input type="text" id="username" name="_username" value="{{ last_username }}" required="required" />
 
-    <label for="password">{{ 'security.login.password'|trans }}</label>
-    <input type="password" id="password" name="_password" required="required" />
+    <div id="left" class="tab-pane active">
+        <div class="form-signing>"
+             <div class="text-center">
+                <img src="{{ asset('img/logo.png')}}" alt="Metis Logo">
+            </div>
+            <hr>
+            <div class="tab-content">
+                <div id="login" class="tab-pane active">
+                    <form action="{{ path("fos_user_security_check") }}" method="post">
+                        {% if csrf_token %}
+                            <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+                        {% endif %}
+                        <p class="text-muted text-center">
+                            Podaj login i hasło
+                        </p>
 
-    <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
-    <label for="remember_me">{{ 'security.login.remember_me'|trans }}</label>
+                        <input type="text" placeholder="Login" class="form-control top" id="username" name="_username" value="{{ last_username }}" required="required" />
 
-    <input type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" />
-</form>
+                        <input type="password" placeholder="Hasło" class="form-control bottom" id="password" name="_password" required="required" />
+
+                        <div class="checkbox">
+                            <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
+                            <label for="remember_me">Zapmiętaj mnie</label>
+                        </div>
+
+                        <input type="submit" id="_submit" class="btn btn-lg btn-primary btn-block" name="_submit" value="zaloguj" />
+                    </form>
+                </div>
+           </div>
+            <hr>
+            <div class="text-center">
+                <ul class="list-inline">
+                    <li><a class="text-muted" href="{{ path('fos_user_security_login') }}">Logowanie</a></li>
+                    <li><a class="text-muted" href="{{ path('fos_user_resetting_request') }}">Zapomniałem hasła</a></li>
+                    <li><a class="text-muted" href="{{ path('fos_user_registration_register') }}">załóż konto</a></li>
+                </ul>
+            </div>
+   
+        </div>
+    {% endblock fos_user_content %}
+
