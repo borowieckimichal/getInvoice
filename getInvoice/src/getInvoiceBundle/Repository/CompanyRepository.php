@@ -12,4 +12,14 @@ use Doctrine\ORM\EntityRepository;
  */
 class CompanyRepository extends EntityRepository
 {
+    
+        public function getAllCompaniesByUserId($user) {
+               
+        $em = $this->getEntityManager();
+
+        $query = $em->createQuery(
+                "SELECT p FROM getInvoiceBundle:Company p WHERE p.user = :user ORDER BY p.name ASC");
+        $query->setParameter('user', $user);
+        return $query->getResult();
+    }
 }

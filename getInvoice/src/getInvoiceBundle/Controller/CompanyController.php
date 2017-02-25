@@ -23,13 +23,21 @@ class CompanyController extends Controller {
      * @Method("GET")
      */
     public function indexAction() {
-        $em = $this->getDoctrine()->getManager();
+        $repo = $this->getDoctrine()->getRepository('getInvoiceBundle:Company');
 
-        $companies = $em->getRepository('getInvoiceBundle:Company')->findAll();
+        $user = $this->container
+                ->get('security.context')
+                ->getToken()
+                ->getUser();
+        $user->getId();
 
-        return $this->render('company/index.html.twig', array(
-                    'companies' => $companies,
-        ));
+        if ($user instanceof User) {
+            $companies = $repo->getAllCompaniesByUserId($user);
+            return $this->render('company/index.html.twig', array(
+                        'companies' => $companies,
+            ));
+        }
+        return $this->redirectToRoute("getinvoice_default_index");
     }
 
     /**
@@ -43,8 +51,7 @@ class CompanyController extends Controller {
         $form = $this->createForm('getInvoiceBundle\Form\CompanyType', $company);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted()) //&& $form->isValid()) {
-        {
+        if ($form->isSubmitted()) { //&& $form->isValid()) {
             $user = $this->container
                     ->get('security.context')
                     ->getToken()
