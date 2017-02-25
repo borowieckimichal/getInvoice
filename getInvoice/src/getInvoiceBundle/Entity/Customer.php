@@ -38,21 +38,21 @@ class Customer
     /**
      * @var int
      *
-     * @ORM\Column(name="addressLocalNo", type="integer")
+     * @ORM\Column(name="addressLocalNo", type="string", length=255)
      */
     private $addressLocalNo;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="addressFlatNo", type="integer")
+     * @ORM\Column(name="addressFlatNo", type="string", length=255)
      */
     private $addressFlatNo;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="addressPostalCode", type="integer")
+     * @ORM\Column(name="addressPostalCode", type="integer", length=255)
      */
     private $addressPostalCode;
 
@@ -73,14 +73,14 @@ class Customer
     /**
      * @var int
      *
-     * @ORM\Column(name="phone", type="integer")
+     * @ORM\Column(name="phone", type="string", length=255)
      */
     private $phone;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="nip", type="integer", unique=true)
+     * @ORM\Column(name="nip", type="string", length=255, unique=true)
      */
     private $nip;
     
