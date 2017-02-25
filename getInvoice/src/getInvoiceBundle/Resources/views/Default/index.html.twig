@@ -1,7 +1,15 @@
-{% extends "@FOSUser/layout.html.twig" %}
-
+{#{% extends "@FOSUser/layout.html.twig" %}#}
+{% extends 'base.html.twig' %}
 
 {% block fos_user_content %}
- Welcome in getInvoice app !!   
+
+
+
+    <div class="btn-group">
+        <a href="{{ path('fos_user_security_logout') }}" data-toggle="tooltip" data-original-title="Logout" data-placement="bottom"
+           class="btn btn-metis-1 btn-sm">
+            <i class="fa fa-power-off"></i>
+        </a>
+    </div>
 
 {% endblock fos_user_content %}

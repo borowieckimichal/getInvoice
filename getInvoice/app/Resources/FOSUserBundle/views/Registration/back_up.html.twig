@@ -1,0 +1,17 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+<div id="top" class="tab-pane active">
+    <div class="form-signing">
+        <div class="text-center">
+            <img src="{{ asset('img/logo.png')}}" alt="Metis Logo">
+        </div>
+        <hr>
+        {{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register'}}) }}
+        {{ form_widget(form) }}
+        <div>
+            <input type="submit" value="utwórz konto" />
+        </div>
+        {{ form_end(form) }}
+
+    </div>
+</div>

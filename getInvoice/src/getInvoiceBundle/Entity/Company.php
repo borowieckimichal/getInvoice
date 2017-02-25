@@ -3,6 +3,7 @@
 namespace getInvoiceBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Company
@@ -38,21 +39,21 @@ class Company
     /**
      * @var int
      *
-     * @ORM\Column(name="addressLocalNo", type="integer")
+     * @ORM\Column(name="addressLocalNo", type="string", length=255)
      */
     private $addressLocalNo;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="addressFlatNo", type="integer")
+     * @ORM\Column(name="addressFlatNo", type="string", length=255)
      */
     private $addressFlatNo;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="addressPostalCode", type="integer")
+     * @ORM\Column(name="addressPostalCode", type="string", length=255)
      */
     private $addressPostalCode;
 
@@ -73,28 +74,29 @@ class Company
     /**
      * @var int
      *
-     * @ORM\Column(name="phone", type="integer")
+     * @ORM\Column(name="phone", type="string", length=25)
      */
     private $phone;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="companyLogo", type="string", length=255)
+     * @ORM\Column(name="companyLogo", type="blob")
      */
     private $companyLogo;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="nip", type="integer", unique=true)
+     * @ORM\Column(name="nip", type="string", unique=true)
      */
     private $nip;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="iban", type="integer", unique=true)
+     * @ORM\Column(name="iban", type="string", length=26)
+     * @Assert\Length(min="26", minMessage="Your IBAN  must be at least 26 characters long")
      */
     private $iban;
     
