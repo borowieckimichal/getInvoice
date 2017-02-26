@@ -977,4 +977,90 @@ class Invoice
     {
         return $this->allowedToReceive;
     }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->positions = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Set company
+     *
+     * @param \getInvoiceBundle\Entity\Company $company
+     * @return Invoice
+     */
+    public function setCompany(\getInvoiceBundle\Entity\Company $company = null)
+    {
+        $this->company = $company;
+
+        return $this;
+    }
+
+    /**
+     * Get company
+     *
+     * @return \getInvoiceBundle\Entity\Company 
+     */
+    public function getCompany()
+    {
+        return $this->company;
+    }
+
+    /**
+     * Set customer
+     *
+     * @param \getInvoiceBundle\Entity\Customer $customer
+     * @return Invoice
+     */
+    public function setCustomer(\getInvoiceBundle\Entity\Customer $customer = null)
+    {
+        $this->customer = $customer;
+
+        return $this;
+    }
+
+    /**
+     * Get customer
+     *
+     * @return \getInvoiceBundle\Entity\Customer 
+     */
+    public function getCustomer()
+    {
+        return $this->customer;
+    }
+
+    /**
+     * Add positions
+     *
+     * @param \getInvoiceBundle\Entity\InvoicePosition $positions
+     * @return Invoice
+     */
+    public function addPosition(\getInvoiceBundle\Entity\InvoicePosition $positions)
+    {
+        $this->positions[] = $positions;
+
+        return $this;
+    }
+
+    /**
+     * Remove positions
+     *
+     * @param \getInvoiceBundle\Entity\InvoicePosition $positions
+     */
+    public function removePosition(\getInvoiceBundle\Entity\InvoicePosition $positions)
+    {
+        $this->positions->removeElement($positions);
+    }
+
+    /**
+     * Get positions
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPositions()
+    {
+        return $this->positions;
+    }
 }

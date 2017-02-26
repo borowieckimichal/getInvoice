@@ -38,21 +38,21 @@ class Customer
     /**
      * @var int
      *
-     * @ORM\Column(name="addressLocalNo", type="integer")
+     * @ORM\Column(name="addressLocalNo", type="string", length=255)
      */
     private $addressLocalNo;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="addressFlatNo", type="integer")
+     * @ORM\Column(name="addressFlatNo", type="string", length=255)
      */
     private $addressFlatNo;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="addressPostalCode", type="integer")
+     * @ORM\Column(name="addressPostalCode", type="integer", length=255)
      */
     private $addressPostalCode;
 
@@ -73,14 +73,14 @@ class Customer
     /**
      * @var int
      *
-     * @ORM\Column(name="phone", type="integer")
+     * @ORM\Column(name="phone", type="string", length=255)
      */
     private $phone;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="nip", type="integer", unique=true)
+     * @ORM\Column(name="nip", type="string", length=255, unique=true)
      */
     private $nip;
     
@@ -88,6 +88,12 @@ class Customer
      * @ORM\OneToMany(targetEntity="Invoice", mappedBy="customer") 
      */
     private $invoices;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Company", inversedBy="customers")
+     * @ORM\JoinColumn(name="company_id", referencedColumnName="id") 
+     */    
+    private $company;
     /**
      * Get id
      *
@@ -303,5 +309,45 @@ class Customer
     public function getNip()
     {
         return $this->nip;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->invoices = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add invoices
+     *
+     * @param \getInvoiceBundle\Entity\Invoice $invoices
+     * @return Customer
+     */
+    public function addInvoice(\getInvoiceBundle\Entity\Invoice $invoices)
+    {
+        $this->invoices[] = $invoices;
+
+        return $this;
+    }
+
+    /**
+     * Remove invoices
+     *
+     * @param \getInvoiceBundle\Entity\Invoice $invoices
+     */
+    public function removeInvoice(\getInvoiceBundle\Entity\Invoice $invoices)
+    {
+        $this->invoices->removeElement($invoices);
+    }
+
+    /**
+     * Get invoices
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getInvoices()
+    {
+        return $this->invoices;
     }
 }

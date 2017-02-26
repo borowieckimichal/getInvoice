@@ -52,7 +52,7 @@ class Customer
     /**
      * @var int
      *
-     * @ORM\Column(name="addressPostalCode", type="integer", length=255)
+     * @ORM\Column(name="addressPostalCode", type="string", length=255)
      */
     private $addressPostalCode;
 
@@ -88,6 +88,12 @@ class Customer
      * @ORM\OneToMany(targetEntity="Invoice", mappedBy="customer") 
      */
     private $invoices;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Company", inversedBy="customers")
+     * @ORM\JoinColumn(name="company_id", referencedColumnName="id") 
+     */    
+    private $company;
     /**
      * Get id
      *
@@ -343,5 +349,28 @@ class Customer
     public function getInvoices()
     {
         return $this->invoices;
+    }
+
+    /**
+     * Set company
+     *
+     * @param \getInvoiceBundle\Entity\Company $company
+     * @return Customer
+     */
+    public function setCompany(\getInvoiceBundle\Entity\Company $company = null)
+    {
+        $this->company = $company;
+
+        return $this;
+    }
+
+    /**
+     * Get company
+     *
+     * @return \getInvoiceBundle\Entity\Company 
+     */
+    public function getCompany()
+    {
+        return $this->company;
     }
 }

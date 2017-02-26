@@ -336,4 +336,27 @@ class InvoicePosition
     {
         return $this->valueGross;
     }
+
+    /**
+     * Set invoice
+     *
+     * @param \getInvoiceBundle\Entity\Invoice $invoice
+     * @return InvoicePosition
+     */
+    public function setInvoice(\getInvoiceBundle\Entity\Invoice $invoice = null)
+    {
+        $this->invoice = $invoice;
+
+        return $this;
+    }
+
+    /**
+     * Get invoice
+     *
+     * @return \getInvoiceBundle\Entity\Invoice 
+     */
+    public function getInvoice()
+    {
+        return $this->invoice;
+    }
 }

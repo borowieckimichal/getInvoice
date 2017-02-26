@@ -110,6 +110,11 @@ class Company
      * @ORM\OneToMany(targetEntity="Invoice", mappedBy="company") 
      */
     private $invoices;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="Customer", mappedBy="company") 
+     */   
+    private $customers;
     /**
      * Get id
      *
@@ -434,5 +439,38 @@ class Company
     public function getInvoices()
     {
         return $this->invoices;
+    }
+
+    /**
+     * Add customers
+     *
+     * @param \getInvoiceBundle\Entity\Customer $customers
+     * @return Company
+     */
+    public function addCustomer(\getInvoiceBundle\Entity\Customer $customers)
+    {
+        $this->customers[] = $customers;
+
+        return $this;
+    }
+
+    /**
+     * Remove customers
+     *
+     * @param \getInvoiceBundle\Entity\Customer $customers
+     */
+    public function removeCustomer(\getInvoiceBundle\Entity\Customer $customers)
+    {
+        $this->customers->removeElement($customers);
+    }
+
+    /**
+     * Get customers
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCustomers()
+    {
+        return $this->customers;
     }
 }

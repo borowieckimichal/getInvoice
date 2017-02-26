@@ -28,4 +28,37 @@ class User extends BaseUser {
      */
     
     private $companies;
+
+    /**
+     * Add companies
+     *
+     * @param \getInvoiceBundle\Entity\Company $companies
+     * @return User
+     */
+    public function addCompany(\getInvoiceBundle\Entity\Company $companies)
+    {
+        $this->companies[] = $companies;
+
+        return $this;
+    }
+
+    /**
+     * Remove companies
+     *
+     * @param \getInvoiceBundle\Entity\Company $companies
+     */
+    public function removeCompany(\getInvoiceBundle\Entity\Company $companies)
+    {
+        $this->companies->removeElement($companies);
+    }
+
+    /**
+     * Get companies
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCompanies()
+    {
+        return $this->companies;
+    }
 }
