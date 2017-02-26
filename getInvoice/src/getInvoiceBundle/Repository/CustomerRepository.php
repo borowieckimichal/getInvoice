@@ -22,4 +22,14 @@ class CustomerRepository extends EntityRepository {
         return $query->getResult();
     }
 
+    public function getAllCustomersByUserId($user) {
+
+        $em = $this->getEntityManager();
+
+        $query = $em->createQuery(
+                "SELECT p FROM getInvoiceBundle:Customer p WHERE p.user = :user ORDER BY p.name ASC");
+        $query->setParameter('user', $user);
+        return $query->getResult();
+    }
+
 }

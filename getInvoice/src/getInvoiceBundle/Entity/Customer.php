@@ -94,6 +94,12 @@ class Customer
      * @ORM\JoinColumn(name="company_id", referencedColumnName="id") 
      */    
     private $company;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="customers")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id") 
+     */
+    private $user;
     /**
      * Get id
      *
@@ -372,5 +378,28 @@ class Customer
     public function getCompany()
     {
         return $this->company;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \getInvoiceBundle\Entity\User $user
+     * @return Customer
+     */
+    public function setUser(\getInvoiceBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \getInvoiceBundle\Entity\User 
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 }

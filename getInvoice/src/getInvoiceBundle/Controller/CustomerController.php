@@ -8,6 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 
+
 /**
  * Customer controller.
  *
@@ -22,17 +23,16 @@ class CustomerController extends Controller {
      * @Method("GET")
      */
     public function indexAction() {
-        $repo = $this->getDoctrine()->getRepository('getInvoiceBundle:Company');
+        $repo = $this->getDoctrine()->getRepository('getInvoiceBundle:Customer');
 
-        $company = $this->container
+        $user = $this->container
                 ->get('security.context')
                 ->getToken()
-                ->getCompany();
-        $company->getId();
+                ->getUser();
+        $user->getId();
 
-
-        if ($company instanceof Company) {
-            $customers = $repo->getAllCustomersByCompanyId($company);
+        if ($user instanceof User) {
+            $customers = $repo->getAllCustomersByUserId($user);
 
             return $this->render('customer/index.html.twig', array(
                         'customers' => $customers,
@@ -57,9 +57,14 @@ class CustomerController extends Controller {
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
+            $user = $this->container
+                    ->get('security.context')
+                    ->getToken()
+                    ->getUser();
+            $user->getId();
+            
             $customer = $form->getData();
-     
+            $customer->setUser($user);
             $em = $this->getDoctrine()->getManager();
             $em->persist($customer);
             $em->flush($customer);

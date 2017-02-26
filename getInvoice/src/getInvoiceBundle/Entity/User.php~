@@ -28,6 +28,11 @@ class User extends BaseUser {
      */
     
     private $companies;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="Customer", mappedBy="user") 
+     */
+    private $customers;
 
     /**
      * Add companies

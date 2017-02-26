@@ -49,7 +49,7 @@
 
     <ul>
         <li>
-            <a href="{{ path('customer_new') }}">Create a new customer</a>
+            <a href="{{ path('customer_new', {'id' : customer.company }) }}">Create a new customer</a>
         </li>
     </ul>
 {% endblock %}

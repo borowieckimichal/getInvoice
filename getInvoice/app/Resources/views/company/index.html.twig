@@ -22,32 +22,35 @@
             </tr>
         </thead>
         <tbody>
-        {% for company in companies %}
-            <tr>
-                <td><a href="{{ path('company_show', { 'id': company.id }) }}">{{ company.id }}</a></td>
-                <td>{{ company.name }}</td>
-                <td>{{ company.addressStreet }}</td>
-                <td>{{ company.addressLocalNo }}</td>
-                <td>{{ company.addressFlatNo }}</td>
-                <td>{{ company.addressPostalCode }}</td>
-                <td>{{ company.addressCity }}</td>
-                <td>{{ company.email }}</td>
-                <td>{{ company.phone }}</td>
-                <td>{{ company.companyLogo }}</td>
-                <td>{{ company.nip }}</td>
-                <td>{{ company.iban }}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('company_show', { 'id': company.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('company_edit', { 'id': company.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
+            {% for company in companies %}
+                <tr>
+                    <td><a href="{{ path('company_show', { 'id': company.id }) }}">{{ company.id }}</a></td>
+                    <td>{{ company.name }}</td>
+                    <td>{{ company.addressStreet }}</td>
+                    <td>{{ company.addressLocalNo }}</td>
+                    <td>{{ company.addressFlatNo }}</td>
+                    <td>{{ company.addressPostalCode }}</td>
+                    <td>{{ company.addressCity }}</td>
+                    <td>{{ company.email }}</td>
+                    <td>{{ company.phone }}</td>
+                    <td>{{ company.companyLogo }}</td>
+                    <td>{{ company.nip }}</td>
+                    <td>{{ company.iban }}</td>
+                    <td>
+                        <ul>
+                            <li>
+                                <a href="{{ path('company_show', { 'id': company.id }) }}">pokaż dane twojej firmy</a>
+                            </li>
+                            <li>
+                                <a href="{{ path('company_edit', { 'id': company.id }) }}">edytuj twojej dane</a>
+                            </li>
+                            <li>
+                                <a href="{{ path('customer_new', { 'id': company.id }) }}">dodaj kontrahenta twojej firmy</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            {% endfor %}
         </tbody>
     </table>
 

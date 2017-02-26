@@ -28,6 +28,11 @@ class User extends BaseUser {
      */
     
     private $companies;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="Customer", mappedBy="user") 
+     */
+    private $customers;
 
     /**
      * Add companies
@@ -60,5 +65,38 @@ class User extends BaseUser {
     public function getCompanies()
     {
         return $this->companies;
+    }
+
+    /**
+     * Add customers
+     *
+     * @param \getInvoiceBundle\Entity\Customer $customers
+     * @return User
+     */
+    public function addCustomer(\getInvoiceBundle\Entity\Customer $customers)
+    {
+        $this->customers[] = $customers;
+
+        return $this;
+    }
+
+    /**
+     * Remove customers
+     *
+     * @param \getInvoiceBundle\Entity\Customer $customers
+     */
+    public function removeCustomer(\getInvoiceBundle\Entity\Customer $customers)
+    {
+        $this->customers->removeElement($customers);
+    }
+
+    /**
+     * Get customers
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCustomers()
+    {
+        return $this->customers;
     }
 }
