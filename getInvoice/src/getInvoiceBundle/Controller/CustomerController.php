@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
+use getInvoiceBundle\Entity\User;
 
 
 /**
@@ -33,9 +34,10 @@ class CustomerController extends Controller {
 
         if ($user instanceof User) {
             $customers = $repo->getAllCustomersByUserId($user);
-
+           
             return $this->render('customer/index.html.twig', array(
                         'customers' => $customers,
+                        
             ));
         }
         return $this->redirectToRoute("getinvoice_default_index");
