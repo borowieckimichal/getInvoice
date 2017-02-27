@@ -34,12 +34,16 @@ class InvoiceController extends Controller
     /**
      * Creates a new invoice entity.
      *
-     * @Route("/new", name="invoice_new")
+     * @Route("/new/{id}", requirements={"id":"\d+"}, name="invoice_new")
      * @Method({"GET", "POST"})
      */
-    public function newAction(Request $request)
+    public function newAction(Request $request, $id)
     {
         $invoice = new Invoice();
+        
+        $customerRepo = $this->getDoctrine()->getRepository("getInvoiceBundle:Customer");
+        $customer = $customerRepo->find($id);
+        
         $form = $this->createForm('getInvoiceBundle\Form\InvoiceType', $invoice);
         $form->handleRequest($request);
 

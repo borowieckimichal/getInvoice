@@ -40,6 +40,9 @@
                         <li>
                             <a href="{{ path('customer_edit', { 'id': customer.id }) }}">edit</a>
                         </li>
+                         <li>
+                            <a href="{{ path('invoice_new', { 'id': customer.id } ) }}">wystaw fakture kontrahentowi</a>
+                        </li>
                     </ul>
                 </td>
             </tr>
