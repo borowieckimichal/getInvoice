@@ -11,8 +11,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(name="company")
  * @ORM\Entity(repositoryClass="getInvoiceBundle\Repository\CompanyRepository")
  */
-class Company
-{
+class Company {
+
     /**
      * @var int
      *
@@ -37,21 +37,21 @@ class Company
     private $addressStreet;
 
     /**
-     * @var int
+     * @var string
      *
      * @ORM\Column(name="addressLocalNo", type="string", length=255)
      */
     private $addressLocalNo;
 
     /**
-     * @var int
+     * @var string
      *
      * @ORM\Column(name="addressFlatNo", type="string", length=255)
      */
     private $addressFlatNo;
 
     /**
-     * @var int
+     * @var string
      *
      * @ORM\Column(name="addressPostalCode", type="string", length=255)
      */
@@ -72,9 +72,9 @@ class Company
     private $email;
 
     /**
-     * @var int
+     * @var string
      *
-     * @ORM\Column(name="phone", type="string", length=25)
+     * @ORM\Column(name="phone", type="string", length=255)
      */
     private $phone;
 
@@ -86,42 +86,42 @@ class Company
     private $companyLogo;
 
     /**
-     * @var int
+     * @var string
      *
      * @ORM\Column(name="nip", type="string", unique=true)
      */
     private $nip;
 
     /**
-     * @var int
+     * @var string
      *
      * @ORM\Column(name="iban", type="string", length=26)
      * @Assert\Length(min="26", minMessage="Your IBAN  must be at least 26 characters long")
      */
     private $iban;
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="companies")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id") 
-     */    
+     */
     private $user;
-    
+
     /**
      * @ORM\OneToMany(targetEntity="Invoice", mappedBy="company") 
      */
     private $invoices;
-    
+
     /**
      * @ORM\OneToMany(targetEntity="Customer", mappedBy="company") 
-     */   
+     */
     private $customers;
+
     /**
      * Get id
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -131,8 +131,7 @@ class Company
      * @param string $name
      * @return Company
      */
-    public function setName($name)
-    {
+    public function setName($name) {
         $this->name = $name;
 
         return $this;
@@ -143,8 +142,7 @@ class Company
      *
      * @return string 
      */
-    public function getName()
-    {
+    public function getName() {
         return $this->name;
     }
 
@@ -154,8 +152,7 @@ class Company
      * @param string $addressStreet
      * @return Company
      */
-    public function setAddressStreet($addressStreet)
-    {
+    public function setAddressStreet($addressStreet) {
         $this->addressStreet = $addressStreet;
 
         return $this;
@@ -166,19 +163,17 @@ class Company
      *
      * @return string 
      */
-    public function getAddressStreet()
-    {
+    public function getAddressStreet() {
         return $this->addressStreet;
     }
 
     /**
      * Set addressLocalNo
      *
-     * @param integer $addressLocalNo
+     * @param string $addressLocalNo
      * @return Company
      */
-    public function setAddressLocalNo($addressLocalNo)
-    {
+    public function setAddressLocalNo($addressLocalNo) {
         $this->addressLocalNo = $addressLocalNo;
 
         return $this;
@@ -187,21 +182,19 @@ class Company
     /**
      * Get addressLocalNo
      *
-     * @return integer 
+     * @return string 
      */
-    public function getAddressLocalNo()
-    {
+    public function getAddressLocalNo() {
         return $this->addressLocalNo;
     }
 
     /**
      * Set addressFlatNo
      *
-     * @param integer $addressFlatNo
+     * @param string $addressFlatNo
      * @return Company
      */
-    public function setAddressFlatNo($addressFlatNo)
-    {
+    public function setAddressFlatNo($addressFlatNo) {
         $this->addressFlatNo = $addressFlatNo;
 
         return $this;
@@ -210,21 +203,19 @@ class Company
     /**
      * Get addressFlatNo
      *
-     * @return integer 
+     * @return string 
      */
-    public function getAddressFlatNo()
-    {
+    public function getAddressFlatNo() {
         return $this->addressFlatNo;
     }
 
     /**
      * Set addressPostalCode
      *
-     * @param integer $addressPostalCode
+     * @param string $addressPostalCode
      * @return Company
      */
-    public function setAddressPostalCode($addressPostalCode)
-    {
+    public function setAddressPostalCode($addressPostalCode) {
         $this->addressPostalCode = $addressPostalCode;
 
         return $this;
@@ -233,10 +224,9 @@ class Company
     /**
      * Get addressPostalCode
      *
-     * @return integer 
+     * @return string 
      */
-    public function getAddressPostalCode()
-    {
+    public function getAddressPostalCode() {
         return $this->addressPostalCode;
     }
 
@@ -246,8 +236,7 @@ class Company
      * @param string $addressCity
      * @return Company
      */
-    public function setAddressCity($addressCity)
-    {
+    public function setAddressCity($addressCity) {
         $this->addressCity = $addressCity;
 
         return $this;
@@ -258,8 +247,7 @@ class Company
      *
      * @return string 
      */
-    public function getAddressCity()
-    {
+    public function getAddressCity() {
         return $this->addressCity;
     }
 
@@ -269,8 +257,7 @@ class Company
      * @param string $email
      * @return Company
      */
-    public function setEmail($email)
-    {
+    public function setEmail($email) {
         $this->email = $email;
 
         return $this;
@@ -281,19 +268,17 @@ class Company
      *
      * @return string 
      */
-    public function getEmail()
-    {
+    public function getEmail() {
         return $this->email;
     }
 
     /**
      * Set phone
      *
-     * @param integer $phone
+     * @param string $phone
      * @return Company
      */
-    public function setPhone($phone)
-    {
+    public function setPhone($phone) {
         $this->phone = $phone;
 
         return $this;
@@ -302,10 +287,9 @@ class Company
     /**
      * Get phone
      *
-     * @return integer 
+     * @return string 
      */
-    public function getPhone()
-    {
+    public function getPhone() {
         return $this->phone;
     }
 
@@ -315,8 +299,7 @@ class Company
      * @param string $companyLogo
      * @return Company
      */
-    public function setCompanyLogo($companyLogo)
-    {
+    public function setCompanyLogo($companyLogo) {
         $this->companyLogo = $companyLogo;
 
         return $this;
@@ -327,19 +310,17 @@ class Company
      *
      * @return string 
      */
-    public function getCompanyLogo()
-    {
+    public function getCompanyLogo() {
         return $this->companyLogo;
     }
 
     /**
      * Set nip
      *
-     * @param integer $nip
+     * @param string $nip
      * @return Company
      */
-    public function setNip($nip)
-    {
+    public function setNip($nip) {
         $this->nip = $nip;
 
         return $this;
@@ -348,21 +329,19 @@ class Company
     /**
      * Get nip
      *
-     * @return integer 
+     * @return string 
      */
-    public function getNip()
-    {
+    public function getNip() {
         return $this->nip;
     }
 
     /**
      * Set iban
      *
-     * @param integer $iban
+     * @param string $iban
      * @return Company
      */
-    public function setIban($iban)
-    {
+    public function setIban($iban) {
         $this->iban = $iban;
 
         return $this;
@@ -371,17 +350,16 @@ class Company
     /**
      * Get iban
      *
-     * @return integer 
+     * @return string 
      */
-    public function getIban()
-    {
+    public function getIban() {
         return $this->iban;
     }
+
     /**
      * Constructor
      */
-    public function __construct()
-    {
+    public function __construct() {
         $this->invoices = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
@@ -391,8 +369,7 @@ class Company
      * @param \getInvoiceBundle\Entity\User $user
      * @return Company
      */
-    public function setUser(\getInvoiceBundle\Entity\User $user = null)
-    {
+    public function setUser(\getInvoiceBundle\Entity\User $user = null) {
         $this->user = $user;
 
         return $this;
@@ -403,8 +380,7 @@ class Company
      *
      * @return \getInvoiceBundle\Entity\User 
      */
-    public function getUser()
-    {
+    public function getUser() {
         return $this->user;
     }
 
@@ -414,8 +390,7 @@ class Company
      * @param \getInvoiceBundle\Entity\Invoice $invoices
      * @return Company
      */
-    public function addInvoice(\getInvoiceBundle\Entity\Invoice $invoices)
-    {
+    public function addInvoice(\getInvoiceBundle\Entity\Invoice $invoices) {
         $this->invoices[] = $invoices;
 
         return $this;
@@ -426,8 +401,7 @@ class Company
      *
      * @param \getInvoiceBundle\Entity\Invoice $invoices
      */
-    public function removeInvoice(\getInvoiceBundle\Entity\Invoice $invoices)
-    {
+    public function removeInvoice(\getInvoiceBundle\Entity\Invoice $invoices) {
         $this->invoices->removeElement($invoices);
     }
 
@@ -436,8 +410,7 @@ class Company
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getInvoices()
-    {
+    public function getInvoices() {
         return $this->invoices;
     }
 
@@ -447,8 +420,7 @@ class Company
      * @param \getInvoiceBundle\Entity\Customer $customers
      * @return Company
      */
-    public function addCustomer(\getInvoiceBundle\Entity\Customer $customers)
-    {
+    public function addCustomer(\getInvoiceBundle\Entity\Customer $customers) {
         $this->customers[] = $customers;
 
         return $this;
@@ -459,8 +431,7 @@ class Company
      *
      * @param \getInvoiceBundle\Entity\Customer $customers
      */
-    public function removeCustomer(\getInvoiceBundle\Entity\Customer $customers)
-    {
+    public function removeCustomer(\getInvoiceBundle\Entity\Customer $customers) {
         $this->customers->removeElement($customers);
     }
 
@@ -469,8 +440,12 @@ class Company
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getCustomers()
-    {
+    public function getCustomers() {
         return $this->customers;
     }
+
+    public function __toString() {
+        return (string) $this->getId();
+    }
+
 }

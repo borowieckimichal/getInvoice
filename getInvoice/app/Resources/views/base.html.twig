@@ -101,7 +101,7 @@
                                 </a>
                             </div>
                             {% block  fos_user_content %}
-      
+
                             {% endblock  fos_user_content %}
                             <div class="btn-group">
                                 <a data-placement="bottom" data-original-title="Show / Hide Left" data-toggle="tooltip"
@@ -157,7 +157,7 @@
             <div class="main-bar">
                 <h3>
                     {% block  invoice %}
-   
+
                     {% endblock  invoice %} 
                 </h3>
             </div>
@@ -165,14 +165,20 @@
     </div>
     {% block menu %}
         <div id="left">
-              <ul>
-        <li>
-            <a href="{{ path('company_new') }}">Dodaj dane twojej firmy</a>
-        </li>
-    </ul>  
-            
-            
-            
+            <ul>
+                <li>
+                    <a href="{{ path('company_new') }}">Dodaj dane swojej firmy</a>
+                </li>
+                <li>
+                    <a href="{{ path('company_index') }}">wyświetl moje firmy</a>
+                </li>
+                <li>
+                    <a href="{{ path('customer_index') }}">wyświetl moich kontrahentów</a>
+                </li>
+            </ul>  
+
+
+
         </div>
 
     {% endblock menu %}    

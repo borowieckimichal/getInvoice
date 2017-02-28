@@ -22,9 +22,9 @@ class Invoice
     private $id;
 
     /**
-     * @var int
+     * @var string
      *
-     * @ORM\Column(name="invoiceNo", type="integer")
+     * @ORM\Column(name="invoiceNo", type="string")
      */
     private $invoiceNo;
 
@@ -64,9 +64,9 @@ class Invoice
     private $bank;
 
     /**
-     * @var int
+     * @var string
      *
-     * @ORM\Column(name="iban", type="integer", unique=true)
+     * @ORM\Column(name="iban", type="string", length=26)
      */
     private $iban;
 
@@ -85,23 +85,23 @@ class Invoice
     private $sellerAddressStreet;
 
     /**
-     * @var int
+     * @var string
      *
-     * @ORM\Column(name="sellerAddressLocalNo", type="integer")
+     * @ORM\Column(name="sellerAddressLocalNo", type="string", length=255)
      */
     private $sellerAddressLocalNo;
 
     /**
-     * @var int
+     * @var string
      *
-     * @ORM\Column(name="sellerAddressFlatNo", type="integer")
+     * @ORM\Column(name="sellerAddressFlatNo", type="string", length=255)
      */
     private $sellerAddressFlatNo;
 
     /**
-     * @var int
+     * @var string
      *
-     * @ORM\Column(name="sellerPostalCode", type="integer")
+     * @ORM\Column(name="sellerPostalCode", type="string", length=255)
      */
     private $sellerPostalCode;
 
@@ -113,16 +113,16 @@ class Invoice
     private $sellerAddressCity;
 
     /**
-     * @var int
+     * @var string
      *
-     * @ORM\Column(name="sellerPhone", type="integer")
+     * @ORM\Column(name="sellerPhone", type="string", length=255)
      */
     private $sellerPhone;
 
     /**
-     * @var int
+     * @var string
      *
-     * @ORM\Column(name="sellerNip", type="integer", unique=true)
+     * @ORM\Column(name="sellerNip", type="string", unique=true)
      */
     private $sellerNip;
 
@@ -141,23 +141,23 @@ class Invoice
     private $customerAddressStreet;
 
     /**
-     * @var int
+     * @var string
      *
-     * @ORM\Column(name="customerAddressLocalNo", type="integer")
+     * @ORM\Column(name="customerAddressLocalNo", type="string", length=255)
      */
     private $customerAddressLocalNo;
 
     /**
-     * @var int
+     * @var string
      *
-     * @ORM\Column(name="customerAddressFlatNo", type="integer")
+     * @ORM\Column(name="customerAddressFlatNo", type="string", length=255)
      */
     private $customerAddressFlatNo;
 
     /**
-     * @var int
+     * @var string
      *
-     * @ORM\Column(name="customerAddressPostalCode", type="integer")
+     * @ORM\Column(name="customerAddressPostalCode", type="string", length=255)
      */
     private $customerAddressPostalCode;
 
@@ -169,16 +169,16 @@ class Invoice
     private $customerAddressCity;
 
     /**
-     * @var int
+     * @var string
      *
-     * @ORM\Column(name="customerPhone", type="integer")
+     * @ORM\Column(name="customerPhone", type="string", length=255)
      */
     private $customerPhone;
 
     /**
-     * @var int
+     * @var string
      *
-     * @ORM\Column(name="customerNip", type="integer", unique=true)
+     * @ORM\Column(name="customerNip", type="string", length=255, unique=true)
      */
     private $customerNip;
 

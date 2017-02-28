@@ -3,9 +3,12 @@
 namespace getInvoiceBundle\Controller;
 
 use getInvoiceBundle\Entity\Invoice;
+use getInvoiceBundle\Entity\Company;
+use getInvoiceBundle\Entity\Customer;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Invoice controller.
@@ -39,12 +42,18 @@ class InvoiceController extends Controller
      */
     public function newAction(Request $request, $id)
     {
-        $invoice = new Invoice();
-        
+        $invoice = new Invoice();        
         $customerRepo = $this->getDoctrine()->getRepository("getInvoiceBundle:Customer");
         $customer = $customerRepo->find($id);
-        
-        $form = $this->createForm('getInvoiceBundle\Form\InvoiceType', $invoice);
+               
+        $companyRepo = $this->getDoctrine()->getRepository("getInvoiceBundle:Company");
+        $company = $companyRepo->find($customer->getCompany());
+               
+        $form = $this->createForm('getInvoiceBundle\Form\InvoiceType', $invoice
+                ->setIban($company->getIban())->setSellerName($company->getName())->setSellerAddressStreet($company->getAddressStreet())->setSellerAddressLocalNo($company->getAddressLocalNo())->setSellerAddressFlatNo($company->getAddressFlatNo())
+                ->setSellerPostalCode($company->getAddressPostalCode())->setSellerAddressCity($company->getAddressCity())->setSellerPhone($company->getPhone())->setSellerNip($company->getNip())
+                ->setCustomerName($customer->getName())->setCustomerAddressStreet($customer->getAddressStreet())->setCustomerAddressLocalNo($customer->getAddressLocalNo())->setCustomerAddressFlatNo($customer->getAddressFlatNo())
+                ->setCustomerAddressPostalCode($customer->getAddressPostalCode())->setCustomerAddressCity($customer->getAddressCity())->setCustomerPhone($customer->getPhone())->setCustomerNip($customer->getNip()));
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
