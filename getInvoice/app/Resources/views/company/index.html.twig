@@ -1,48 +1,45 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div id="collapse4" class="body">
+    <div id="borderedTable" class="body collapse in">
         <h3>Lista twoich firm</h3>
 
-        <table id="dataTable" class="table table-bordered table-condensed table-hover table-striped">
+        <table class="table table-bordered responsive-table">
             <thead>
                 <tr>
                     <th>Nazwa</th>
-                    <th>Ulica</th>
-                    <th>lokal</th>
-                    <th>lokal nr</th>
-                    <th>kod pocztowy</th>
-                    <th>miasto</th>
+                    <th>Adres</th>
+
                     <th>Email</th>
                     <th>telefon</th>
                     <th>NIP</th>
-                    <th>Iban</th>
-                    <th>Actions</th>
+                    <th>Nr rachunku bankowego</th>
+                    <th>Akcje</th>
                 </tr>
             </thead>
             <tbody>
                 {% for company in companies %}
                     <tr>
                         <td>{{ company.name }}</td>
-                        <td>{{ company.addressStreet }}</td>
-                        <td>{{ company.addressLocalNo }}</td>
-                        <td>{{ company.addressFlatNo }}</td>
-                        <td>{{ company.addressPostalCode }}</td>
-                        <td>{{ company.addressCity }}</td>
+                        <td>{{ company.addressStreet }},
+                        {{ company.addressLocalNo }} /
+                        {{ company.addressFlatNo }},
+                        {{ company.addressPostalCode }},
+                        {{ company.addressCity }}</td>
                         <td>{{ company.email }}</td>
                         <td>{{ company.phone }}</td>
                         <td>{{ company.nip }}</td>
                         <td>{{ company.iban }}</td>
                         <td>
-                            <ul>
+                            <ul class="list-inline">
                                 <li>
-                                    <a href="{{ path('company_show', { 'id': company.id }) }}">pokaż dane twojej firmy</a>
+                                    <a class="btn btn-default btn-sm" href="{{ path('company_show', { 'id': company.id }) }}">pokaż dane firmy </a>
                                 </li>
                                 <li>
-                                    <a href="{{ path('company_edit', { 'id': company.id }) }}">edytuj twojej dane</a>
+                                    <a class="btn btn-default btn-sm" href="{{ path('company_edit', { 'id': company.id }) }}">edytuj dane firmy </a>
                                 </li>
                                 <li>
-                                    <a href="{{ path('customer_new', { 'id': company.id }) }}">dodaj kontrahenta twojej firmy</a>
+                                    <a class="btn btn-default btn-sm" href="{{ path('customer_new', { 'id': company.id }) }}">dodaj kontrahenta</a>
                                 </li>
                             </ul>
                         </td>
@@ -51,9 +48,9 @@
             </tbody>
         </table>
 
-        <ul>
+        <ul class="list-inline">
             <li>
-                <a href="{{ path('company_new') }}">Create a new company</a>
+                <a class="btn btn-primary btn-sm" href="{{ path('company_new') }}">Dodaj nową firme</a>
             </li>
         </ul>
     </div>

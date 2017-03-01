@@ -1,58 +1,56 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Customers list</h1>
+    <div id="borderedTable" class="body collapse in">
+        <h3>Lista twoich kontrahentów</h3>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Addressstreet</th>
-                <th>Addresslocalno</th>
-                <th>Addressflatno</th>
-                <th>Addresspostalcode</th>
-                <th>Addresscity</th>
-                <th>Email</th>
-                <th>Phone</th>
-                <th>Nip</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for customer in customers %}
-            <tr>
-                <td><a href="{{ path('customer_show', { 'id': customer.id }) }}">{{ customer.id }}</a></td>
-                <td>{{ customer.name }}</td>
-                <td>{{ customer.addressStreet }}</td>
-                <td>{{ customer.addressLocalNo }}</td>
-                <td>{{ customer.addressFlatNo }}</td>
-                <td>{{ customer.addressPostalCode }}</td>
-                <td>{{ customer.addressCity }}</td>
-                <td>{{ customer.email }}</td>
-                <td>{{ customer.phone }}</td>
-                <td>{{ customer.nip }}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('customer_show', { 'id': customer.id }) }}">pokaż dane klienta</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('customer_edit', { 'id': customer.id }) }}">edycja danych klienta</a>
-                        </li>
-                         <li>
-                            <a href="{{ path('invoice_new', { 'id': customer.id } ) }}">wystaw fakture kontrahentowi</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+        <table class="table table-bordered responsive-table">
+            <thead>
+                <tr>
 
-    <ul>
-        <li>
-            {#<a href="{{ path('customer_new', {'id' : company }) }}">Create a new customer</a>#}
-        </li>
-    </ul>
+                    <th>Nazwa</th>
+                    <th>Adres</th>
+
+                    <th>Email</th>
+                    <th>Telefon</th>
+                    <th>NIP</th>
+                    <th>Akcje</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for customer in customers %}
+                    <tr>
+
+                        <td>{{ customer.name }}   </td>
+                        <td>{{ customer.addressStreet }},
+                            {{ customer.addressLocalNo }} /
+                            {{ customer.addressFlatNo }},
+                            {{ customer.addressPostalCode }},
+                            {{ customer.addressCity }}
+                        <td>{{ customer.email }}</td>
+                        <td>{{ customer.phone }}</td>
+                        <td>{{ customer.nip }}</td>
+                        <td>
+                            <ul class="list-inline">
+                                <li>
+                                    <a class="btn btn-default btn-sm" href="{{ path('customer_show', { 'id': customer.id }) }}">pokaż dane klienta</a>
+                                </li><br>
+                                <li>
+                                    <a class="btn btn-default btn-sm" href="{{ path('customer_edit', { 'id': customer.id }) }}">edycja danych klienta</a>
+                                </li><br>
+                                <li>
+                                    <a class="btn btn-default btn-sm" href="{{ path('invoice_new', { 'id': customer.id } ) }}">wystaw fakture kontrahentowi</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+
+
+
+
 {% endblock %}

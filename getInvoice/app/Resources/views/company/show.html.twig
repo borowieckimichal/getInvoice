@@ -1,36 +1,33 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Company</h1>
+        <div id="borderedTable" class="body collapse in">
+    <h3>dane firmy</h3>
 
-    <table>
+    <table class="table table-bordered responsive-table">
         <tbody>
             <tr>
-                <th>Id</th>
-                <td>{{ company.id }}</td>
-            </tr>
-            <tr>
-                <th>Name</th>
+                <th>Nazwa firmy</th>
                 <td>{{ company.name }}</td>
             </tr>
             <tr>
-                <th>Addressstreet</th>
-                <td>{{ company.addressStreet }}</td>
+                <th>Ulica</th>
+                <td>{{ company.addressStreet }} </td>
             </tr>
             <tr>
-                <th>Addresslocalno</th>
+                <th>Budynek</th>
                 <td>{{ company.addressLocalNo }}</td>
             </tr>
             <tr>
-                <th>Addressflatno</th>
+                <th>Lokal</th>
                 <td>{{ company.addressFlatNo }}</td>
             </tr>
             <tr>
-                <th>Addresspostalcode</th>
+                <th>Kod pocztowy</th>
                 <td>{{ company.addressPostalCode }}</td>
             </tr>
             <tr>
-                <th>Addresscity</th>
+                <th>Miasto</th>
                 <td>{{ company.addressCity }}</td>
             </tr>
             <tr>
@@ -38,35 +35,36 @@
                 <td>{{ company.email }}</td>
             </tr>
             <tr>
-                <th>Phone</th>
+                <th>Telefon</th>
                 <td>{{ company.phone }}</td>
             </tr>
             <tr>
-                <th>Companylogo</th>
+                <th>Logo firmy</th>
                 <td>{{ company.companyLogo }}</td>
             </tr>
             <tr>
-                <th>Nip</th>
+                <th>NIP</th>
                 <td>{{ company.nip }}</td>
             </tr>
             <tr>
-                <th>Iban</th>
+                <th>Nr rachunku bankowego</th>
                 <td>{{ company.iban }}</td>
             </tr>
         </tbody>
     </table>
 
-    <ul>
+    <ul class="list-inline">
         <li>
-            <a href="{{ path('company_index') }}">Back to the list</a>
+            <a class="btn btn-default btn-sm" href="{{ path('company_index') }}">Powrót do listy firm</a>
         </li>
         <li>
-            <a href="{{ path('company_edit', { 'id': company.id }) }}">Edit</a>
+            <a class="btn btn-default btn-sm" href="{{ path('company_edit', { 'id': company.id }) }}">Edycja danych firmy</a>
         </li>
         <li>
             {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
+                <input type="submit" class="btn btn-danger btn-sm" value="Usuń firmę">
             {{ form_end(delete_form) }}
         </li>
     </ul>
+        </div>
 {% endblock %}
