@@ -1,6 +1,25 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
-<div class="fos_user_user_show">
-    <p>{{ 'profile.show.username'|trans }}: {{ user.username }}</p>
-    <p>{{ 'profile.show.email'|trans }}: {{ user.email }}</p>
-</div>
+{% block fos_user_content %}
+    <div id="top" class="tab-pane active">
+        <div class="text-center">
+            <img src="{{ asset('img/getInvoiceLogo.png')}}" alt="Metis Logo">
+        </div>
+        <hr>
+
+        <div class="text-center">
+            <div class="form-signing">
+                <div class="fos_user_user_show">
+                    <p>{{ 'zalogowany jako'|trans }}: {{ user.username }}</p>
+                    <p>{{ 'mail użytkownika'|trans }}: {{ user.email }}</p>
+                </div>
+
+                <ul class="list-inline">
+                    <li><a data-placement="bottom" class="btn btn-default btn-sm" href="{{ path('fos_user_profile_edit') }}">Edytuj swoje dane</a></li>
+                    <li><a data-placement="bottom" class="btn btn-default btn-sm" href="{{ path('getinvoice_default_index') }}">Powrót do strony głównej</a></li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock fos_user_content %}

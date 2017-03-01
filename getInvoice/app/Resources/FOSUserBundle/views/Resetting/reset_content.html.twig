@@ -1,8 +1,43 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
-{{ form_start(form, { 'action': path('fos_user_resetting_reset', {'token': token}), 'attr': { 'class': 'fos_user_resetting_reset' } }) }}
-    {{ form_widget(form) }}
-    <div>
-        <input type="submit" value="{{ 'resetting.reset.submit'|trans }}" />
+<div id="top" class="tab-pane active">
+    <div class="form-signing">
+        <div class="text-center">
+            <img src="{{ asset('img/getInvoiceLogo.png')}}" alt="Metis Logo">
+        </div>
+        <hr>
+        {{ form_start(form, { 'action': path('fos_user_resetting_reset', {'token': token}), 'attr': { 'class': 'fos_user_resetting_reset' } }) }}
+        <p class="text-muted text-center">
+            Zmień swoje dane:
+        </p>
+        <div>
+            <p class="text-muted text-left">  
+                podaj nową nazwe użytkownika:
+            </p>
+            <input type="text" class="form-control top" {{ form_widget(form.username) }}  />         
+        </div>
+        <div>
+            <p class="text-muted text-left">  
+                podaj nowy email:
+            </p>
+            <input type="text" class="form-control top" {{ form_widget(form.email) }}  />         
+        </div>
+        <div>
+            <p class="text-muted text-left">
+                podaj hasło:
+            </p>
+            <input type="password" id="password" name="_password" required="required"class=" form-control top" {{ form_widget(form.current_password) }}  />                
+        </div>        
+        <div>
+            <input type="submit" id="_submit" class="btn btn-lg btn-primary btn-block" name="_submit" value="{{ 'resetting.reset.submit'|trans }}" />
+        </div>
+        {{ form_end(form) }}
+    <hr>
+    <div class="text-center">
+        <ul class="list-inline">
+            <li><a class="btn btn-default btn-sm" href="{{ path('getinvoice_default_index') }}">strona główna</a></li>
+            <li><a class="btn btn-default btn-sm" href="{{ path('fos_user_profile_show') }}">strona użytkownika</a></li>
+        </ul>
     </div>
-{{ form_end(form) }}
+    </div>
+</div>

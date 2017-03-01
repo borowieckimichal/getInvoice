@@ -1,62 +1,60 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Companies list</h1>
+    <div id="collapse4" class="body">
+        <h3>Lista twoich firm</h3>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Addressstreet</th>
-                <th>Addresslocalno</th>
-                <th>Addressflatno</th>
-                <th>Addresspostalcode</th>
-                <th>Addresscity</th>
-                <th>Email</th>
-                <th>Phone</th>
-                <th>Companylogo</th>
-                <th>Nip</th>
-                <th>Iban</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for company in companies %}
+        <table id="dataTable" class="table table-bordered table-condensed table-hover table-striped">
+            <thead>
                 <tr>
-                    <td><a href="{{ path('company_show', { 'id': company.id }) }}">{{ company.id }}</a></td>
-                    <td>{{ company.name }}</td>
-                    <td>{{ company.addressStreet }}</td>
-                    <td>{{ company.addressLocalNo }}</td>
-                    <td>{{ company.addressFlatNo }}</td>
-                    <td>{{ company.addressPostalCode }}</td>
-                    <td>{{ company.addressCity }}</td>
-                    <td>{{ company.email }}</td>
-                    <td>{{ company.phone }}</td>
-                    <td>{{ company.companyLogo }}</td>
-                    <td>{{ company.nip }}</td>
-                    <td>{{ company.iban }}</td>
-                    <td>
-                        <ul>
-                            <li>
-                                <a href="{{ path('company_show', { 'id': company.id }) }}">pokaż dane twojej firmy</a>
-                            </li>
-                            <li>
-                                <a href="{{ path('company_edit', { 'id': company.id }) }}">edytuj twojej dane</a>
-                            </li>
-                            <li>
-                                <a href="{{ path('customer_new', { 'id': company.id }) }}">dodaj kontrahenta twojej firmy</a>
-                            </li>
-                        </ul>
-                    </td>
+                    <th>Nazwa</th>
+                    <th>Ulica</th>
+                    <th>lokal</th>
+                    <th>lokal nr</th>
+                    <th>kod pocztowy</th>
+                    <th>miasto</th>
+                    <th>Email</th>
+                    <th>telefon</th>
+                    <th>NIP</th>
+                    <th>Iban</th>
+                    <th>Actions</th>
                 </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                {% for company in companies %}
+                    <tr>
+                        <td>{{ company.name }}</td>
+                        <td>{{ company.addressStreet }}</td>
+                        <td>{{ company.addressLocalNo }}</td>
+                        <td>{{ company.addressFlatNo }}</td>
+                        <td>{{ company.addressPostalCode }}</td>
+                        <td>{{ company.addressCity }}</td>
+                        <td>{{ company.email }}</td>
+                        <td>{{ company.phone }}</td>
+                        <td>{{ company.nip }}</td>
+                        <td>{{ company.iban }}</td>
+                        <td>
+                            <ul>
+                                <li>
+                                    <a href="{{ path('company_show', { 'id': company.id }) }}">pokaż dane twojej firmy</a>
+                                </li>
+                                <li>
+                                    <a href="{{ path('company_edit', { 'id': company.id }) }}">edytuj twojej dane</a>
+                                </li>
+                                <li>
+                                    <a href="{{ path('customer_new', { 'id': company.id }) }}">dodaj kontrahenta twojej firmy</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
 
-    <ul>
-        <li>
-            <a href="{{ path('company_new') }}">Create a new company</a>
-        </li>
-    </ul>
+        <ul>
+            <li>
+                <a href="{{ path('company_new') }}">Create a new company</a>
+            </li>
+        </ul>
+    </div>
 {% endblock %}

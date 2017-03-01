@@ -1,11 +1,25 @@
 {% trans_default_domain 'FOSUserBundle' %}
-
-<form action="{{ path('fos_user_resetting_send_email') }}" method="POST" class="fos_user_resetting_request">
-    <div>
-        <label for="username">{{ 'resetting.request.username'|trans }}</label>
-        <input type="text" id="username" name="username" required="required" />
+<div id="top" class="tab-pane active">
+    <div class="form-signing">
+        <div class="text-center">
+            <img src="{{ asset('img/getInvoiceLogo.png')}}" alt="Metis Logo">
+        </div>
+        <hr>
+        <form action="{{ path('fos_user_resetting_send_email') }}" method="POST" class="fos_user_resetting_request">
+            <div>
+                <label for="username">{{ 'podaj nową nazwe użytkownika'|trans }}</label>
+                <input type="text" id="username" class="form-control top" name="username" required="required" />
+            </div>
+            <div>
+                <input type="submit" id="_submit" class="btn btn-lg btn-primary btn-block" name="_submit" value="{{ 'zmień nazwe'|trans }}" />
+            </div>
+        </form>
+    </div>
+                <hr>
+    <div class="text-center">
+        <ul class="list-inline">
+            <li><a class="btn btn-default btn-sm" href="{{ path('getinvoice_default_index') }}">strona główna</a></li>
+            <li><a class="btn btn-default btn-sm" href="{{ path('fos_user_profile_show') }}">strona użytkownika</a></li>
+        </ul>
     </div>
     <div>
-        <input type="submit" value="{{ 'resetting.request.submit'|trans }}" />
-    </div>
-</form>
