@@ -13,7 +13,7 @@ class InvoiceType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('invoiceNo')->add('dateIssue')->add('dateSale')->add('datePayment')->add('paymentMethod')->add('bank')->add('iban')->add('sellerName')->add('sellerAddressStreet')->add('sellerAddressLocalNo')->add('sellerAddressFlatNo')->add('sellerPostalCode')->add('sellerAddressCity')->add('sellerPhone')->add('sellerNip')->add('customerName')->add('customerAddressStreet')->add('customerAddressLocalNo')->add('customerAddressFlatNo')->add('customerAddressPostalCode')->add('customerAddressCity')->add('customerPhone')->add('customerNip')->add('totalValueNet')->add('totalAmountVAT')->add('totalValueGross')->add('paid')->add('remainToPay')->add('toPayInWords')->add('authorisedToIssue')->add('allowedToReceive')->add('company')->add('customer')        ;
+        $builder->add('invoiceNo')->add('dateIssue')->add('dateSale')->add('datePayment')->add('paymentMethod')->add('bank')->add('iban')->add('sellerName')->add('sellerAddressStreet')->add('sellerAddressLocalNo')->add('sellerAddressFlatNo')->add('sellerPostalCode')->add('sellerAddressCity')->add('sellerPhone')->add('sellerNip')->add('customerName')->add('customerAddressStreet')->add('customerAddressLocalNo')->add('customerAddressFlatNo')->add('customerAddressPostalCode')->add('customerAddressCity')->add('customerPhone')->add('customerNip')->add('totalValueNet')->add('totalAmountVAT')->add('totalValueGross')->add('paid')->add('remainToPay')->add('toPayInWords')->add('authorisedToIssue')->add('allowedToReceive')        ;
     }
     
     /**

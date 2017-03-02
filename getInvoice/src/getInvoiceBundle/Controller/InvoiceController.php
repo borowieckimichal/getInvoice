@@ -3,8 +3,7 @@
 namespace getInvoiceBundle\Controller;
 
 use getInvoiceBundle\Entity\Invoice;
-use getInvoiceBundle\Entity\Company;
-use getInvoiceBundle\Entity\Customer;
+use getInvoiceBundle\Entity\InvoicePosition;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -55,7 +54,11 @@ class InvoiceController extends Controller
                 ->setCustomerName($customer->getName())->setCustomerAddressStreet($customer->getAddressStreet())->setCustomerAddressLocalNo($customer->getAddressLocalNo())->setCustomerAddressFlatNo($customer->getAddressFlatNo())
                 ->setCustomerAddressPostalCode($customer->getAddressPostalCode())->setCustomerAddressCity($customer->getAddressCity())->setCustomerPhone($customer->getPhone())->setCustomerNip($customer->getNip()));
         $form->handleRequest($request);
-
+        
+        $invoicePosition = new InvoicePosition();
+        
+        $formPosition = $this->createForm('getInvoiceBundle\Form\InvoiceType', $invoicePosition);
+        $formPosition->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($invoice);
@@ -67,6 +70,8 @@ class InvoiceController extends Controller
         return $this->render('invoice/new.html.twig', array(
             'invoice' => $invoice,
             'form' => $form->createView(),
+            'invoicePosition' => $invoicePosition,
+            'formPosition' => $formPosition->createView(),
         ));
     }
 
