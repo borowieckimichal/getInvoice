@@ -1,6 +1,6 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
-<div id="top" class="tab-pane active">
+<div id="top" class="tab-pane active col-md-4 col-sm-offset-4">
     <div class="form-signing">
         <div class="text-center">
             <img src="{{ asset('img/getInvoiceLogo.png')}}" alt="Metis Logo">
@@ -12,32 +12,32 @@
         </p>
         <div>
             <p class="text-muted text-left">  
-                podaj nową nazwe użytkownika:
+                podaj nową nazwe użytkownika:           
+                {{ form_widget(form.username,{ 'attr': {'class': 'form-control top'}}) }} 
             </p>
-            <input type="text" class="form-control top" {{ form_widget(form.username) }}  />         
         </div>
         <div>
             <p class="text-muted text-left">  
-                podaj nowy email:
+                podaj nowy email:           
+                {{ form_widget(form.email, { 'attr': {'class': 'form-control top'}}) }}  
             </p>
-            <input type="text" class="form-control top" {{ form_widget(form.email) }}  />         
         </div>
         <div>
             <p class="text-muted text-left">
-                podaj hasło:
+                podaj hasło:        
+                {{ form_widget(form.current_password, { 'attr': {'class': 'form-control top'}}) }} 
             </p>
-            <input type="password" id="password" name="_password" required="required"class=" form-control top" {{ form_widget(form.current_password) }}  />                
         </div>        
         <div>
             <input type="submit" id="_submit" class="btn btn-lg btn-primary btn-block" name="_submit" value="{{ 'resetting.reset.submit'|trans }}" />
         </div>
         {{ form_end(form) }}
-    <hr>
-    <div class="text-center">
-        <ul class="list-inline">
-            <li><a class="btn btn-default btn-sm" href="{{ path('getinvoice_default_index') }}">strona główna</a></li>
-            <li><a class="btn btn-default btn-sm" href="{{ path('fos_user_profile_show') }}">strona użytkownika</a></li>
-        </ul>
-    </div>
+        <hr>
+        <div class="text-center">
+            <ul class="list-inline">
+                <li><a class="btn btn-default btn-sm" href="{{ path('getinvoice_default_index') }}">strona główna</a></li>
+                <li><a class="btn btn-default btn-sm" href="{{ path('fos_user_profile_show') }}">strona użytkownika</a></li>
+            </ul>
+        </div>
     </div>
 </div>
