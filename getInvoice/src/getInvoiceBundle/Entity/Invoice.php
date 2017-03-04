@@ -251,7 +251,7 @@ class Invoice
     private $customer;
     
     /**
-     * @ORM\OneToMany(targetEntity="InvoicePosition", mappedBy="invoice") 
+     * @ORM\OneToMany(targetEntity="InvoicePosition", mappedBy="invoice", cascade={"persist"}) 
      */
     
     private $positions;

@@ -47,7 +47,8 @@ class InvoiceController extends Controller
                
         $companyRepo = $this->getDoctrine()->getRepository("getInvoiceBundle:Company");
         $company = $companyRepo->find($customer->getCompany());
-               
+        
+        //$invoicePosition = new InvoicePosition();
         $form = $this->createForm('getInvoiceBundle\Form\InvoiceType', $invoice
                 ->setIban($company->getIban())->setSellerName($company->getName())->setSellerAddressStreet($company->getAddressStreet())->setSellerAddressLocalNo($company->getAddressLocalNo())->setSellerAddressFlatNo($company->getAddressFlatNo())
                 ->setSellerPostalCode($company->getAddressPostalCode())->setSellerAddressCity($company->getAddressCity())->setSellerPhone($company->getPhone())->setSellerNip($company->getNip())
@@ -55,10 +56,7 @@ class InvoiceController extends Controller
                 ->setCustomerAddressPostalCode($customer->getAddressPostalCode())->setCustomerAddressCity($customer->getAddressCity())->setCustomerPhone($customer->getPhone())->setCustomerNip($customer->getNip()));
         $form->handleRequest($request);
         
-        $invoicePosition = new InvoicePosition();
         
-        $formPosition = $this->createForm('getInvoiceBundle\Form\InvoiceType', $invoicePosition);
-        $formPosition->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($invoice);
@@ -70,8 +68,6 @@ class InvoiceController extends Controller
         return $this->render('invoice/new.html.twig', array(
             'invoice' => $invoice,
             'form' => $form->createView(),
-            'invoicePosition' => $invoicePosition,
-            'formPosition' => $formPosition->createView(),
         ));
     }
 
