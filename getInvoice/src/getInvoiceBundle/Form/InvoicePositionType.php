@@ -13,7 +13,7 @@ class InvoicePositionType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('ordinal')->add('productName')->add('pkwiu')->add('quantity')->add('unitMeasure')->add('priceNet')->add('valueNet')->add('rateVAT')->add('amountVAT')->add('valueGross');
+        $builder->add('ordinal', 'text', ['label' => 'Lp'])->add('productName')->add('pkwiu')->add('quantity')->add('unitMeasure')->add('priceNet')->add('valueNet')->add('rateVAT')->add('amountVAT')->add('valueGross');
     }
     
     /**

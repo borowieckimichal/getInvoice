@@ -1,12 +1,139 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Invoice creation</h1>
-    
-    
-    {{ form_start(form) }}
+    <h3>Tworzenie nowej faktury</h3>
     {% form_theme form ':invoice:jquery.collection.html.twig' %}
-    {{ form_widget(form) }}
+
+    {{ form_start(form) }}
+
+    <div>
+        Faktura nr
+        {{ form_widget(form.invoiceNo) }}
+    </div>
+    <div>
+        Data wystawienia:
+        {{ form_widget(form.dateIssue) }}   
+    </div>
+    <div>
+        Data sprzedaży:
+        {{ form_widget(form.dateSale) }}
+    </div>
+    <div>
+        Termin płatności:
+        {{ form_widget(form.datePayment) }}
+    </div>
+    <div>
+        Sposób płatności:
+        {{ form_widget(form.paymentMethod) }}
+    </div>
+    <div>
+        Bank:
+        {{ form_widget(form.bank) }}
+    </div> 
+    <div>
+        Nr rachunku bankowego:
+        {{ form_widget(form.iban) }}
+    </div> 
+    <div>
+        Nazwa sprzedawcy:
+        {{ form_widget(form.sellerName) }}
+    </div>
+    <div>
+        Adres sprzedawcy:
+        {{ form_widget(form.sellerAddressStreet) }}
+        {{ form_widget(form.sellerAddressLocalNo) }}
+        {{ form_widget(form.sellerAddressFlatNo) }}
+        {{ form_widget(form.sellerPostalCode) }}
+        {{ form_widget(form.sellerAddressCity) }}
+    </div>
+    <div>
+        Telefon sprzedawcy:
+        {{ form_widget(form.sellerPhone) }}
+    </div>
+    <div>
+        NIP sprzedawcy:
+        {{ form_widget(form.sellerNip) }}
+    </div>
+    <div>
+        Nazwa nabywcy:
+        {{ form_widget(form.customerName) }}
+    </div> 
+    <div>
+        adres nabywcy:
+        {{ form_widget(form.customerAddressStreet) }}
+        {{ form_widget(form.customerAddressLocalNo) }}
+        {{ form_widget(form.customerAddressFlatNo) }}
+        {{ form_widget(form.customerAddressPostalCode) }}
+        {{ form_widget(form.customerAddressCity) }}
+    </div>    
+    <div>
+        Telefon nabywcy:
+        {{ form_widget(form.customerPhone) }}
+    </div>
+    <div>
+        NIP nabywcy:
+        {{ form_widget(form.customerNip) }}
+    </div>
+    <div>
+        Razem kwota netto:
+        {{ form_widget(form.totalValueNet) }}
+    </div>    
+    <div>
+        Razem kwota VAT:
+        {{ form_widget(form.totalAmountVAT) }}
+    </div> 
+    <div>
+        Razem kwota brutto:
+        {{ form_widget(form.totalValueGross) }}
+    </div>    
+    <div>
+        Zapłacono:
+        {{ form_widget(form.paid) }}
+    </div>    
+    <div>
+        pozostaje do zapłaty:
+        {{ form_widget(form.remainToPay) }}
+    </div>    
+    <div>
+        do zapłaty słownie:
+        {{ form_widget(form.toPayInWords) }}
+    </div>    
+    <div>
+        Osoba upoważniona do wystawienia faktury:
+        {{ form_widget(form.authorisedToIssue) }}
+    </div> 
+    <div>
+        Osoba upoważniona do wystawienia faktury:
+        {{ form_widget(form.allowedToReceive) }}
+    </div>
+    <div class="positionInvoice">
+        {% for position in form.positions %}
+            Lp.:
+            {{ form_label(position.ordinal, "Lp") }}
+            {{ form_widget(position.ordinal, {"label" : "Lp"}) }}
+            nazwa towaru/usługi:
+            {{ form_widget(positions.productName) }}       
+             PKWIU:
+            {{ form_widget(position.pkwiu) }}
+            ilość:
+            {{ form_widget(position.quantity) }}                       
+            JM
+            {{ form_widget(position.unitMeasure) }} 
+            cena netto:
+            {{ form_widget(position.priceNet) }} 
+            wartość netto:
+            {{ form_widget(position.valueNet) }}
+            VAT:
+            {{ form_widget(position.rateVAT) }}
+            kwota VAT:
+            {{ form_widget(position.amountVAT) }}
+            wartość brutto:
+            {{ form_widget(position.valueGross) }}            
+        {% endfor %}
+    </div> 
+ 
+
+    {#{{ form_widget(form) }}#}
     <input type="submit" value="Create" />
     {{ form_end(form) }}
 
@@ -24,7 +151,7 @@
             min: 1,
             init_with_n_elements: 1
         });
-        
+
     </script>           
 
 {% endblock %}
