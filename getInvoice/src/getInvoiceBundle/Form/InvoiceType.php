@@ -22,8 +22,9 @@ class InvoiceType extends AbstractType
                     'allow_delete' =>true,
                     'prototype' => true,
                     'attr' => [
-                        'class' => 'pozycja',
+                        'class' => 'pozycja row form-inline form-group',
                     ]
+                    
                 ]);
     }
     

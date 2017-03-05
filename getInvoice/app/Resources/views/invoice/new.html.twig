@@ -70,29 +70,35 @@
 
     </div>
     <hr>
-    <div class="text-muted text-center">
-        {% for position in form.positions %}
-            Lp.:
-            {{ form_widget(position.ordinal, {"label" : "Lp"}) }}
-            nazwa towaru/usługi:
-            {{ form_widget(positions.productName) }}       
-            PKWIU:
-            {{ form_widget(position.pkwiu) }}
-            ilość:
-            {{ form_widget(position.quantity) }}                       
-            JM
-            {{ form_widget(position.unitMeasure) }} 
-            cena netto:
-            {{ form_widget(position.priceNet) }} 
-            wartość netto:
-            {{ form_widget(position.valueNet) }}
-            VAT:
-            {{ form_widget(position.rateVAT) }}
-            kwota VAT:
-            {{ form_widget(position.amountVAT) }}
-            wartość brutto:
-            {{ form_widget(position.valueGross) }}            
-        {% endfor %}
+    <div class="form-inline">
+        
+            <div class="row">
+                {{ form_widget(form.positions) }}
+            </div>
+
+       
+        {# {% for position in form.positions %} 
+             
+             {{ form_widget(position.ordinal) }}
+             
+             {{ form_widget(position.productName) }}       
+            
+             {{ form_widget(position.pkwiu) }}
+             
+             {{ form_widget(position.quantity) }}                       
+             
+             {{ form_widget(position.unitMeasure) }} 
+             
+             {{ form_widget(position.priceNet) }} 
+             
+             {{ form_widget(position.valueNet) }}
+            
+             {{ form_widget(position.rateVAT) }}
+             
+             {{ form_widget(position.amountVAT) }}
+             
+             {{ form_widget(position.valueGross) }}            
+         {% endfor %} #}
     </div> 
     <hr>
     <div class="row">
@@ -157,7 +163,8 @@
 
     {#{{ form_widget(form) }}#}
     <input type="submit" class="btn btn-success btn-sm" value="Zapisz fakturę" />
-    {{ form_end(form) }}
+
+    {{ form_end(form) }} 
 
 
     <a class="btn btn-default btn-sm" href="{{ path('invoice_index') }}">Powrót do listy faktur</a>
@@ -169,7 +176,12 @@
     <script type="text/javascript">
         $('.pozycja').collection({
             min: 1,
-            init_with_n_elements: 1
+            init_with_n_elements: 1,
+            prototype_name: '{{ form.positions.vars.prototype.vars.name }}',
+            allow_add: false,
+            allow_remove: false,
+            name_prefix: '{{ form.positions.vars.full_name }}'
+
         });
 
     </script>           

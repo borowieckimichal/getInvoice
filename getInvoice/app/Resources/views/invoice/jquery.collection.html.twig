@@ -20,15 +20,22 @@
 #}
 
 {% block collection_widget %}
+
     {% spaceless %}
         {% if prototype is defined %}
             {% set attr = attr|merge({'data-prototype': form_row(prototype)}) %}
             {% set attr = attr|merge({'data-prototype-name': prototype.vars.name}) %}
         {% endif %}
+
         {% set attr = attr|merge({'data-allow-add': allow_add ? 1 : 0}) %}
         {% set attr = attr|merge({'data-allow-remove': allow_delete ? 1 : 0 }) %}
         {% set attr = attr|merge({'data-name-prefix': full_name}) %}
 
-        {{ block('form_widget') }}
+        {% set attr = attr|merge({'class': attr.class|default('') ~ ' form-group' }) %}        
+        <div class="form-group">
+
+            {{ block('form_widget') }} 
+        </div>
     {% endspaceless %}
+
 {% endblock collection_widget %}
