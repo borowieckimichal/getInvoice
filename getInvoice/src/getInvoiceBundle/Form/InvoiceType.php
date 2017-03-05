@@ -17,6 +17,9 @@ class InvoiceType extends AbstractType
     {
         $builder->add('invoiceNo')->add('dateIssue')->add('dateSale')->add('datePayment')->add('paymentMethod')->add('bank')->add('iban')->add('sellerName')->add('sellerAddressStreet')->add('sellerAddressLocalNo')->add('sellerAddressFlatNo')->add('sellerPostalCode')->add('sellerAddressCity')->add('sellerPhone')->add('sellerNip')->add('customerName')->add('customerAddressStreet')->add('customerAddressLocalNo')->add('customerAddressFlatNo')->add('customerAddressPostalCode')->add('customerAddressCity')->add('customerPhone')->add('customerNip')->add('totalValueNet')->add('totalAmountVAT')->add('totalValueGross')->add('paid')->add('remainToPay')->add('toPayInWords')->add('authorisedToIssue')->add('allowedToReceive')
                 ->add('positions', CollectionType::class, [
+                    'options' => array (
+                            'label' => '  ',
+                    ),
                     'entry_type' => InvoicePositionType::class,
                     'allow_add' => true,
                     'allow_delete' =>true,

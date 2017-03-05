@@ -8,7 +8,7 @@
 
     <div class="text-muted text-center">
         Faktura nr
-        {{ form_widget(form.invoiceNo) }}
+        {{ form_widget(form.invoiceNo, { 'attr': {'class': 'form-control input-sm text-center', 'style' : 'width : 120px ; margin : auto'}}) }}
     </div>
     <div class="text-muted text-right">
         Data wystawienia:
@@ -70,11 +70,12 @@
 
     </div>
     <hr>
-    <div class="form-inline">
+    <div class="row">
+    <div class="col-md-12">
         
-            <div class="row">
+            
                 {{ form_widget(form.positions) }}
-            </div>
+           
 
        
         {# {% for position in form.positions %} 
@@ -100,6 +101,7 @@
              {{ form_widget(position.valueGross) }}            
          {% endfor %} #}
     </div> 
+    </div>
     <hr>
     <div class="row">
         <div class="col-md-6">

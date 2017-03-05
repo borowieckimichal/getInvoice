@@ -16,49 +16,51 @@ class InvoicePositionType extends AbstractType {
                     'label' => false,
                     'attr' => [
                         'class' => 'form-control',
-                        'style' => 'width : 40px;'
+                        'style' => 'width : 40px; float : left',
+                        'placeholder' => 'Lp'
                     ]
                 ])
                 ->add('productName', 'text', ['label' => false,
                     'attr' => [
                         'class' => 'form-control',
+                        'style' => 'width : 120px; float : left',
                         'placeholder' => 'nazwa produktu'
                     ]
                     ])
                 ->add('pkwiu', 'text', ['label' => false,
                     'attr' => [
                         'class' => 'form-control',
-                        'style' => 'width : 70px;',
+                        'style' => 'width : 70px; float : left',
                         'placeholder' => 'PKWiU'
                     ]])
                 ->add('quantity', 'text', ['label' => false,
                     'attr' => [
                         'class' => 'form-control',
-                        'style' => 'width : 70px;',
+                        'style' => 'width : 70px; float : left',
                         'placeholder' => 'ilość'
                     ]])
                 ->add('unitMeasure', 'text', ['label' => false,
                     'attr' => [
                         'class' =>'form-control',
-                        'style' => 'width : 40px;',
+                        'style' => 'width : 40px; float : left',
                         'placeholder' => 'JM'
                     ]])
                 ->add('priceNet', 'number' , ['label' => false,
                     'attr' => [
                         'class' => 'form-control',
-                        'style' => 'width : 100px;',
+                        'style' => 'width : 100px; float : left',
                         'placeholder' => 'cena netto'
                     ]])
                 ->add('valueNet', 'number', ['label' => false, 
                     'attr' => [
                         'class' => 'form-control',
-                        'style' => 'width : 120px;',
+                        'style' => 'width : 120px; float : left',
                         'placeholder' => 'wartość netto'
                     ]])
                 ->add('rateVAT', 'choice', ['label' => false, 
                     'attr' => [
                         'class' => 'form-control',
-                        'style' => 'width : 80px;'
+                        'style' => 'width : 80px; float : left'
                     ], 'choices' => [
                         23 => '23%',
                         8 => '8%',
@@ -70,13 +72,13 @@ class InvoicePositionType extends AbstractType {
                 ->add('amountVAT', 'number', ['label' => false ,
                     'attr' => [
                         'class' => 'form-control',
-                        'style' => 'width : 100px;',
+                        'style' => 'width : 100px; float : left',
                         'placeholder' => 'kwota VAT'
                     ]])
                 ->add('valueGross', 'number', ['label' => false,
                     'attr' => [
                         'class' => 'form-control',
-                        'style' => 'width : 120px;',
+                        'style' => 'width : 120px; float : left',
                         'placeholder' => 'kwota brutto'
                     ]]);
     }
