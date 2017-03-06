@@ -16,14 +16,14 @@ class InvoicePositionType extends AbstractType {
                     'label' => false,
                     'attr' => [
                         'class' => 'form-control',
-                        'style' => 'width : 40px; float : left',
+                        'style' => 'width : 45px; float : left',
                         'placeholder' => 'Lp'
                     ]
                 ])
                 ->add('productName', 'text', ['label' => false,
                     'attr' => [
                         'class' => 'form-control',
-                        'style' => 'width : 120px; float : left',
+                        'style' => 'width : 220px; float : left',
                         'placeholder' => 'nazwa produktu'
                     ]
                     ])
@@ -42,7 +42,7 @@ class InvoicePositionType extends AbstractType {
                 ->add('unitMeasure', 'text', ['label' => false,
                     'attr' => [
                         'class' =>'form-control',
-                        'style' => 'width : 40px; float : left',
+                        'style' => 'width : 45px; float : left',
                         'placeholder' => 'JM'
                     ]])
                 ->add('priceNet', 'number' , ['label' => false,

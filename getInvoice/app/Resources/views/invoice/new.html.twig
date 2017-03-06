@@ -7,156 +7,160 @@
     {{ form_start(form) }}
 
     <div class="text-muted text-center">
-        Faktura nr
+        {{ form_label(form.dateIssue, 'Faktura nr:', { 'label_attr': {'class': 'control-label'}}) }}
         {{ form_widget(form.invoiceNo, { 'attr': {'class': 'form-control input-sm text-center', 'style' : 'width : 120px ; margin : auto'}}) }}
     </div>
     <div class="text-muted text-right">
-        Data wystawienia:
+        {{ form_label(form.dateIssue, 'Data wystawienia:', { 'label_attr': {'class': 'control-label'}}) }}
         {{ form_widget(form.dateIssue) }}   
     </div>
     <div class="text-muted text-right">
-        Data sprzedaży:
+        {{ form_label(form.dateSale, 'Data sprzedaży:', { 'label_attr': {'class': 'control-label'}}) }}
         {{ form_widget(form.dateSale) }}
     </div>
     <div class="text-muted text-right">
-        Termin płatności:
+        {{ form_label(form.datePayment, 'Termin płatności:', { 'label_attr': {'class': 'control-label'}}) }}
         {{ form_widget(form.datePayment) }}
     </div> 
     <div class="row">
-        <div class="col-md-6">
-            <div>
-                Nazwa sprzedawcy:
-                {{ form_widget(form.sellerName) }}
+        <div class="col-md-5">
+            <div class="form-group">
+                {{ form_label(form.sellerName, 'Nazwa sprzedawcy:', { 'label_attr': {'class': 'control-label'}}) }}
+                {{ form_widget(form.sellerName, { 'attr': {'class': 'form-control input-sm', 'style' : 'width : 260px ; float : right'}}) }}
             </div>
-            <div>
-                Adres sprzedawcy:
-                {{ form_widget(form.sellerAddressStreet) }} <br>
-                {{ form_widget(form.sellerAddressLocalNo) }} 
-                {{ form_widget(form.sellerAddressFlatNo) }} <br>
-                {{ form_widget(form.sellerPostalCode) }}
-                {{ form_widget(form.sellerAddressCity) }}
+            <div class="form-group">
+                {{ form_label(form.sellerAddressStreet, 'Adres sprzedawcy:', { 'label_attr': {'class': 'control-label ; float : left'}}) }}
+                {{ form_widget(form.sellerAddressStreet,{ 'attr': {'class': 'form-control input-sm', 'style' : 'width : 280px' }}) }} 
+                {{ form_widget(form.sellerAddressLocalNo,{ 'attr': {'class': 'form-control input-sm', 'style' : 'width : 80px ; float: left' }}) }} 
+                {{ form_widget(form.sellerAddressFlatNo, { 'attr': {'class': 'form-control input-sm', 'style' : 'width : 80px' }}) }} 
+                {{ form_widget(form.sellerPostalCode, { 'attr': {'class': 'form-control input-sm', 'style' : 'width : 80px; float : left' }}) }}
+                {{ form_widget(form.sellerAddressCity,{ 'attr': {'class': 'form-control input-sm', 'style' : 'width : 80px ; float : left' }}) }}
             </div>
-            <div>
-                Telefon sprzedawcy:
-                {{ form_widget(form.sellerPhone) }}
+            <br>
+            <div class="form-group">
+                {{ form_label(form.sellerPhone, 'Telefon sprzedawcy:', { 'label_attr': {'class': 'control-label'}}) }}
+                {{ form_widget(form.sellerPhone, { 'attr': {'class': 'form-control input-sm', 'style' : 'width : 120px ; float : right' }}) }}
             </div>
-            <div>
-                NIP sprzedawcy:
-                {{ form_widget(form.sellerNip) }}
+            <div class="form-group">
+                {{ form_label(form.sellerNip, 'NIP sprzedawcy:', { 'label_attr': {'class': 'control-label'}}) }}
+                {{ form_widget(form.sellerNip, { 'attr': {'class': 'form-control input-sm', 'style' : 'width : 120px ; float : right' }}) }}
             </div>
         </div>
-        <div class="col-md-6">
-            <div>
-                Nazwa nabywcy:
-                {{ form_widget(form.customerName) }}
+        <div class="col-md-2">
+        </div>s
+        <div class="col-md-5">
+            <div class="form-group">
+                {{ form_label(form.customerName, 'Nazwa nabywcy:', { 'label_attr': {'class': 'control-label'}}) }}
+                {{ form_widget(form.customerName, { 'attr': {'class': 'form-control input-sm', 'style' : 'width : 260px ; float : right'}}) }}
             </div> 
-            <div>
-                adres nabywcy:
-                {{ form_widget(form.customerAddressStreet) }} <br>
-                {{ form_widget(form.customerAddressLocalNo) }}
-                {{ form_widget(form.customerAddressFlatNo) }} <br>
-                {{ form_widget(form.customerAddressPostalCode) }}
-                {{ form_widget(form.customerAddressCity) }}
-            </div>    
-            <div>
-                Telefon nabywcy:
-                {{ form_widget(form.customerPhone) }}
+            <div class="form-group">
+                {{ form_label(form.customerAddressStreet, 'Adres nabywcy:', { 'label_attr': {'class': 'control-label ; float : left'}}) }}
+                {{ form_widget(form.customerAddressStreet,{ 'attr': {'class': 'form-control input-sm', 'style' : 'width : 280px' }}) }} 
+                {{ form_widget(form.customerAddressLocalNo,{ 'attr': {'class': 'form-control input-sm', 'style' : 'width : 80px ; float : left' }}) }}
+                {{ form_widget(form.customerAddressFlatNo,{ 'attr': {'class': 'form-control input-sm', 'style' : 'width : 80px' }}) }} 
+                {{ form_widget(form.customerAddressPostalCode,{ 'attr': {'class': 'form-control input-sm', 'style' : 'width : 80px ; float : left' }}) }}
+                {{ form_widget(form.customerAddressCity,{ 'attr': {'class': 'form-control input-sm', 'style' : 'width : 110px ; float : left' }}) }}
+            </div> 
+            <br>
+            <div class="form-group">
+                {{ form_label(form.customerPhone, 'Telefon nabywcy:', { 'label_attr': {'class': 'control-label'}}) }}
+                {{ form_widget(form.customerPhone, { 'attr': {'class': 'form-control input-sm', 'style' : 'width : 120px ; float : right' }}) }}
             </div>
-            <div>
-                NIP nabywcy:
-                {{ form_widget(form.customerNip) }}
+            <div class="form-group">
+                {{ form_label(form.customerNip, 'NIP nabywcy:', { 'label_attr': {'class': 'control-label'}}) }}
+                {{ form_widget(form.customerNip, { 'attr': {'class': 'form-control input-sm', 'style' : 'width : 120px ; float : right' }}) }}
             </div>
         </div>
 
     </div>
     <hr>
     <div class="row">
-    <div class="col-md-12">
-        
-            
-                {{ form_widget(form.positions) }}
-           
+        <div class="col-md-12">
 
-       
-        {# {% for position in form.positions %} 
-             
-             {{ form_widget(position.ordinal) }}
-             
-             {{ form_widget(position.productName) }}       
-            
-             {{ form_widget(position.pkwiu) }}
-             
-             {{ form_widget(position.quantity) }}                       
-             
-             {{ form_widget(position.unitMeasure) }} 
-             
-             {{ form_widget(position.priceNet) }} 
-             
-             {{ form_widget(position.valueNet) }}
-            
-             {{ form_widget(position.rateVAT) }}
-             
-             {{ form_widget(position.amountVAT) }}
-             
-             {{ form_widget(position.valueGross) }}            
-         {% endfor %} #}
-    </div> 
+
+            {{ form_widget(form.positions) }}
+
+
+
+            {# {% for position in form.positions %} 
+                 
+                 {{ form_widget(position.ordinal) }}
+                 
+                 {{ form_widget(position.productName) }}       
+                
+                 {{ form_widget(position.pkwiu) }}
+                 
+                 {{ form_widget(position.quantity) }}                       
+                 
+                 {{ form_widget(position.unitMeasure) }} 
+                 
+                 {{ form_widget(position.priceNet) }} 
+                 
+                 {{ form_widget(position.valueNet) }}
+                
+                 {{ form_widget(position.rateVAT) }}
+                 
+                 {{ form_widget(position.amountVAT) }}
+                 
+                 {{ form_widget(position.valueGross) }}            
+             {% endfor %} #}
+        </div> 
     </div>
     <hr>
     <div class="row">
         <div class="col-md-6">
-            <div>
-                Sposób płatności:
-                {{ form_widget(form.paymentMethod) }}
+            <div class="form-group">
+                {{ form_label(form.paymentMethod, 'Sposób płatności:', { 'label_attr': {'class': 'control-label'}}) }}
+                {{ form_widget(form.paymentMethod, { 'attr': {'class': 'form-control input-sm', 'style' : 'width : 280px ; float : right'}}) }}
             </div>
-            <div>
-                Bank:
-                {{ form_widget(form.bank) }}
+            <div class="form-group">             
+                {{ form_label(form.bank, 'Bank:', { 'label_attr': {'class': 'control-label'}}) }}
+                {{ form_widget(form.bank, { 'attr': {'class': 'form-control input-sm', 'style' : 'width : 280px ; float : right'}}) }}
             </div> 
-            <div>
-                Nr rachunku bankowego:
-                {{ form_widget(form.iban) }}
+            <div class="form-group">
+                {{ form_label(form.iban, 'Nr rachunku bankowego:', { 'label_attr': {'class': 'control-label'}}) }}
+                {{ form_widget(form.iban, { 'attr': {'class': 'form-control input-sm', 'style' : 'width : 280px ; float : right'}}) }}
             </div>
-            <div>
-                Zapłacono:
-                {{ form_widget(form.paid) }}
+            <div class="form-group">
+                {{ form_label(form.paid, 'zapłacono:', { 'label_attr': {'class': 'control-label'}}) }}
+                {{ form_widget(form.paid, { 'attr': {'class': 'form-control input-sm', 'style' : 'width : 280px ; float : right'}}) }}
             </div>    
-            <div>
-                pozostaje do zapłaty:
-                {{ form_widget(form.remainToPay) }}
+            <div class="form-group">
+                {{ form_label(form.remainToPay, 'pozostaje do zapłaty:', { 'label_attr': {'class': 'control-label'}}) }}
+                {{ form_widget(form.remainToPay, { 'attr': {'class': 'form-control input-sm', 'style' : 'width : 280px ; float : right'}}) }}
             </div>    
-            <div>
-                do zapłaty słownie:
-                {{ form_widget(form.toPayInWords) }}
+            <div class="form-group">
+                {{ form_label(form.toPayInWords, 'do zapłaty słownie:', { 'label_attr': {'class': 'control-label'}}) }}
+                {{ form_widget(form.toPayInWords, { 'attr': {'class': 'form-control input-sm', 'style' : 'width : 280px ; float : right'}}) }}
             </div>  
         </div>
         <div class="col-md-6">
-            <div>
-                Razem kwota netto:
-                {{ form_widget(form.totalValueNet) }}
+            <div class="form-group">
+                {{ form_label(form.totalValueNet, 'Razem kwota netto:', { 'label_attr': {'class': 'control-label'}}) }}
+                {{ form_widget(form.totalValueNet, { 'attr': {'class': 'form-control input-sm', 'style' : 'width : 280px ; float : right'}}) }}
             </div>    
-            <div>
-                Razem kwota VAT:
-                {{ form_widget(form.totalAmountVAT) }}
+            <div class="form-group">
+                {{ form_label(form.totalAmountVAT, 'Razem kwota VAT:', { 'label_attr': {'class': 'control-label'}}) }}
+                {{ form_widget(form.totalAmountVAT, { 'attr': {'class': 'form-control input-sm', 'style' : 'width : 280px ; float : right'}}) }}
             </div> 
-            <div>
-                Razem kwota brutto:
-                {{ form_widget(form.totalValueGross) }}
+            <div class="form-group">
+                {{ form_label(form.totalValueGross, 'Razem kwota brutto:', { 'label_attr': {'class': 'control-label'}}) }}
+                {{ form_widget(form.totalValueGross, { 'attr': {'class': 'form-control input-sm', 'style' : 'width : 280px ; float : right'}}) }}
             </div>  
         </div>
     </div>
     <hr>
     <div class="row">
         <div class="col-md-6">
-            <div>
-                Osoba upoważniona do wystawienia faktury:
-                {{ form_widget(form.authorisedToIssue) }}
+            <div class="form-group">
+                {{ form_label(form.authorisedToIssue, 'Osoba upoważniona do wydania faktury:', { 'label_attr': {'class': 'control-label'}}) }}
+                {{ form_widget(form.authorisedToIssue, { 'attr': {'class': 'form-control input-sm', 'style' : 'width : 200px ; float : right'}}) }}
             </div>
         </div>
         <div class="col-md-6">
-            <div>
-                Osoba upoważniona do otrzymania faktury:
-                {{ form_widget(form.allowedToReceive) }}
+            <div class="form-group">
+                {{ form_label(form.allowedToReceive, 'Osoba upoważniona do otrzymania faktury:', { 'label_attr': {'class': 'control-label'}}) }}
+                {{ form_widget(form.allowedToReceive, { 'attr': {'class': 'form-control input-sm', 'style' : 'width : 200px ; float : right'}}) }}
             </div>
         </div>        
     </div>          
@@ -167,6 +171,7 @@
     <input type="submit" class="btn btn-success btn-sm" value="Zapisz fakturę" />
 
     {{ form_end(form) }} 
+    <hr>
 
 
     <a class="btn btn-default btn-sm" href="{{ path('invoice_index') }}">Powrót do listy faktur</a>
