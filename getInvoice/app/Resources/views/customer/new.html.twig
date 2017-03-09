@@ -7,65 +7,66 @@
         {{ form_start(form) }}
 
         <div>
-            <p class="text-muted text-left">  
-                podaj nazwe kontrahenta:
+            <p class="text-muted text-left">                 
+                {{ form_label(form.name, 'podaj nazwę kontrahenta:', { 'label_attr': {'class': 'control-label'}}) }}
                 {{ form_widget(form.name,{ 'attr': {'class': 'form-control top'}}) }}  
             </p>   
         </div>   
         <div>
             <p class="text-muted text-left">  
-                podaj ulice:
+                {{ form_label(form.addressStreet, 'podaj ulice:', { 'label_attr': {'class': 'control-label'}}) }}
                 {{ form_widget(form.addressStreet,{ 'attr': {'class': 'form-control top'}}) }}  
             </p>   
         </div> 
         <div>
             <p class="text-muted text-left">  
-                podaj nr domu:
+                {{ form_label(form.addressLocalNo, 'podaj nr domu:', { 'label_attr': {'class': 'control-label'}}) }}
                 {{ form_widget(form.addressLocalNo,{ 'attr': {'class': 'form-control top'}}) }}  
             </p>   
         </div>             
         <div>
             <p class="text-muted text-left">  
-                podaj nr lokalu:
+                {{ form_label(form.addressFlatNo, 'podaj nr lokalu:', { 'label_attr': {'class': 'control-label'}}) }}
                 {{ form_widget(form.addressFlatNo,{ 'attr': {'class': 'form-control top'}}) }}  
             </p>   
         </div>             
         <div>
             <p class="text-muted text-left">  
-                podaj kod pocztowy:
+                {{ form_label(form.addressPostalCode, 'podaj kod pocztowy:', { 'label_attr': {'class': 'control-label'}}) }}
                 {{ form_widget(form.addressPostalCode,{ 'attr': {'class': 'form-control top'}}) }}  
             </p>   
         </div>            
         <div>
-            <p class="text-muted text-left">  
-                podaj miasto:
+            <p class="text-muted text-left"> 
+                {{ form_label(form.addressCity, 'podaj miasto:', { 'label_attr': {'class': 'control-label'}}) }}
                 {{ form_widget(form.addressCity,{ 'attr': {'class': 'form-control top'}}) }}  
             </p>   
         </div>            
         <div>
             <p class="text-muted text-left">  
-                podaj e-mail:
+                {{ form_label(form.email, 'podaj e-mail:', { 'label_attr': {'class': 'control-label'}}) }}
                 {{ form_widget(form.email,{ 'attr': {'class': 'form-control top'}}) }}  
             </p>   
         </div> 
         <div>
-            <p class="text-muted text-left">  
-                podaj telefon:
+            <p class="text-muted text-left">                 
+                {{ form_label(form.phone, 'podaj telefon:', { 'label_attr': {'class': 'control-label'}}) }}
                 {{ form_widget(form.phone,{ 'attr': {'class': 'form-control top'}}) }}  
             </p>   
         </div>           
         <div>
             <p class="text-muted text-left">  
-                podaj NIP:
+                {{ form_label(form.nip, 'podaj nip:', { 'label_attr': {'class': 'control-label'}}) }}
                 {{ form_widget(form.nip,{ 'attr': {'class': 'form-control top'}}) }}  
             </p>   
         </div>            
 
         <input type="submit" class="btn btn-default btn-sm" value="Dodaj kontrahenta" />
+        <a class="btn btn-default btn-sm" href="{{ path('customer_index') }}">Powrót do listy firm</a>
         {{ form_end(form) }}
 
 
-        <a class="btn btn-default btn-sm" href="{{ path('customer_index') }}">Powrót do listy firm</a>
+        
 
     </div>
 {% endblock %}

@@ -7,7 +7,7 @@
     {{ form_start(form) }}
 
     <div class="text-muted text-center">
-        {{ form_label(form.dateIssue, 'Faktura nr:', { 'label_attr': {'class': 'control-label'}}) }}
+        {{ form_label(form.invoiceNo, 'Faktura nr:', { 'label_attr': {'class': 'control-label'}}) }}
         {{ form_widget(form.invoiceNo, { 'attr': {'class': 'form-control input-sm text-center', 'style' : 'width : 120px ; margin : auto'}}) }}
     </div>
     <div class="text-muted text-right">
@@ -169,12 +169,12 @@
 
     {#{{ form_widget(form) }}#}
     <input type="submit" class="btn btn-success btn-sm" value="Zapisz fakturę" />
-
+    <a class="btn btn-default btn-sm" href="{{ path('invoice_index') }}">Powrót do listy faktur</a>
     {{ form_end(form) }} 
     <hr>
 
 
-    <a class="btn btn-default btn-sm" href="{{ path('invoice_index') }}">Powrót do listy faktur</a>
+
 
 
     <script src="/js/jquery-3.1.1.js"></script>
