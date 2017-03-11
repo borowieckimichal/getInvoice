@@ -3,50 +3,55 @@
 {% block body %}
     <div id="borderedTable" class="body collapse in">
         <h3>Lista twoich firm</h3>
-
-        <table class="table table-bordered responsive-table">
-            <thead>
-                <tr>
-                    <th>Nazwa</th>
-                    <th>Adres</th>
-
-                    <th>Email</th>
-                    <th>telefon</th>
-                    <th>NIP</th>
-                    <th>Nr rachunku bankowego</th>
-                    <th>Akcje</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for company in companies %}
+        {% if companies |length > 0 %}
+            <table class="table table-bordered responsive-table">
+                <thead>
                     <tr>
-                        <td>{{ company.name }}</td>
-                        <td>{{ company.addressStreet }},
-                        {{ company.addressLocalNo }} /
-                        {{ company.addressFlatNo }},
-                        {{ company.addressPostalCode }},
-                        {{ company.addressCity }}</td>
-                        <td>{{ company.email }}</td>
-                        <td>{{ company.phone }}</td>
-                        <td>{{ company.nip }}</td>
-                        <td>{{ company.iban }}</td>
-                        <td>
-                            <ul class="list-inline">
-                                <li>
-                                    <a class="btn btn-default btn-sm" href="{{ path('company_show', { 'id': company.id }) }}">pokaż dane firmy </a>
-                                </li>
-                                <li>
-                                    <a class="btn btn-default btn-sm" href="{{ path('company_edit', { 'id': company.id }) }}">edytuj dane firmy </a>
-                                </li>
-                                <li>
-                                    <a class="btn btn-default btn-sm" href="{{ path('customer_new', { 'id': company.id }) }}">dodaj kontrahenta</a>
-                                </li>
-                            </ul>
-                        </td>
+                        <th>Nazwa</th>
+                        <th>Adres</th>
+
+                        <th>Email</th>
+                        <th>telefon</th>
+                        <th>NIP</th>
+                        <th>Nr rachunku bankowego</th>
+                        <th>Akcje</th>
                     </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    {% for company in companies %}
+                        <tr>
+                            <td>{{ company.name }}</td>
+                            <td>{{ company.addressStreet }},
+                                {{ company.addressLocalNo }} /
+                                {{ company.addressFlatNo }},
+                                {{ company.addressPostalCode }},
+                                {{ company.addressCity }}</td>
+                            <td>{{ company.email }}</td>
+                            <td>{{ company.phone }}</td>
+                            <td>{{ company.nip }}</td>
+                            <td>{{ company.iban }}</td>
+                            <td>
+                                <ul class="list-inline">
+                                    <li>
+                                        <a class="btn btn-default btn-sm" href="{{ path('company_show', { 'id': company.id }) }}">pokaż dane firmy </a>
+                                    </li>
+                                    <li>
+                                        <a class="btn btn-default btn-sm" href="{{ path('company_edit', { 'id': company.id }) }}">edytuj dane firmy </a>
+                                    </li>
+                                    <li>
+                                        <a class="btn btn-default btn-sm" href="{{ path('customer_new', { 'id': company.id }) }}">dodaj kontrahenta</a>
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+        {% else %}
+            <p>brak firm w bazie<p>
+            {% endif %}
+
 
         <ul class="list-inline">
             <li>
