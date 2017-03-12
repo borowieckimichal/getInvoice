@@ -12,19 +12,19 @@
         </p>
         <div>
             <p class="text-muted text-left">
-                podaj imię:           
+                {{ form_label(form.username, 'podaj imię:', { 'label_attr': {'class': 'control-label'}}) }}           
                 {{ form_widget(form.username ,{ 'attr': {'class': 'form-control top'}}) }}  
             </p>       
         </div>
         <div>
             <p class="text-muted text-left">  
-                podaj email:
+                {{ form_label(form.email, 'podaj e-mail:', { 'label_attr': {'class': 'control-label'}}) }} 
                 {{ form_widget(form.email,{ 'attr': {'class': 'form-control top'}}) }}  
             </p>   
         </div> 
         <div>
             <p class="text-muted text-left">
-                podaj hasło:          
+                {{ form_label(form.current_password, 'podaj hasło:', { 'label_attr': {'class': 'control-label'}}) }}          
                 {{ form_widget(form.current_password ,{ 'attr': {'class': 'form-control top'}}) }} 
             </p>
         </div>     
