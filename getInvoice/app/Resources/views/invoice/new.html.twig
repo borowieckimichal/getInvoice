@@ -76,34 +76,43 @@
     <hr>
     <div class="row">
         <div class="col-md-12">
+<table class="control-label">
+    <th width="45px" float="left">
+        Lp.:
+    </th>
+    <th width="220px" float="left">
+        Nazwa produktu
+    </th>
+    <th width="70px" float="left">
+        PKWiU
+    </th>
+    <th width="70px" float="left">
+        ilość
+    </th>
+    <th width="45px" float="left">
+        JM
+    </th>
+    <th width="100px" float="left">
+        cena netto
+    </th>
+    <th width="120px" float="left">
+        wartość netto
+    </th>
+    <th width="80px" float="left">
+        VAT
+    </th>
+    <th width="100px" float="left">
+        kwota VAT
+    </th>
+    <th width="120px" float="left">
+        kwota brutto
+    </th>
 
+
+    
+</table>
 
             {{ form_widget(form.positions) }}
-
-
-
-            {# {% for position in form.positions %} 
-                 
-                 {{ form_widget(position.ordinal) }}
-                 
-                 {{ form_widget(position.productName) }}       
-                
-                 {{ form_widget(position.pkwiu) }}
-                 
-                 {{ form_widget(position.quantity) }}                       
-                 
-                 {{ form_widget(position.unitMeasure) }} 
-                 
-                 {{ form_widget(position.priceNet) }} 
-                 
-                 {{ form_widget(position.valueNet) }}
-                
-                 {{ form_widget(position.rateVAT) }}
-                 
-                 {{ form_widget(position.amountVAT) }}
-                 
-                 {{ form_widget(position.valueGross) }}            
-             {% endfor %} #}
         </div> 
     </div>
     <hr>
@@ -179,7 +188,7 @@
 
     <script src="/js/jquery-3.1.1.js"></script>
     <script src="/js/jquery.collection.js"></script>
-
+    <script src="{{ asset('js/counting.js') }}"></script>   
     <script type="text/javascript">
         $('.pozycja').collection({
             min: 1,
