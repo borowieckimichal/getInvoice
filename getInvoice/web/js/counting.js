@@ -9,12 +9,7 @@ $(document).ready(function () {
     #getinvoicebundle_invoice_positions_0_rateVAT").on("keydown keyup", function () {
             multi();
 
-
-
-
         });
-
-
 
     });
 
@@ -31,9 +26,11 @@ $(document).ready(function () {
     function multi() {
         var valueNet = document.getElementById('getinvoicebundle_invoice_positions_0_valueNet').value;
         var rateVAT = document.getElementById('getinvoicebundle_invoice_positions_0_rateVAT').value;
-        var gross = parseInt(valueNet) * parseInt(rateVAT);
-
-        if (!isNaN(gross)) {
+        var vat = ((parseInt(valueNet) * parseInt(rateVAT)) / 100);
+        var gross = parseInt(valueNet) + parseFloat(vat);
+        
+        if (!isNaN(vat)) {
+            document.getElementById('getinvoicebundle_invoice_positions_0_amountVAT').value = vat;
             document.getElementById('getinvoicebundle_invoice_positions_0_valueGross').value = gross;
         }
 
