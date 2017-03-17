@@ -1,39 +1,45 @@
 $(document).ready(function () {
+    for(var i = 0; i <50; i++) {
+    
     sum();
-    $("#getinvoicebundle_invoice_positions_0_quantity, \n\
-    #getinvoicebundle_invoice_positions_0_priceNet").on("keydown keyup", function () {
+    $("#getinvoicebundle_invoice_positions_"+i+"_quantity, \n\
+    #getinvoicebundle_invoice_positions_"+i+"_priceNet").on("keydown keyup", function () {
         sum();
 
         multi();
-        $("#getinvoicebundle_invoice_positions_0_valueNet, \n\
-    #getinvoicebundle_invoice_positions_0_rateVAT").on("keydown keyup", function () {
+        $("#getinvoicebundle_invoice_positions_"+i+"_valueNet, \n\
+    #getinvoicebundle_invoice_positions_"+i+"_rateVAT").on("keydown keyup", function () {
             multi();
 
         });
 
     });
-
+    }
+    
     function sum() {
-        var quantity = document.getElementById('getinvoicebundle_invoice_positions_0_quantity').value;
-        var price = document.getElementById('getinvoicebundle_invoice_positions_0_priceNet').value;
+       for(var j = 0; j <50; j++) {
+        var quantity = $("#getinvoicebundle_invoice_positions_"+j+"_quantity").val();
+        var price = $("#getinvoicebundle_invoice_positions_"+j+"_priceNet").val();
+        
         var worth = parseInt(quantity) * parseInt(price);
 
         if (!isNaN(worth)) {
-            document.getElementById('getinvoicebundle_invoice_positions_0_valueNet').value = worth;
+            $("#getinvoicebundle_invoice_positions_"+j+"_valueNet").val(worth);
         }
-
+    }
     }
     function multi() {
-        var valueNet = document.getElementById('getinvoicebundle_invoice_positions_0_valueNet').value;
-        var rateVAT = document.getElementById('getinvoicebundle_invoice_positions_0_rateVAT').value;
+        for(var k = 0; k <50; k++) {
+        var valueNet = $("#getinvoicebundle_invoice_positions_"+k+"_valueNet").val();
+        var rateVAT = $("#getinvoicebundle_invoice_positions_"+k+"_rateVAT").val();
         var vat = ((parseInt(valueNet) * parseInt(rateVAT)) / 100);
         var gross = parseInt(valueNet) + parseFloat(vat);
         
         if (!isNaN(vat)) {
-            document.getElementById('getinvoicebundle_invoice_positions_0_amountVAT').value = vat;
-            document.getElementById('getinvoicebundle_invoice_positions_0_valueGross').value = gross;
+            $("#getinvoicebundle_invoice_positions_"+k+"_amountVAT").val(vat);
+            $("#getinvoicebundle_invoice_positions_"+k+"_valueGross").val(gross);
         }
 
     }
-
+}
 });
