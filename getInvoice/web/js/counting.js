@@ -7,15 +7,6 @@ $(document).ready(function () {
         multi();
     });
 
-//    $(".collection-action").click(function(){
-//        $("*").on("keyup", function () {
-//            sum();
-//            console.log('test');
-//        });
-//
-//    });
-
-    // }
 
     function sum() {
         var netWorth = 0;
@@ -26,15 +17,17 @@ $(document).ready(function () {
             var worth = parseInt(quantity) * parseInt(price);
             if (!isNaN(worth)) {
                 netWorth = netWorth + worth;
+                $("#getinvoicebundle_invoice_positions_" + j + "_valueNet").val(worth.toFixed(2));
             }
-            console.log(netWorth);
-            $("#getinvoicebundle_invoice_positions_" + j + "_valueNet").val(worth);
+
 
         }
-        $("#getinvoicebundle_invoice_totalValueNet").val(netWorth);
+        $("#getinvoicebundle_invoice_totalValueNet").val(netWorth.toFixed(2));
     }
 
     function multi() {
+        var totalVat = 0;
+        var totalGross = 0;
         for (var k = 0; k < 50; k++) {
             var valueNet = $("#getinvoicebundle_invoice_positions_" + k + "_valueNet").val();
             var rateVAT = $("#getinvoicebundle_invoice_positions_" + k + "_rateVAT").val();
@@ -42,30 +35,15 @@ $(document).ready(function () {
             var gross = parseInt(valueNet) + parseFloat(vat);
 
             if (!isNaN(vat)) {
-                $("#getinvoicebundle_invoice_positions_" + k + "_amountVAT").val(vat);
-                $("#getinvoicebundle_invoice_positions_" + k + "_valueGross").val(gross);
+                totalVat = totalVat + vat;
+                totalGross = totalGross + gross;
+                $("#getinvoicebundle_invoice_positions_" + k + "_amountVAT").val(vat.toFixed(2));
+                $("#getinvoicebundle_invoice_positions_" + k + "_valueGross").val(gross.toFixed(2));
             }
 
         }
+        $("#getinvoicebundle_invoice_totalAmountVAT").val(totalVat.toFixed(2));
+        $("#getinvoicebundle_invoice_totalValueGross").val(totalGross.toFixed(2));
     }
 
-
-//    sumNet();
-//
-//    $('input[id*~="valueNet"]').on("keydown keyup", function () {
-//        sumNet();
-//    });
-//
-//    function sumNet() {
-//
-//        var arr = $('input[id~="valueNet"]');
-//        var totalNet = 0;
-//
-//        for (var l = 0; l < arr.length; l++) {
-//            if (parseInt(arr[l].value)) {
-//                totalNet += parseInt(arr[l].value);
-//            }
-//        }
-//        $("#getinvoicebundle_invoice_totalValueNet").val(totalNet);
-//    }
 });
