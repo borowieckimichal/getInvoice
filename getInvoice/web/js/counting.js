@@ -1,7 +1,5 @@
-$(document).ready(function () {
-    //for (var i = 0; i < 50; i++) {
-    //   console.log(i);
-    //sum();
+$(document).ready(function () { 
+    
     $("div.row").on("keyup", function () {
         sum();
         multi();
@@ -42,8 +40,11 @@ $(document).ready(function () {
             }
 
         }
+
         $("#getinvoicebundle_invoice_totalAmountVAT").val(totalVat.toFixed(2));
         $("#getinvoicebundle_invoice_totalValueGross").val(totalGross.toFixed(2));
     }
+
+
 
 });
