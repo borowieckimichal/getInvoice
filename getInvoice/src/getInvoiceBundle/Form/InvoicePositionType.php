@@ -78,7 +78,7 @@ class InvoicePositionType extends AbstractType {
                 ->add('valueGross', 'number', ['label' => false,
                     'attr' => [
                         'class' => 'form-control',
-                        'style' => 'width : 120px; float : left',
+                        'style' => 'width : 110px; float : left',
                         'placeholder' => 'kwota brutto'
                     ]]);
     }

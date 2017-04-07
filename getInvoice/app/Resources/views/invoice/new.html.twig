@@ -1,5 +1,9 @@
 {% extends 'base.html.twig' %}
 
+{% block extra_js %}
+    <script src="{{ asset('bundles/fuzapp/js/collection/jquery.collection.js') }}"></script>
+{% endblock %}
+
 {% block body %}
     <h3>Tworzenie nowej faktury</h3>
     {% form_theme form ':invoice:jquery.collection.html.twig' %}
@@ -76,41 +80,38 @@
     <hr>
     <div class="row">
         <div class="col-md-12">
-<table class="control-label">
-    <th width="45px" float="left">
-        Lp.:
-    </th>
-    <th width="220px" float="left">
-        Nazwa produktu
-    </th>
-    <th width="70px" float="left">
-        PKWiU
-    </th>
-    <th width="70px" float="left">
-        ilość
-    </th>
-    <th width="45px" float="left">
-        JM
-    </th>
-    <th width="100px" float="left">
-        cena netto
-    </th>
-    <th width="120px" float="left">
-        wartość netto
-    </th>
-    <th width="80px" float="left">
-        VAT
-    </th>
-    <th width="100px" float="left">
-        kwota VAT
-    </th>
-    <th width="120px" float="left">
-        kwota brutto
-    </th>
-
-
-    
-</table>
+            <table class="control-label">
+                <th width="45px" float="left">
+                    Lp.:
+                </th>
+                <th width="220px" float="left">
+                    Nazwa produktu
+                </th>
+                <th width="70px" float="left">
+                    PKWiU
+                </th>
+                <th width="70px" float="left">
+                    ilość
+                </th>
+                <th width="45px" float="left">
+                    JM
+                </th>
+                <th width="100px" float="left">
+                    cena netto
+                </th>
+                <th width="120px" float="left">
+                    wartość netto
+                </th>
+                <th width="80px" float="left">
+                    VAT
+                </th>
+                <th width="100px" float="left">
+                    kwota VAT
+                </th>
+                <th width="120px" float="left">
+                    kwota brutto
+                </th>
+            </table>
 
             {{ form_widget(form.positions) }}
         </div> 
@@ -176,7 +177,7 @@
 
 
 
-    {#{{ form_widget(form) }}#}
+    
     <input type="submit" class="btn btn-success btn-sm" value="Zapisz fakturę" />
     <a class="btn btn-default btn-sm" href="{{ path('invoice_index') }}">Powrót do listy faktur</a>
     {{ form_end(form) }} 
@@ -190,14 +191,18 @@
     <script src="/js/jquery.collection.js"></script>
     <script src="{{ asset('js/counting.js') }}"></script>   
     <script type="text/javascript">
-        $('.pozycja').collection({
+        
+    $('.pozycja').collection({
             min: 1,
             init_with_n_elements: 1,
             prototype_name: '{{ form.positions.vars.prototype.vars.name }}',
-            allow_add: false,
-            allow_remove: false,
-            name_prefix: '{{ form.positions.vars.full_name }}'
-
+            allow_add: true,
+            allow_remove: true,
+            name_prefix: '{{ form.positions.vars.full_name }}',
+            up: '<a href="#" class="btn btn-default"><span class="glyphicon glyphicon-arrow-up"></span></a>',
+            down: '<a href="#" class="btn btn-default"><span class="glyphicon glyphicon-arrow-down"></span></a>',
+            add: '<a href="#" class="btn btn-default"><span class="glyphicon glyphicon-plus-sign"></span></a>',
+            remove: '<a href="#" class="btn btn-default"><span class="glyphicon glyphicon-trash"></span></a>'                    
         });
 
     </script>           
