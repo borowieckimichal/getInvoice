@@ -112,8 +112,9 @@
                     kwota brutto
                 </th>
             </table>
-
-            {{ form_widget(form.positions) }}
+            <div id="form-test">
+                {{ form_widget(form.positions) }}
+            </div>
         </div> 
     </div>
     <hr>
@@ -170,7 +171,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
+                        <div id="vat">
+                        <tr style="display: none;" id="vat0">
                             <td>
                                 <input type="text" name="invoiceSummary0[taxName]" id="invoiceSummary0-taxName"
                                        class="form-control input-sm" value="23%" title="Stawka VAT" readonly="readonly">
@@ -190,7 +192,7 @@
                             </td>
 
                         </tr>
-                        <tr>
+                        <tr style="display: none;" id="vat1">
                             <td>
                                 <input type="text" name="invoiceSummary1[taxName]" id="invoiceSummary1-taxName"
                                        class="form-control input-sm" value="8%" title="Stawka VAT" readonly="readonly">                                                
@@ -211,7 +213,7 @@
                             </td>
 
                         </tr>
-                        <tr>                   
+                        <tr style="display: none;" id="vat2">                   
                             <td>
                                 <input type="text" name="invoiceSummary2[taxName]" id="invoiceSummary2-taxName"
                                        class="form-control input-sm" value="5%" title="Stawka VAT" readonly="readonly"> 
@@ -232,7 +234,7 @@
                             </td>
 
                         </tr>
-                        <tr>
+                        <tr style="display: none;" id="vat3">
                             <td>
                                 <input type="text" name="invoiceSummary3[taxName]" id="invoiceSummary3-taxName"
                                        class="form-control input-sm" value="0%" title="Stawka VAT" readonly="readonly">                        
@@ -252,7 +254,7 @@
                             </td>
 
                         </tr>
-                        <tr>
+                        <tr style="display: none;" id="vat4">
                             <td>
                                 <input type="text" name="invoiceSummary4[taxName]" id="invoiceSummary4-taxName"
                                        class="form-control input-sm" value="ZW" title="Stawka VAT" readonly="readonly">                         
@@ -272,7 +274,7 @@
                             </td>
 
                         </tr>
-                        <tr>
+                        <tr style="display: none;" id="vat5">
                             <td>
                                 <input type="text" name="invoiceSummary5[taxName]" id="invoiceSummary5-taxName"
                                        class="form-control input-sm" value="NP" title="Stawka VAT" readonly="readonly">                          
@@ -292,6 +294,7 @@
                             </td>
 
                         </tr>
+                        </div>
                         <tr>
                             <td>Razem</td>
                             <td>
