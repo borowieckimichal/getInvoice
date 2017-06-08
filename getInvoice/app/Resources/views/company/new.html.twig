@@ -57,7 +57,7 @@
         <div>
             <p class="text-muted text-left">  
                 {{ form_label(form.companyLogo, 'podaj logo firmy (nie więcej niż 2 MB):', { 'label_attr': {'class': 'control-label'}}) }}
-                {{ form_widget(form.companyLogo,{ 'attr': {'class': 'form-control top'}}) }}  
+                {{ form_widget(form.companyLogo,{ 'attr': {'class': 'form-control-file top'}}) }}  
             </p>   
         </div>
         <div>
@@ -74,7 +74,7 @@
         </div>            
         <input type="submit" class="btn btn-success btn-sm" value="dodaj firmę" />
         <a class="btn btn-default btn-sm" href="{{ path('company_index') }}">Powrót do listy firm</a>
-        <a class="btn btn-default btn-sm" href="{{ path('company_index') }}">Powrót do listy firm</a>
+
         
         {{ form_end(form) }}
         

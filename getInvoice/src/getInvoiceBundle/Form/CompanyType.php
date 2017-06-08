@@ -2,10 +2,11 @@
 
 namespace getInvoiceBundle\Form;
 
+use getInvoiceBundle\Entity\Company;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 class CompanyType extends AbstractType
 {
@@ -15,7 +16,7 @@ class CompanyType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('name', 'text')->add('addressStreet', 'text')->add('addressLocalNo','text')->add('addressFlatNo')->add('addressPostalCode', 'text')->add('addressCity', 'text')->add('email', 'email')->add('phone', 'text')
-                ->add('companyLogo','file', ['data_class' => null])->add('nip','integer')->add('iban', 'text')        ;
+                ->add('companyLogo', FileType::class, ['label' => 'Logo', 'data_class' => null])->add('nip','integer')->add('iban', 'text')        ;
     }
     
     /**
@@ -24,7 +25,7 @@ class CompanyType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'getInvoiceBundle\Entity\Company'
+            'data_class' => Company::class,
         ));
     }
 

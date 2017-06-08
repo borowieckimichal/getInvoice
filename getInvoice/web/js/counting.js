@@ -5,7 +5,7 @@ $(document).ready(function () {
         multi();
         check();
     });
-    $("*").click(function() {
+    $(":root").click(function() {
         sum();
         multi();
         check();

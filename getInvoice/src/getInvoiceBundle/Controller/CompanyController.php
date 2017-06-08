@@ -8,6 +8,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use getInvoiceBundle\Entity\User;
+use getInvoiceBundle\Form\CompanyType;
+use Symfony\Component\HttpFoundation\File\File;
 
 /**
  * Company controller.
@@ -52,12 +54,21 @@ class CompanyController extends Controller {
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) { //&& $form->isValid()) {
+            //$file = $company->getCompanyLogo();
+            //$fileName = $this->get('app.logo_uploader')->upload($file);
+            //$file->move(
+            //        $this->getParmeter('Logo_directory'),
+            //        $fileName
+            //            );            
+            //$company->setCompanyLogo($fileName);            
+            
+            
             $user = $this->container
                     ->get('security.context')
                     ->getToken()
                     ->getUser();
             $user->getId();
-
+            
             $company = $form->getData();
             $company->setUser($user);
             $em = $this->getDoctrine()->getManager();
@@ -98,7 +109,8 @@ class CompanyController extends Controller {
         $deleteForm = $this->createDeleteForm($company);
         $editForm = $this->createForm('getInvoiceBundle\Form\CompanyType', $company);
         $editForm->handleRequest($request);
-
+        $company->setCompanyLogo(
+                new File($this->getParameter('Logo_directory').'/'.$company->getCompanyLogo()));
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 

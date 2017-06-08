@@ -8,6 +8,8 @@ imports:
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: en
+    Logo_directory: '%kernel.root_dir%/../web/uploads/logos' 
+    
 
 framework:
     #esi:             ~
