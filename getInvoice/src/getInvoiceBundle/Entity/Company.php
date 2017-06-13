@@ -81,9 +81,12 @@ class Company {
     /**
      * @var string
      *
-     * @ORM\Column(name="companyLogo", type="string")
+     * @ORM\Column(name="companyLogo", type="string", nullable = true)
      * 
-     * @Assert\File(mimeTypes={ "application/jpg" }) 
+     * @Assert\Image(
+     *      mimeTypes={ "image/jpg","image/jpeg", "image/png", "image/gif"}),
+     *      mimeTypesMessage = "only image file",
+     * ) 
      */
     private $companyLogo;
 

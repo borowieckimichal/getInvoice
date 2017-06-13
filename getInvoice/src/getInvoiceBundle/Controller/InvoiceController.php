@@ -67,6 +67,7 @@ class InvoiceController extends Controller
 
         return $this->render('invoice/new.html.twig', array(
             'invoice' => $invoice,
+            'company' => $company,
             'form' => $form->createView(),
         ));
     }
