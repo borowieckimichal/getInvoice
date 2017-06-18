@@ -16,7 +16,7 @@ class CompanyType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('name', 'text')->add('addressStreet', 'text')->add('addressLocalNo','text')->add('addressFlatNo')->add('addressPostalCode', 'text')->add('addressCity', 'text')->add('email', 'email')->add('phone', 'text')
-                ->add('companyLogo', FileType::class, ['label' => 'Logo', 'data_class' => null])->add('nip','integer')->add('iban', 'text')        ;
+                ->add('companyLogo', FileType::class, ['label' => 'Logo', 'data_class' => null, 'required' => false])->add('nip','integer')->add('iban', 'text')        ;
     }
     
     /**

@@ -63,12 +63,14 @@
 
         <input type="submit" class="btn btn-default btn-sm" value="Edytuj kontrahenta" />
         <a class="btn btn-default btn-sm" href="{{ path('customer_index') }}">Powrót do listy kontrahentów</a>
+      
+        {{ form_end(edit_form) }}
+        <hr>
         {{ form_start(delete_form) }}
         <input type="submit" class="btn btn-danger btn-sm" value="Usuń kontrahenta">
-        {{ form_end(delete_form) }}       
-
-
-        {{ form_end(edit_form) }}
-
+        {{ form_end(delete_form) }}         
+        
+        
+        
     </div>
 {% endblock %}

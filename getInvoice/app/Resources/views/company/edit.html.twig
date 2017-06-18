@@ -56,8 +56,18 @@
         </div>    
         <div>
             <p class="text-muted text-left">
-                {{ form_label(edit_form.companyLogo, 'podaj logo firmy (nie więciej niż 2 MB):', { 'label_attr': {'class': 'control-label'}}) }}
-                {{ form_widget(edit_form.companyLogo,{ 'attr': {'class': 'form-control top'}}) }}
+                {% if company.companyLogo ends with 'b/d' or company.companyLogo is null %}
+                    {{ form_label(edit_form.companyLogo, 'podaj logo firmy (nie więciej niż 2 MB):', { 'label_attr': {'class': 'control-label'}}) }}
+                    {{ form_widget(edit_form.companyLogo,{ 'attr': {'class': 'form-control top'}}) }}  
+                {% else%}
+                    {{ form_label(edit_form.companyLogo, 'podaj logo firmy (nie więciej niż 2 MB):', { 'label_attr': {'class': 'control-label'}}) }}
+                    {{ form_widget(edit_form.companyLogo,{ 'attr': {'class': 'form-control top'}}) }}
+
+                    <a href="{{ asset('uploads/logos/')}}{{company.companyLogo }}"> 
+                        <img src="{{ asset('uploads/logos/')}}{{company.companyLogo}}"
+                             height="120" width="120">
+                    </a>
+                {% endif %}
             </p>
         </div>    
         <div>
@@ -74,12 +84,15 @@
         </div>    
 
         <input type="submit" class="btn btn-default btn-sm" value="Edytuj dane firmy" />
+
         <a class="btn btn-default btn-sm" href="{{ path('company_index') }}">Powrót do listy firm</a>
+        {{ form_end(edit_form) }}
+        <hr>
         {{ form_start(delete_form) }}
-    <input type="submit" class="btn btn-danger btn-sm" value="Usuń dane firmy">
-    {{ form_end(delete_form) }}        
+        <input type="submit" class="btn btn-danger btn-sm" value="Usuń dane firmy">
+        {{ form_end(delete_form) }}        
 
-    {{ form_end(edit_form) }}
 
-</div>
+
+    </div>
 {% endblock %}

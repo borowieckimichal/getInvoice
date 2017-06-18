@@ -17,11 +17,15 @@
     <div class="row">
         <div class="col-md-5">
             <div class="text-muted text-left">
+                {% if company.companyLogo ends with 'b/d' or company.companyLogo is null%}
+                    
+                    {% else %}
                 <img src="{{ asset('uploads/logos/')}}{{company.companyLogo}}"
                              height="150" width="150">
+                {% endif %}
             </div>           
         </div>
-        <div class="col-md-5">
+        <div class="col-md-6 col-md-offset-6">
     <div class="text-muted text-right">
         {{ form_label(form.dateIssue, 'Data wystawienia:', { 'label_attr': {'class': 'control-label'}}) }}
         {{ form_widget(form.dateIssue) }}   

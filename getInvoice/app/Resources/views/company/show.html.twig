@@ -41,10 +41,10 @@
             <tr>
                 <th>Logo firmy</th>
                 <td> 
-                    {% if company.companyLogo ends with 'b/d' %}
+                    {% if company.companyLogo ends with 'b/d' or company.companyLogo is null %}
                    brak loga firmy
                     {% else%}
-                    <a href="{{ asset('uploads/logos/' ~ company.companyLogo) }}"> 
+                        <a href="{{ asset('uploads/logos/' ~ company.companyLogo) }}"> 
                         <img src="{{ asset('uploads/logos/')}}{{company.companyLogo}}"
                              height="120" width="120">
                     </a>
