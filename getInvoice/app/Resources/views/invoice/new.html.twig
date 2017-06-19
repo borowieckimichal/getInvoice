@@ -2,6 +2,7 @@
 
 {% block extra_js %}
     <script src="{{ asset('bundles/fuzapp/js/collection/jquery.collection.js') }}"></script>
+
 {% endblock %}
 
 {% block body %}
@@ -15,7 +16,7 @@
         {{ form_widget(form.invoiceNo, { 'attr': {'class': 'form-control input-sm text-center', 'style' : 'width : 120px ; margin : auto'}}) }}
     </div>
     <div class="row">
-        <div class="col-md-5">
+        <div class="col-md-6">
             <div class="text-muted text-left">
                 {% if company.companyLogo ends with 'b/d' or company.companyLogo is null%}
                     
@@ -25,18 +26,18 @@
                 {% endif %}
             </div>           
         </div>
-        <div class="col-md-6 col-md-offset-6">
-    <div class="text-muted text-right">
+        <div class="col-md-6">
+    <div class="form-group text-muted text-right">
         {{ form_label(form.dateIssue, 'Data wystawienia:', { 'label_attr': {'class': 'control-label'}}) }}
-        {{ form_widget(form.dateIssue) }}   
+        {{ form_widget(form.dateIssue, { 'attr' : {'class': 'form-control col-md-3', 'id' : 'date2', 'type' : 'date', 'name' : 'date2'}}) }}   
     </div>
-    <div class="text-muted text-right">
+    <div class="form-group text-muted text-right">
         {{ form_label(form.dateSale, 'Data sprzedaży:', { 'label_attr': {'class': 'control-label'}}) }}
-        {{ form_widget(form.dateSale) }}
+        {{ form_widget(form.dateSale, {'attr' : {'class' : 'form-control','id': 'date2', 'type' : 'date', 'name' : 'date2'}}) }}
     </div>
-    <div class="text-muted text-right">
+    <div class="form-group text-muted text-right">
         {{ form_label(form.datePayment, 'Termin płatności:', { 'label_attr': {'class': 'control-label'}}) }}
-        {{ form_widget(form.datePayment) }}
+        {{ form_widget(form.datePayment,{'attr' : {'class' : 'form-control','id': 'date2', 'type' : 'date', 'name' : 'date2'}}) }}
     </div> 
         </div>
     </div>

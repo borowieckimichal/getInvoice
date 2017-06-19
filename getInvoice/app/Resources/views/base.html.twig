@@ -638,10 +638,12 @@
             <script src="{{ asset('js/core.js') }}"></script>
             <!-- Metis demo scripts -->
             <script src="{{ asset('js/app.js') }}"></script>
+            <script src="{{ asset('lib/jquery-validation/jquery.validate.js') }}"></script>
             <script>
                 $(function () {
                     Metis.MetisTable();
                     Metis.metisSortable();
+                    Metis.formValidation();
                 });
             </script>
             <script src="{{ asset('js/style-switcher.js') }}"></script>               

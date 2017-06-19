@@ -7,6 +7,7 @@ use getInvoiceBundle\Form\InvoicePositionType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 
 class InvoiceType extends AbstractType
 {
@@ -15,7 +16,9 @@ class InvoiceType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('invoiceNo')->add('dateIssue')->add('dateSale')->add('datePayment')
+        $builder->add('invoiceNo')->add('dateIssue', DateType::class, ['widget' => 'single_text', 'attr' => ['style' => 'width : 160px; float : right']] )
+                ->add('dateSale', DateType::class,['widget' => 'single_text','attr' => ['style' => 'width : 160px; float : right']])
+                ->add('datePayment', DateType::class, ['widget' => 'single_text', 'attr' => ['style' => 'width : 160px; float : right']])
                 ->add('paymentMethod')->add('bank')->add('iban')->add('sellerName')->add('sellerAddressStreet')
                 ->add('sellerAddressLocalNo')->add('sellerAddressFlatNo')->add('sellerPostalCode')
                 ->add('sellerAddressCity')->add('sellerPhone')->add('sellerNip')->add('customerName')
