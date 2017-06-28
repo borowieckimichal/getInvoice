@@ -1,11 +1,12 @@
 $(document).ready(function () {
 
-    $("div.row").change(function() {
+    $("div.row").change(function () {
         sum();
         multi();
         check();
+      //  remainToPay();
     });
-    $(":root").click(function() {
+    $(":root").click(function () {
         sum();
         multi();
         check();
@@ -33,19 +34,19 @@ $(document).ready(function () {
                 subTotalSum += worth;
             } else if (!isNaN(worth) && ($("#getinvoicebundle_invoice_positions_" + j + "_rateVAT").val() == 8)) {
                 secondSum += worth;
-                
+
             } else if (!isNaN(worth) && ($("#getinvoicebundle_invoice_positions_" + j + "_rateVAT").val() == 5)) {
                 thirdSum += worth;
-                
+
             } else if (!isNaN(worth) && ($("#getinvoicebundle_invoice_positions_" + j + "_rateVAT").val() == 0)) {
                 fourthSum += worth;
-                
+
             } else if (!isNaN(worth) && ($("#getinvoicebundle_invoice_positions_" + j + "_rateVAT").val() == -1)) {
                 fifthSum += worth;
-                
+
             } else if (!isNaN(worth) && ($("#getinvoicebundle_invoice_positions_" + j + "_rateVAT").val() == -2)) {
                 sixthSum += worth;
-                
+
             }
 
         }
@@ -56,7 +57,7 @@ $(document).ready(function () {
         $("#invoiceSummary4-netValueSummaryForTaxRate").val(fifthSum.toFixed(2));
         $("#invoiceSummary5-netValueSummaryForTaxRate").val(sixthSum.toFixed(2));
         $("#getinvoicebundle_invoice_totalValueNet").val(netWorth.toFixed(2));
-     
+
     }
 
     function multi() {
@@ -77,7 +78,7 @@ $(document).ready(function () {
         for (var k = 0; k < 50; k++) {
             var valueNet = $("#getinvoicebundle_invoice_positions_" + k + "_valueNet").val();
             var rateVAT = $("#getinvoicebundle_invoice_positions_" + k + "_rateVAT").val();
-          
+
             var vat = (rateVAT > 0 && !isNaN(rateVAT) ? ((parseInt(valueNet) * parseInt(rateVAT)) / 100) : 0);
             var gross = parseInt(valueNet) + vat;
 
@@ -124,16 +125,27 @@ $(document).ready(function () {
 
         $("#getinvoicebundle_invoice_totalAmountVAT").val(totalVat.toFixed(2));
         $("#getinvoicebundle_invoice_totalValueGross").val(totalGross.toFixed(2));
+        
+        var updatedRemain = 0;
+        var paid = $("#getinvoicebundle_invoice_paid").val();
+        if (paid == 0) {
+        
+        $("#getinvoicebundle_invoice_remainToPay").val(totalGross.toFixed(2));
+        } else if (paid > 0) {
+            updatedRemain = totalGross - paid;
+            
+        $("#getinvoicebundle_invoice_remainToPay").val(updatedRemain.toFixed(2));    
+        }
     }
     function check() {
         for (var i = 0; i < 6; i++) {
             if ($("#invoiceSummary" + i + "-netValueSummaryForTaxRate").val() > 0) {
-                
+
                 $("#vat" + i).show();
             } else {
                 $("#vat" + i).hide();
             }
         }
     }
-
+    
 });

@@ -100,8 +100,8 @@ class Company {
     /**
      * @var string
      *
-     * @ORM\Column(name="iban", type="string", length=26)
-     * @Assert\Length(min="26", minMessage="Your IBAN  must be at least 26 characters long")
+     * @ORM\Column(name="iban", type="string", length=34)
+     * 
      */
     private $iban;
 

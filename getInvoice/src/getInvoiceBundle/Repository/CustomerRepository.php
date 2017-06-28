@@ -27,7 +27,7 @@ class CustomerRepository extends EntityRepository {
         $em = $this->getEntityManager();
 
         $query = $em->createQuery(
-                "SELECT p FROM getInvoiceBundle:Customer p WHERE p.user = :user ORDER BY p.name ASC");
+                "SELECT p FROM getInvoiceBundle:Customer p WHERE p.user = :user ORDER BY p.company ASC");
         $query->setParameter('user', $user);
         return $query->getResult();
     }

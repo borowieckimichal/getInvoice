@@ -21,5 +21,5 @@ class CompanyRepository extends EntityRepository
                 "SELECT p FROM getInvoiceBundle:Company p WHERE p.user = :user ORDER BY p.name ASC");
         $query->setParameter('user', $user);
         return $query->getResult();
-    }
+    }   
 }

@@ -8,6 +8,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class InvoiceType extends AbstractType
 {
@@ -19,13 +20,25 @@ class InvoiceType extends AbstractType
         $builder->add('invoiceNo')->add('dateIssue', DateType::class, ['widget' => 'single_text', 'attr' => ['style' => 'width : 160px; float : right']] )
                 ->add('dateSale', DateType::class,['widget' => 'single_text','attr' => ['style' => 'width : 160px; float : right']])
                 ->add('datePayment', DateType::class, ['widget' => 'single_text', 'attr' => ['style' => 'width : 160px; float : right']])
-                ->add('paymentMethod')->add('bank')->add('iban')->add('sellerName')->add('sellerAddressStreet')
+                ->add('paymentMethod', ChoiceType::class, [
+                    'choices' => [
+                        'przelew' => 'przelew',
+                        'gotówka' => 'gotówka',
+                        'kompensata' => 'kompensata',
+                        'karta kredytowa' => 'karta kredytowa', 
+                        'barter' => 'barter',
+                        'za pobraniem' => 'za pobraniem',
+                        'zgodnie z umową' => 'zgodnie z umową',
+                        'zapłacono' => 'zapłacono'
+                    ]
+                ])
+                ->add('bank')->add('iban')->add('sellerName')->add('sellerAddressStreet')
                 ->add('sellerAddressLocalNo')->add('sellerAddressFlatNo')->add('sellerPostalCode')
                 ->add('sellerAddressCity')->add('sellerPhone')->add('sellerNip')->add('customerName')
                 ->add('customerAddressStreet')->add('customerAddressLocalNo')->add('customerAddressFlatNo')
                 ->add('customerAddressPostalCode')->add('customerAddressCity')->add('customerPhone')
                 ->add('customerNip')->add('totalValueNet')->add('totalAmountVAT')->add('totalValueGross')
-                ->add('paid')->add('remainToPay')->add('toPayInWords')->add('authorisedToIssue')->add('allowedToReceive')
+                ->add('paid', null, ['data' => 0.00])->add('remainToPay')->add('toPayInWords')->add('authorisedToIssue')->add('allowedToReceive')
                 ->add('positions', CollectionType::class, [
                     'options' => array (
                             'label' => '  ',

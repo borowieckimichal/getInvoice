@@ -66,7 +66,7 @@ class Invoice
     /**
      * @var string
      *
-     * @ORM\Column(name="iban", type="string", length=26)
+     * @ORM\Column(name="iban", type="string", length=34)
      */
     private $iban;
 

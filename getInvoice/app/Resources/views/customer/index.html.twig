@@ -7,10 +7,9 @@
             <table class="table table-bordered responsive-table">
                 <thead>
                     <tr>
-
-                        <th>Nazwa</th>
+                        <th>Twoja Firma</th>
+                        <th>Kontrahent</th>
                         <th>Adres</th>
-
                         <th>Email</th>
                         <th>Telefon</th>
                         <th>NIP</th>
@@ -20,7 +19,7 @@
                 <tbody>
                     {% for customer in customers %}
                         <tr>
-
+                            <td>{{customer.company.name }} </td>
                             <td>{{ customer.name }}   </td>
                             <td>{{ customer.addressStreet }},
                                 {{ customer.addressLocalNo }} /
