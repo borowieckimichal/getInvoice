@@ -38,7 +38,7 @@ class InvoiceType extends AbstractType
                 ->add('customerAddressStreet')->add('customerAddressLocalNo')->add('customerAddressFlatNo')
                 ->add('customerAddressPostalCode')->add('customerAddressCity')->add('customerPhone')
                 ->add('customerNip')->add('totalValueNet')->add('totalAmountVAT')->add('totalValueGross')
-                ->add('paid', null, ['data' => 0.00])->add('remainToPay')->add('toPayInWords')->add('authorisedToIssue')->add('allowedToReceive')
+                ->add('paid', 'integer', ['precision' => 2])->add('remainToPay')->add('toPayInWords')->add('authorisedToIssue')->add('allowedToReceive')
                 ->add('positions', CollectionType::class, [
                     'options' => array (
                             'label' => '  ',

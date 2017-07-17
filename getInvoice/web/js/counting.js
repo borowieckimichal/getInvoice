@@ -4,13 +4,12 @@ $(document).ready(function () {
         sum();
         multi();
         check();
-      //  remainToPay();
+        words();
     });
     $(":root").click(function () {
         sum();
         multi();
         check();
-        console.log("licznik uruchomień");
     });
 
     function sum() {
@@ -23,9 +22,16 @@ $(document).ready(function () {
         var sixthSum = 0;
         for (var j = 0; j < 50; j++) {
             var quantity = $("#getinvoicebundle_invoice_positions_" + j + "_quantity").val();
+            $("#getinvoicebundle_invoice_positions_" + j + "_quantity").on("change", function () {
+                $(this).val($(this).val().replace(/,/g, '.'));
+            });
             var price = $("#getinvoicebundle_invoice_positions_" + j + "_priceNet").val();
+            $("#getinvoicebundle_invoice_positions_" + j + "_priceNet").on("change", function () {
+                $(this).val($(this).val().replace(/,/g, '.'));
+            });
 
-            var worth = parseInt(quantity) * parseInt(price);
+            var worth = parseFloat(quantity) * parseFloat(price);
+
             if (!isNaN(worth)) {
                 netWorth += worth;
                 $("#getinvoicebundle_invoice_positions_" + j + "_valueNet").val(worth.toFixed(2));
@@ -79,8 +85,8 @@ $(document).ready(function () {
             var valueNet = $("#getinvoicebundle_invoice_positions_" + k + "_valueNet").val();
             var rateVAT = $("#getinvoicebundle_invoice_positions_" + k + "_rateVAT").val();
 
-            var vat = (rateVAT > 0 && !isNaN(rateVAT) ? ((parseInt(valueNet) * parseInt(rateVAT)) / 100) : 0);
-            var gross = parseInt(valueNet) + vat;
+            var vat = (rateVAT > 0 && !isNaN(rateVAT) ? ((parseFloat(valueNet) * parseFloat(rateVAT)) / 100) : 0);
+            var gross = parseFloat(valueNet) + vat;
 
 
             if (!isNaN(vat)) {
@@ -125,16 +131,16 @@ $(document).ready(function () {
 
         $("#getinvoicebundle_invoice_totalAmountVAT").val(totalVat.toFixed(2));
         $("#getinvoicebundle_invoice_totalValueGross").val(totalGross.toFixed(2));
-        
+
         var updatedRemain = 0;
         var paid = $("#getinvoicebundle_invoice_paid").val();
         if (paid == 0) {
-        
-        $("#getinvoicebundle_invoice_remainToPay").val(totalGross.toFixed(2));
+
+            $("#getinvoicebundle_invoice_remainToPay").val(totalGross.toFixed(2));
         } else if (paid > 0) {
             updatedRemain = totalGross - paid;
             
-        $("#getinvoicebundle_invoice_remainToPay").val(updatedRemain.toFixed(2));    
+            $("#getinvoicebundle_invoice_remainToPay").val(updatedRemain.toFixed(2));
         }
     }
     function check() {
@@ -147,5 +153,75 @@ $(document).ready(function () {
             }
         }
     }
-    
+
+    function words() {
+
+        var amount = $("#getinvoicebundle_invoice_remainToPay").val();
+        var ones = ["", " jeden", " dwa", " trzy", " cztery", " pięć", " sześć", " siedem", " osiem", " dziewięć"];
+        var num = ["", " jedenaście", " dwanaście", " trzynaście", " czternaście", " piętnaście", " szesnaście", " siedemnaście", " osiemnaście", " dziewietnaście"];
+        var tens = ["", " dziesięć", " dwadzieścia", " trzydzieści", " czterdzieści", " pięćdziesiąt", " sześćdziesiąt", " siedemdziesiąt", " osiemdziesiąt", " dziewięćdziesiąt"];
+        var hundreds = ["", " sto", " dwieście", " trzysta", " czterysta", " pięćset", " sześćset", " siedemset", " osiemset", " dziewięćset"];
+        var groups = [   
+            ["", "", ""],
+            [" tysiąc", " tysiące", " tysięcy"],
+            [" milion", " miliony", " milionów"],
+            [" miliard", " miliardy", " miliardów"],
+            [" bilion", " biliony", " bilionów"],
+            [" biliard", " biliardy", " biliardów"],
+            [" trylion", " tryliony", " trylionów"]];
+        var cents = '';
+        if ((amount - Math.floor(amount)) > 0) {
+            var gr = (amount - Math.floor(amount));
+
+            var dd = Math.floor((gr.toFixed(2) * 100) / 10);
+            var jj = Math.floor((gr.toFixed(2) * 100) - dd * 10);
+
+            cents = ' i ' + dd + jj + '/100';
+
+        }
+
+        if (!isNaN(amount)) {
+
+            var output = '';
+            var mark = '';
+            if (amount == 0)
+                output = "zero";
+            if (amount < 0) {
+                mark = "minus";
+                amount = amount;
+            }
+
+            var g = 0;
+            while (amount > 0) {
+                var s = Math.floor((amount % 1000) / 100);
+                var n = 0;
+                var d = Math.floor((amount % 100) / 10);
+                var j = Math.floor(amount % 10);
+                if (d == 1 && j > 0) {
+                    n = j;
+                    d = 0;
+                    j = 0;
+                }
+
+                var k = 2;
+                if (j == 1 && s + d + n == 0)
+                    k = 0;
+                if (j == 2 || j == 3 || j == 4)
+                    k = 1;          
+                if (s + d + n + j > 0)
+                    output = hundreds[s] + tens[d] + num[n] + ones[j] + groups[g][k] + output;
+
+                g++;
+
+                amount = Math.floor(amount / 1000);
+
+            }
+            $("#getinvoicebundle_invoice_toPayInWords").val(mark + output+' PLN' + cents);
+        } else {
+            return false;
+        }
+        return false;
+    }
+
+
 });
