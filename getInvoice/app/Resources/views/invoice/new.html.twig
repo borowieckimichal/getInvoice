@@ -54,8 +54,6 @@
             <div class="form-group">
                 {{ form_label(form.sellerAddressStreet, 'Adres sprzedawcy:', { 'label_attr': {'class': 'control-label ; float : left'}}) }}
                 {{ form_widget(form.sellerAddressStreet,{ 'attr': {'class': 'form-control input-sm', 'style' : 'width : 280px' }}) }} 
-                {{ form_widget(form.sellerAddressLocalNo,{ 'attr': {'class': 'form-control input-sm', 'style' : 'width : 80px ; float: left' }}) }} 
-                {{ form_widget(form.sellerAddressFlatNo, { 'attr': {'class': 'form-control input-sm', 'style' : 'width : 80px' }}) }} 
                 {{ form_widget(form.sellerPostalCode, { 'attr': {'class': 'form-control input-sm', 'style' : 'width : 80px; float : left' }}) }}
                 {{ form_widget(form.sellerAddressCity,{ 'attr': {'class': 'form-control input-sm', 'style' : 'width : 80px ; float : left' }}) }}
             </div>
@@ -78,9 +76,7 @@
             </div> 
             <div class="form-group">
                 {{ form_label(form.customerAddressStreet, 'Adres nabywcy:', { 'label_attr': {'class': 'control-label ; float : left'}}) }}
-                {{ form_widget(form.customerAddressStreet,{ 'attr': {'class': 'form-control input-sm', 'style' : 'width : 280px' }}) }} 
-                {{ form_widget(form.customerAddressLocalNo,{ 'attr': {'class': 'form-control input-sm', 'style' : 'width : 80px ; float : left' }}) }}
-                {{ form_widget(form.customerAddressFlatNo,{ 'attr': {'class': 'form-control input-sm', 'style' : 'width : 80px' }}) }} 
+                {{ form_widget(form.customerAddressStreet,{ 'attr': {'class': 'form-control input-sm', 'style' : 'width : 280px' }}) }}              
                 {{ form_widget(form.customerAddressPostalCode,{ 'attr': {'class': 'form-control input-sm', 'style' : 'width : 80px ; float : left' }}) }}
                 {{ form_widget(form.customerAddressCity,{ 'attr': {'class': 'form-control input-sm', 'style' : 'width : 110px ; float : left' }}) }}
             </div> 
@@ -144,8 +140,8 @@
                 {{ form_widget(form.paymentMethod, { 'attr': {'class': 'form-control input-sm', 'style' : 'width : 280px ; float : right'}}) }}
             </div>
             <div class="form-group">             
-                {{ form_label(form.bank, 'Bank:', { 'label_attr': {'class': 'control-label'}}) }}
-                {{ form_widget(form.bank, { 'attr': {'class': 'form-control input-sm', 'style' : 'width : 280px ; float : right'}}) }}
+                {{ form_label(form.currency, 'Waluta:', { 'label_attr': {'class': 'control-label'}}) }}
+                {{ form_widget(form.currency, { 'attr': {'class': 'form-control input-sm', 'style' : 'width : 280px ; float : right'}}) }}
             </div> 
             <div class="form-group">
                 {{ form_label(form.iban, 'Nr rachunku bankowego:', { 'label_attr': {'class': 'control-label'}}) }}
@@ -374,6 +370,7 @@
             allow_add: true,
             allow_remove: true,
             name_prefix: '{{ form.positions.vars.full_name }}',
+            position_field_selector: '.my-position',
             up: '<a href="#" class="btn btn-default"><span class="glyphicon glyphicon-arrow-up"></span></a>',
             down: '<a href="#" class="btn btn-default"><span class="glyphicon glyphicon-arrow-down"></span></a>',
             add: '<a href="#" class="btn btn-default"><span class="glyphicon glyphicon-plus-sign"></span></a>',

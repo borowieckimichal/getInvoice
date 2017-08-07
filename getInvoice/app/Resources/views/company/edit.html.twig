@@ -14,22 +14,10 @@
         </div>    
         <div>
             <p class="text-muted text-left">
-                {{ form_label(edit_form.addressStreet, 'podaj ulicę:', { 'label_attr': {'class': 'control-label'}}) }}
+                {{ form_label(edit_form.addressStreet, 'podaj ulicę i nr lokalu:', { 'label_attr': {'class': 'control-label'}}) }}
                 {{ form_widget(edit_form.addressStreet,{ 'attr': {'class': 'form-control top'}}) }}
             </p>
-        </div>    
-        <div>
-            <p class="text-muted text-left">
-                {{ form_label(edit_form.addressLocalNo, 'podaj nr domu:', { 'label_attr': {'class': 'control-label'}}) }}
-                {{ form_widget(edit_form.addressLocalNo,{ 'attr': {'class': 'form-control top'}}) }}
-            </p>
-        </div>    
-        <div>
-            <p class="text-muted text-left">
-                {{ form_label(edit_form.addressFlatNo, 'podaj nr lokalu:', { 'label_attr': {'class': 'control-label'}}) }}
-                {{ form_widget(edit_form.addressFlatNo,{ 'attr': {'class': 'form-control top'}}) }}
-            </p>
-        </div>    
+        </div>        
         <div>
             <p class="text-muted text-left">
                 {{ form_label(edit_form.addressPostalCode, 'podaj kod pocztowy:', { 'label_attr': {'class': 'control-label'}}) }}

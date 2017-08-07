@@ -47,22 +47,43 @@ class InvoiceController extends Controller
                
         $companyRepo = $this->getDoctrine()->getRepository("getInvoiceBundle:Company");
         $company = $companyRepo->find($customer->getCompany());
-        
+        //Ustawianie klienta i firmy dla faktury i zapisanie jej do bazy
+        //$invoice->setCustomer($customer);
+        //$invoice->setCompany($company);
+        //$em = $this->getDoctrine()->getManager();
+        //$em->persist($invoice);           
+        //$em->flush($invoice);
+        //$invoice->getId();
         //$invoicePosition = new InvoicePosition();
+        //$invoicePosition->setInvoice($invoice->getId());
         $form = $this->createForm('getInvoiceBundle\Form\InvoiceType', $invoice
-                ->setIban($company->getIban())->setSellerName($company->getName())->setSellerAddressStreet($company->getAddressStreet())->setSellerAddressLocalNo($company->getAddressLocalNo())->setSellerAddressFlatNo($company->getAddressFlatNo())
+                ->setIban($company->getIban())->setSellerName($company->getName())->setSellerAddressStreet($company->getAddressStreet())
                 ->setSellerPostalCode($company->getAddressPostalCode())->setSellerAddressCity($company->getAddressCity())->setSellerPhone($company->getPhone())->setSellerNip($company->getNip())
-                ->setCustomerName($customer->getName())->setCustomerAddressStreet($customer->getAddressStreet())->setCustomerAddressLocalNo($customer->getAddressLocalNo())->setCustomerAddressFlatNo($customer->getAddressFlatNo())
+                ->setCustomerName($customer->getName())->setCustomerAddressStreet($customer->getAddressStreet())
                 ->setCustomerAddressPostalCode($customer->getAddressPostalCode())->setCustomerAddressCity($customer->getAddressCity())->setCustomerPhone($customer->getPhone())->setCustomerNip($customer->getNip()));
         $form->handleRequest($request);
         
-        
+            
         if ($form->isSubmitted() && $form->isValid()) {
+            //$invoicePosition = new InvoicePosition();
+            //$invoicePosition->setInvoice($invoice->getId());
+            
+            //$invoice->addPosition($invoice->getId());
+            $invoice->setCustomer($customer);
+            $invoice->setCompany($company);
             $em = $this->getDoctrine()->getManager();
             $em->persist($invoice);
+            //$em->persist($invoicePosition);
             $em->flush($invoice);
 
+            
+            //$invoicePosition = new InvoicePosition();
+            //$invoicePosition->setInvoice();
+            //$em->persist($invoicePosition);
+            $em->flush();
             return $this->redirectToRoute('invoice_show', array('id' => $invoice->getId()));
+            
+           
         }
 
         return $this->render('invoice/new.html.twig', array(

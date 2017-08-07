@@ -32,13 +32,29 @@ class InvoiceType extends AbstractType
                         'zapłacono' => 'zapłacono'
                     ]
                 ])
-                ->add('bank')->add('iban')->add('sellerName')->add('sellerAddressStreet')
-                ->add('sellerAddressLocalNo')->add('sellerAddressFlatNo')->add('sellerPostalCode')
+                ->add('currency', ChoiceType::class,[
+                    'choices' => [
+                        'PLN' => 'PLN',
+                        'EUR' => 'EUR',
+                        'GBP' => 'GBP',
+                        'CHF' => 'CHF',
+                        'USD' => 'USD',
+                        'JPY' => 'JPY',
+                        'NOK' => 'NOK',
+                        'SEK' => 'SEK',
+                        'CZK' => 'CZK',
+                        'UAH' => 'UAH',
+                        'RUB' => 'RUB'
+                    ]
+                ])
+                ->add('iban')->add('sellerName')->add('sellerAddressStreet')
+                ->add('sellerPostalCode')
                 ->add('sellerAddressCity')->add('sellerPhone')->add('sellerNip')->add('customerName')
-                ->add('customerAddressStreet')->add('customerAddressLocalNo')->add('customerAddressFlatNo')
+                ->add('customerAddressStreet')
                 ->add('customerAddressPostalCode')->add('customerAddressCity')->add('customerPhone')
-                ->add('customerNip')->add('totalValueNet')->add('totalAmountVAT')->add('totalValueGross')
-                ->add('paid', 'integer', ['precision' => 2])->add('remainToPay')->add('toPayInWords')->add('authorisedToIssue')->add('allowedToReceive')
+                ->add('customerNip')->add('totalValueNet', 'number', ['precision' => 2])->add('totalAmountVAT', 'number', ['precision' => 2])->add('totalValueGross', 'number', ['precision' =>2])
+                ->add('paid', 'number', ['data' => 0])->add('remainToPay', 'number', ['precision' => 2])->add('toPayInWords')->add('authorisedToIssue', 'text', ['required' => false])
+                ->add('allowedToReceive', 'text', ['required' => false])
                 ->add('positions', CollectionType::class, [
                     'options' => array (
                             'label' => '  ',

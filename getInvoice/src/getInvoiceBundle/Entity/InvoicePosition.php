@@ -38,7 +38,7 @@ class InvoicePosition
     /**
      * @var int
      *
-     * @ORM\Column(name="pkwiu", type="integer")
+     * @ORM\Column(name="pkwiu", type="integer", nullable = true)
      */
     private $pkwiu;
 
@@ -93,7 +93,7 @@ class InvoicePosition
     
     /**
      * @ORM\ManyToOne(targetEntity="Invoice", inversedBy="positions")
-     * @ORM\JoinColumn(name="invoice_id", referencedColumnName="id", onDelete="CASCADE") 
+     * @ORM\JoinColumn(name="invoice_id", referencedColumnName="id", onDelete="CASCADE", nullable=false) 
      */
     private $invoice;
 

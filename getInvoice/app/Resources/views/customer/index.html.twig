@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+    {% extends 'base.html.twig' %}
 
 {% block body %}
     <div id="borderedTable" class="body collapse in">
@@ -21,9 +21,7 @@
                         <tr>
                             <td>{{customer.company.name }} </td>
                             <td>{{ customer.name }}   </td>
-                            <td>{{ customer.addressStreet }},
-                                {{ customer.addressLocalNo }} /
-                                {{ customer.addressFlatNo }},
+                            <td>{{ customer.addressStreet }},                               
                                 {{ customer.addressPostalCode }},
                                 {{ customer.addressCity }}
                             <td>{{ customer.email }}</td>

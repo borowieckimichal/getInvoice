@@ -38,20 +38,6 @@ class Customer {
     /**
      * @var string
      *
-     * @ORM\Column(name="addressLocalNo", type="string", length=255)
-     */
-    private $addressLocalNo;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="addressFlatNo", type="string", length=255)
-     */
-    private $addressFlatNo;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="addressPostalCode", type="string", length=255)
      */
     private $addressPostalCode;
@@ -90,14 +76,14 @@ class Customer {
     private $invoices;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Company", inversedBy="customers")
-     * @ORM\JoinColumn(name="company_id", referencedColumnName="id") 
+     * @ORM\ManyToOne(targetEntity="Company", inversedBy="customers", cascade={"remove"})
+     * @ORM\JoinColumn(name="company_id", referencedColumnName="id", onDelete="CASCADE") 
      */
     private $company;
 
     /**
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="customers")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id") 
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="customers", cascade={"remove"})
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", onDelete="CASCADE") 
      */
     private $user;
 
@@ -150,48 +136,6 @@ class Customer {
      */
     public function getAddressStreet() {
         return $this->addressStreet;
-    }
-
-    /**
-     * Set addressLocalNo
-     *
-     * @param string $addressLocalNo
-     * @return Customer
-     */
-    public function setAddressLocalNo($addressLocalNo) {
-        $this->addressLocalNo = $addressLocalNo;
-
-        return $this;
-    }
-
-    /**
-     * Get addressLocalNo
-     *
-     * @return string 
-     */
-    public function getAddressLocalNo() {
-        return $this->addressLocalNo;
-    }
-
-    /**
-     * Set addressFlatNo
-     *
-     * @param string $addressFlatNo
-     * @return Customer
-     */
-    public function setAddressFlatNo($addressFlatNo) {
-        $this->addressFlatNo = $addressFlatNo;
-
-        return $this;
-    }
-
-    /**
-     * Get addressFlatNo
-     *
-     * @return string 
-     */
-    public function getAddressFlatNo() {
-        return $this->addressFlatNo;
     }
 
     /**

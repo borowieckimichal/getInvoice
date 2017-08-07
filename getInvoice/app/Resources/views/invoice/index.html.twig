@@ -13,20 +13,17 @@
                         <th>Datesale</th>
                         <th>Datepayment</th>
                         <th>Paymentmethod</th>
-                        <th>Bank</th>
+                        <th>Currency</th>
                         <th>Iban</th>
                         <th>Sellername</th>
                         <th>Selleraddressstreet</th>
-                        <th>Selleraddresslocalno</th>
-                        <th>Selleraddressflatno</th>
+                        
                         <th>Sellerpostalcode</th>
                         <th>Selleraddresscity</th>
                         <th>Sellerphone</th>
                         <th>Sellernip</th>
                         <th>Customername</th>
-                        <th>Customeraddressstreet</th>
-                        <th>Customeraddresslocalno</th>
-                        <th>Customeraddressflatno</th>
+                        <th>Customeraddressstreet</th>                      
                         <th>Customeraddresspostalcode</th>
                         <th>Customeraddresscity</th>
                         <th>Customerphone</th>
@@ -51,20 +48,16 @@
                             <td>{% if invoice.dateSale %}{{ invoice.dateSale|date('Y-m-d') }}{% endif %}</td>
                             <td>{% if invoice.datePayment %}{{ invoice.datePayment|date('Y-m-d') }}{% endif %}</td>
                             <td>{{ invoice.paymentMethod }}</td>
-                            <td>{{ invoice.bank }}</td>
+                            <td>{{ invoice.currency }}</td>
                             <td>{{ invoice.iban }}</td>
                             <td>{{ invoice.sellerName }}</td>
                             <td>{{ invoice.sellerAddressStreet }}</td>
-                            <td>{{ invoice.sellerAddressLocalNo }}</td>
-                            <td>{{ invoice.sellerAddressFlatNo }}</td>
                             <td>{{ invoice.sellerPostalCode }}</td>
                             <td>{{ invoice.sellerAddressCity }}</td>
                             <td>{{ invoice.sellerPhone }}</td>
                             <td>{{ invoice.sellerNip }}</td>
                             <td>{{ invoice.customerName }}</td>
-                            <td>{{ invoice.customerAddressStreet }}</td>
-                            <td>{{ invoice.customerAddressLocalNo }}</td>
-                            <td>{{ invoice.customerAddressFlatNo }}</td>
+                            <td>{{ invoice.customerAddressStreet }}</td>                      
                             <td>{{ invoice.customerAddressPostalCode }}</td>
                             <td>{{ invoice.customerAddressCity }}</td>
                             <td>{{ invoice.customerPhone }}</td>
@@ -94,7 +87,7 @@
 
             <ul>
                 <li>
-                    <a href="{{ path('invoice_new') }}">Create a new invoice</a>
+                    <a href="{{ path('invoice_new', {'id' : customer.id }) }}">Create a new invoice</a> 
                 </li>
             </ul>
         </div>

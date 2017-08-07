@@ -2,6 +2,7 @@
 
 namespace getInvoiceBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -59,9 +60,9 @@ class Invoice
     /**
      * @var string
      *
-     * @ORM\Column(name="bank", type="string", length=255)
+     * @ORM\Column(name="currency", type="string", length=255)
      */
-    private $bank;
+    private $currency;
 
     /**
      * @var string
@@ -87,20 +88,6 @@ class Invoice
     /**
      * @var string
      *
-     * @ORM\Column(name="sellerAddressLocalNo", type="string", length=255)
-     */
-    private $sellerAddressLocalNo;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="sellerAddressFlatNo", type="string", length=255)
-     */
-    private $sellerAddressFlatNo;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="sellerPostalCode", type="string", length=255)
      */
     private $sellerPostalCode;
@@ -122,7 +109,7 @@ class Invoice
     /**
      * @var string
      *
-     * @ORM\Column(name="sellerNip", type="string", unique=true)
+     * @ORM\Column(name="sellerNip", type="string")
      */
     private $sellerNip;
 
@@ -139,20 +126,6 @@ class Invoice
      * @ORM\Column(name="customerAddressStreet", type="string")
      */
     private $customerAddressStreet;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="customerAddressLocalNo", type="string", length=255)
-     */
-    private $customerAddressLocalNo;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="customerAddressFlatNo", type="string", length=255)
-     */
-    private $customerAddressFlatNo;
 
     /**
      * @var string
@@ -178,7 +151,7 @@ class Invoice
     /**
      * @var string
      *
-     * @ORM\Column(name="customerNip", type="string", length=255, unique=true)
+     * @ORM\Column(name="customerNip", type="string", length=255)
      */
     private $customerNip;
 
@@ -213,7 +186,7 @@ class Invoice
     /**
      * @var int
      *
-     * @ORM\Column(name="remainToPay", type="integer")
+     * @ORM\Column(name="remainToPay", type="integer", nullable=true)
      */
     private $remainToPay;
 
@@ -227,14 +200,14 @@ class Invoice
     /**
      * @var string
      *
-     * @ORM\Column(name="authorisedToIssue", type="string", length=255)
+     * @ORM\Column(name="authorisedToIssue", type="string", length=255, nullable=true)
      */
     private $authorisedToIssue;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="allowedToReceive", type="string", length=255)
+     * @ORM\Column(name="allowedToReceive", type="string", length=255, nullable=true)
      */
     private $allowedToReceive;
     
@@ -381,26 +354,26 @@ class Invoice
     }
 
     /**
-     * Set bank
+     * Set currency
      *
-     * @param string $bank
+     * @param string $currency
      * @return Invoice
      */
-    public function setBank($bank)
+    public function setCurrency($currency)
     {
-        $this->bank = $bank;
+        $this->currency = $currency;
 
         return $this;
     }
 
     /**
-     * Get bank
+     * Get currency
      *
      * @return string 
      */
-    public function getBank()
+    public function getCurrency()
     {
-        return $this->bank;
+        return $this->currency;
     }
 
     /**
@@ -472,51 +445,6 @@ class Invoice
         return $this->sellerAddressStreet;
     }
 
-    /**
-     * Set sellerAddressLocalNo
-     *
-     * @param integer $sellerAddressLocalNo
-     * @return Invoice
-     */
-    public function setSellerAddressLocalNo($sellerAddressLocalNo)
-    {
-        $this->sellerAddressLocalNo = $sellerAddressLocalNo;
-
-        return $this;
-    }
-
-    /**
-     * Get sellerAddressLocalNo
-     *
-     * @return integer 
-     */
-    public function getSellerAddressLocalNo()
-    {
-        return $this->sellerAddressLocalNo;
-    }
-
-    /**
-     * Set sellerAddressFlatNo
-     *
-     * @param integer $sellerAddressFlatNo
-     * @return Invoice
-     */
-    public function setSellerAddressFlatNo($sellerAddressFlatNo)
-    {
-        $this->sellerAddressFlatNo = $sellerAddressFlatNo;
-
-        return $this;
-    }
-
-    /**
-     * Get sellerAddressFlatNo
-     *
-     * @return integer 
-     */
-    public function getSellerAddressFlatNo()
-    {
-        return $this->sellerAddressFlatNo;
-    }
 
     /**
      * Set sellerPostalCode
@@ -654,52 +582,6 @@ class Invoice
     public function getCustomerAddressStreet()
     {
         return $this->customerAddressStreet;
-    }
-
-    /**
-     * Set customerAddressLocalNo
-     *
-     * @param integer $customerAddressLocalNo
-     * @return Invoice
-     */
-    public function setCustomerAddressLocalNo($customerAddressLocalNo)
-    {
-        $this->customerAddressLocalNo = $customerAddressLocalNo;
-
-        return $this;
-    }
-
-    /**
-     * Get customerAddressLocalNo
-     *
-     * @return integer 
-     */
-    public function getCustomerAddressLocalNo()
-    {
-        return $this->customerAddressLocalNo;
-    }
-
-    /**
-     * Set customerAddressFlatNo
-     *
-     * @param integer $customerAddressFlatNo
-     * @return Invoice
-     */
-    public function setCustomerAddressFlatNo($customerAddressFlatNo)
-    {
-        $this->customerAddressFlatNo = $customerAddressFlatNo;
-
-        return $this;
-    }
-
-    /**
-     * Get customerAddressFlatNo
-     *
-     * @return integer 
-     */
-    public function getCustomerAddressFlatNo()
-    {
-        return $this->customerAddressFlatNo;
     }
 
     /**
@@ -1039,6 +921,7 @@ class Invoice
      */
     public function addPosition(\getInvoiceBundle\Entity\InvoicePosition $positions)
     {
+        //$positions->setInvoice($this);
         $this->positions[] = $positions;
 
         return $this;

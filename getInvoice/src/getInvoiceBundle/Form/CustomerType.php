@@ -13,7 +13,7 @@ class CustomerType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('name', 'text')->add('addressStreet', 'text')->add('addressLocalNo', 'text')->add('addressFlatNo', 'text')->add('addressPostalCode', 'text')->add('addressCity', 'text')->add('email', 'email')->add('phone', 'integer')->add('nip', 'integer')        ;
+        $builder->add('name', 'text')->add('addressStreet', 'text')->add('addressPostalCode', 'text')->add('addressCity', 'text')->add('email', 'email')->add('phone', 'integer')->add('nip', 'integer')        ;
     }
     
     /**

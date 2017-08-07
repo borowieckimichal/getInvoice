@@ -14,25 +14,13 @@
         </div>  
         <div>
             <p class="text-muted text-left">  
-                {{ form_label(form.addressStreet, 'podaj ulicę:', { 'label_attr': {'class': 'control-label'}}) }}               
+                {{ form_label(form.addressStreet, 'podaj ulicę i nr lokalu:', { 'label_attr': {'class': 'control-label'}}) }}               
                 {{ form_widget(form.addressStreet,{ 'attr': {'class': 'form-control top'}}) }}  
             </p>   
         </div>    
         <div>
             <p class="text-muted text-left">  
-                {{ form_label(form.addressLocalNo, 'podaj nr domu:', { 'label_attr': {'class': 'control-label'}}) }}
-                {{ form_widget(form.addressLocalNo,{ 'attr': {'class': 'form-control top'}}) }}  
-            </p>   
-        </div>    
-        <div>
-            <p class="text-muted text-left">  
-                {{ form_label(form.addressFlatNo, 'podaj nr lokalu:', { 'label_attr': {'class': 'control-label'}}) }}
-                {{ form_widget(form.addressFlatNo,{ 'attr': {'class': 'form-control top'}}) }}  
-            </p>   
-        </div> 
-        <div>
-            <p class="text-muted text-left">  
-                {{ form_label(form.addressFlatNo, 'podaj kod pocztowy:', { 'label_attr': {'class': 'control-label'}}) }}
+                {{ form_label(form.addressPostalCode, 'podaj kod pocztowy:', { 'label_attr': {'class': 'control-label'}}) }}
                 {{ form_widget(form.addressPostalCode,{ 'attr': {'class': 'form-control top'}}) }}  
             </p>   
         </div> 

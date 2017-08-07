@@ -12,4 +12,11 @@ use Doctrine\ORM\EntityRepository;
  */
 class InvoiceRepository extends EntityRepository
 {
+        public function getAllInvoicesByIssueDateAscending($user) {
+        
+        $em = $this->getEntityManager();
+        
+        $query = $em->createQuery(
+                "SELECT p FROM getInvoiceBundle:Invoice");
+    }
 }

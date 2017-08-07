@@ -216,7 +216,8 @@ $(document).ready(function () {
                 amount = Math.floor(amount / 1000);
 
             }
-            $("#getinvoicebundle_invoice_toPayInWords").val(mark + output+' PLN' + cents);
+            var currency = $("#getinvoicebundle_invoice_currency").val();
+            $("#getinvoicebundle_invoice_toPayInWords").val(mark + output+' '+currency + cents);
         } else {
             return false;
         }

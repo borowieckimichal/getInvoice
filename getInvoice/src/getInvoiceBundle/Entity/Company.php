@@ -39,20 +39,6 @@ class Company {
     /**
      * @var string
      *
-     * @ORM\Column(name="addressLocalNo", type="string", length=255)
-     */
-    private $addressLocalNo;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="addressFlatNo", type="string", length=255)
-     */
-    private $addressFlatNo;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="addressPostalCode", type="string", length=255)
      */
     private $addressPostalCode;
@@ -170,48 +156,6 @@ class Company {
      */
     public function getAddressStreet() {
         return $this->addressStreet;
-    }
-
-    /**
-     * Set addressLocalNo
-     *
-     * @param string $addressLocalNo
-     * @return Company
-     */
-    public function setAddressLocalNo($addressLocalNo) {
-        $this->addressLocalNo = $addressLocalNo;
-
-        return $this;
-    }
-
-    /**
-     * Get addressLocalNo
-     *
-     * @return string 
-     */
-    public function getAddressLocalNo() {
-        return $this->addressLocalNo;
-    }
-
-    /**
-     * Set addressFlatNo
-     *
-     * @param string $addressFlatNo
-     * @return Company
-     */
-    public function setAddressFlatNo($addressFlatNo) {
-        $this->addressFlatNo = $addressFlatNo;
-
-        return $this;
-    }
-
-    /**
-     * Get addressFlatNo
-     *
-     * @return string 
-     */
-    public function getAddressFlatNo() {
-        return $this->addressFlatNo;
     }
 
     /**
