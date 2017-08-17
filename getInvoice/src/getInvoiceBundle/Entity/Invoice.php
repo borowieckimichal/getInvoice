@@ -4,6 +4,7 @@ namespace getInvoiceBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Invoice
@@ -158,35 +159,35 @@ class Invoice
     /**
      * @var int
      *
-     * @ORM\Column(name="totalValueNet", type="integer")
+     * @ORM\Column(name="totalValueNet", type="decimal", precision=10,  scale=2)
      */
     private $totalValueNet;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="totalAmountVAT", type="integer")
+     * @ORM\Column(name="totalAmountVAT", type="decimal", precision=10, scale=2)
      */
     private $totalAmountVAT;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="totalValueGross", type="integer")
+     * @ORM\Column(name="totalValueGross", type="decimal", precision=10, scale=2)
      */
     private $totalValueGross;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="paid", type="integer")
+     * @ORM\Column(name="paid", type="decimal", precision=10, scale=2, nullable=true)
      */
     private $paid;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="remainToPay", type="integer", nullable=true)
+     * @ORM\Column(name="remainToPay", type="decimal", precision=10, scale=2, nullable=true)
      */
     private $remainToPay;
 
@@ -210,6 +211,19 @@ class Invoice
      * @ORM\Column(name="allowedToReceive", type="string", length=255, nullable=true)
      */
     private $allowedToReceive;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="invoiceLogo", type="string", nullable = true)
+     * 
+     * @Assert\Image(
+     *      mimeTypes={ "image/jpg","image/jpeg", "image/png", "image/gif"}),
+     *      mimeTypesMessage = "only image file",
+     * ) 
+     */
+    
+    private $invoiceLogo;
     
     /**
      * @ORM\ManyToOne(targetEntity="Company", inversedBy="invoices")
@@ -945,5 +959,28 @@ class Invoice
     public function getPositions()
     {
         return $this->positions;
+    }
+
+    /**
+     * Set invoiceLogo
+     *
+     * @param string $invoiceLogo
+     * @return Invoice
+     */
+    public function setInvoiceLogo($invoiceLogo)
+    {
+        $this->invoiceLogo = $invoiceLogo;
+
+        return $this;
+    }
+
+    /**
+     * Get invoiceLogo
+     *
+     * @return string 
+     */
+    public function getInvoiceLogo()
+    {
+        return $this->invoiceLogo;
     }
 }

@@ -83,12 +83,8 @@ class InvoicePositionType extends AbstractType {
                         'class' => 'form-control',
                         'style' => 'width : 110px; float : left',
                         'placeholder' => 'kwota brutto'
-            ]])
-                ->add('invoice', HiddenType::class, [
-                    'data_class'  => (new Invoice())->getId()
-                ] 
-                    
-        );
+            ]]);
+
     }
 
     /**

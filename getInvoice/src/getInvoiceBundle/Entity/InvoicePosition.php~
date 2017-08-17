@@ -45,7 +45,7 @@ class InvoicePosition
     /**
      * @var int
      *
-     * @ORM\Column(name="quantity", type="integer")
+     * @ORM\Column(name="quantity", type="decimal", precision=10, scale=2)
      */
     private $quantity;
 
@@ -59,48 +59,43 @@ class InvoicePosition
     /**
      * @var int
      *
-     * @ORM\Column(name="priceNet", type="integer")
+     * @ORM\Column(name="priceNet", type="decimal", precision=10, scale=2)
      */
     private $priceNet;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="valueNet", type="integer")
+     * @ORM\Column(name="valueNet", type="decimal", precision=10, scale=2)
      */
     private $valueNet;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="rateVAT", type="integer")
+     * @ORM\Column(name="rateVAT", type="decimal", precision=10, scale=2)
      */
     private $rateVAT;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="amountVAT", type="integer")
+     * @ORM\Column(name="amountVAT", type="decimal", precision=10, scale=2)
      */
     private $amountVAT;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="valueGross", type="integer")
+     * @ORM\Column(name="valueGross", type="decimal", precision=10, scale=2)
      */
     private $valueGross;
     
     /**
      * @ORM\ManyToOne(targetEntity="Invoice", inversedBy="positions")
-     * @ORM\JoinColumn(name="invoice_id", referencedColumnName="id", onDelete="CASCADE") 
+     * @ORM\JoinColumn(name="invoice_id", referencedColumnName="id", onDelete="CASCADE", nullable=true) 
      */
     private $invoice;
-
-    /**
-     * @ORM\Column(name="position", type="integer")
-     */
-    private $position;
 
     /**
      * Get id
