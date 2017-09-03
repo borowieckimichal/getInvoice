@@ -1,12 +1,12 @@
 $(document).ready(function () {
 
-    $("div.row").change(function () {
+    $("div.row").mousemove(function () {
         sum();
         multi();
         check();
         words();
     });
-    $(":root").click(function () {
+    $(":root").mousemove(function () {
         sum();
         multi();
         check();

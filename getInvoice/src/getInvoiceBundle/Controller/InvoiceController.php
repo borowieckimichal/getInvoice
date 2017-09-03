@@ -3,11 +3,12 @@
 namespace getInvoiceBundle\Controller;
 
 use getInvoiceBundle\Entity\Invoice;
-use getInvoiceBundle\Entity\InvoicePosition;
+use getInvoiceBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Invoice controller.
@@ -24,12 +25,30 @@ class InvoiceController extends Controller {
      */
     public function indexAction() {
         $em = $this->getDoctrine()->getManager();
-
+        $customerRepo = $this->getDoctrine()->getRepository('getInvoiceBundle:Customer');
+        $companyRepo = $this->getDoctrine()->getRepository('getInvoiceBundle:Company');
+        $user = $this->container
+                ->get('security.context')
+                ->getToken()
+                ->getUser();
+        $user->getId();
         $invoices = $em->getRepository('getInvoiceBundle:Invoice')->findAll();
+        foreach ($invoices as $invoice) {
+            $deleteForm = $this->createDeleteForm($invoice);
+        }
 
-        return $this->render('invoice/index.html.twig', array(
-                    'invoices' => $invoices,
-        ));
+
+        if ($user instanceof User) {
+            $customers = $customerRepo->getAllCustomersByUserId($user);
+            $companies = $companyRepo->findByUser($user);
+            return $this->render('invoice/index.html.twig', array(
+                        'invoices' => $invoices,
+                        'customers' => $customers,
+                        'companies' => $companies,
+                        'delete_form' => $deleteForm->createView(),
+            ));
+        }
+        return $this->redirectToRoute("getinvoice_default_index");
     }
 
     /**
@@ -48,7 +67,7 @@ class InvoiceController extends Controller {
 
         $form = $this->createForm('getInvoiceBundle\Form\InvoiceType', $invoice
                         ->setIban($company->getIban())->setSellerName($company->getName())->setSellerAddressStreet($company->getAddressStreet())
-                        ->setSellerPostalCode($company->getAddressPostalCode())->setSellerAddressCity($company->getAddressCity())->setSellerPhone($company->getPhone())->setSellerNip($company->getNip())
+                        ->setInvoiceLogo($company->getCompanyLogo())->setSellerPostalCode($company->getAddressPostalCode())->setSellerAddressCity($company->getAddressCity())->setSellerPhone($company->getPhone())->setSellerNip($company->getNip())
                         ->setCustomerName($customer->getName())->setCustomerAddressStreet($customer->getAddressStreet())
                         ->setCustomerAddressPostalCode($customer->getAddressPostalCode())->setCustomerAddressCity($customer->getAddressCity())->setCustomerPhone($customer->getPhone())->setCustomerNip($customer->getNip()));
         $form->handleRequest($request);
@@ -85,7 +104,7 @@ class InvoiceController extends Controller {
      */
     public function showAction(Invoice $invoice) {
         $deleteForm = $this->createDeleteForm($invoice);
-        
+
         return $this->render('invoice/show.html.twig', array(
                     'invoice' => $invoice,
                     'delete_form' => $deleteForm->createView(),
@@ -148,6 +167,27 @@ class InvoiceController extends Controller {
                         ->setMethod('DELETE')
                         ->getForm()
         ;
+    }
+
+    /**
+     * Export to PDF
+     * 
+     * @Route("/{id}/pdf", name="invoice_pdf")
+     * @Method({"GET", "POST"})
+     */
+    public function pdfAction(Invoice $invoice) {
+        $deleteForm = $this->createDeleteForm($invoice);
+        $html = $this->renderView('invoice/pdf.html.twig', 
+                array('invoice' => $invoice,
+                      'delete_form' => $deleteForm->createView(),
+        ));
+
+        return new Response(
+            $this->get('knp_snappy.pdf')->getOutputFromHtml($html), 200, array(
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'attachment; filename="faktura.pdf"'
+                )
+        );
     }
 
 }

@@ -5,3 +5,7 @@ get_invoice:
 
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+
+invoice_folder:
+    defaults: { _controller: getInvoiceBundle:Invoice:pdf }
+    path: /pdf

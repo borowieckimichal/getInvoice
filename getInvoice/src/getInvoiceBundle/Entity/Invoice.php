@@ -216,11 +216,7 @@ class Invoice
      * @var string
      *
      * @ORM\Column(name="invoiceLogo", type="string", nullable = true)
-     * 
-     * @Assert\Image(
-     *      mimeTypes={ "image/jpg","image/jpeg", "image/png", "image/gif"}),
-     *      mimeTypesMessage = "only image file",
-     * ) 
+     *  
      */
     
     private $invoiceLogo;

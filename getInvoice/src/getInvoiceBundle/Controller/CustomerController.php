@@ -9,7 +9,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use getInvoiceBundle\Entity\User;
 
-
 /**
  * Customer controller.
  *
@@ -25,7 +24,7 @@ class CustomerController extends Controller {
      */
     public function indexAction() {
         $repo = $this->getDoctrine()->getRepository('getInvoiceBundle:Customer');
-
+        $repoCompany = $this->getDoctrine()->getRepository('getInvoiceBundle:Company');
         $user = $this->container
                 ->get('security.context')
                 ->getToken()
@@ -34,10 +33,10 @@ class CustomerController extends Controller {
 
         if ($user instanceof User) {
             $customers = $repo->getAllCustomersByUserId($user);
-           
+            $companies = $repoCompany->findByUser($user);
             return $this->render('customer/index.html.twig', array(
                         'customers' => $customers,
-                        
+                        'companies' => $companies
             ));
         }
         return $this->redirectToRoute("getinvoice_default_index");
@@ -54,7 +53,7 @@ class CustomerController extends Controller {
         $companyRepo = $this->getDoctrine()->getRepository("getInvoiceBundle:Company");
         $company = $companyRepo->find($id);
         $customer->setCompany($company);
-        
+
         $form = $this->createForm('getInvoiceBundle\Form\CustomerType', $customer);
         $form->handleRequest($request);
 
@@ -64,7 +63,7 @@ class CustomerController extends Controller {
                     ->getToken()
                     ->getUser();
             $user->getId();
-            
+
             $customer = $form->getData();
             $customer->setUser($user);
             $em = $this->getDoctrine()->getManager();

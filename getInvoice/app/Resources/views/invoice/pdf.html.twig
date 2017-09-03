@@ -1,94 +1,86 @@
-{% extends 'base.html.twig' %}
+{#{% extends 'base.html.twig' %}#}
 
 
-{% block extra_js %}
-    <script src="{{ asset('bundles/fuzapp/js/collection/jquery.collection.js') }}"></script>
+{% block pdf %}
+    <div class="text-muted text-center">           
+        <b>Faktura Nr</b>
+        {{ invoice.invoiceNo }}           
+    </div>
+    <div class="row">    
 
-{% endblock %}
-{% block body %}
-    <h3>Edycja danych faktury</h3>
-    {% form_theme edit_form ':invoice:jquery.collection.html.twig' %}
-
-    {{ form_start(edit_form) }}
-
-    <div class="text-muted text-center">
-        {{ form_label(edit_form.invoiceNo, 'Faktura nr:', { 'label_attr': {'class': 'control-label'}}) }}
-        {{ form_widget(edit_form.invoiceNo, { 'attr': {'class': 'form-control input-sm text-center', 'style' : 'width : 120px ; margin : auto'}}) }}
-    </div>    
-    <div class="row">
         <div class="col-md-6">
             <div class="text-muted text-left">
                 {% if invoice.invoiceLogo ends with 'b/d' or invoice.invoiceLogo is null%}
 
                 {% else %}
-                    <img src="{{ asset('uploads/logos/')}}{{invoice.invoiceLogo}}"
+                    <img src="{{ absolute_url(asset('uploads/logos/'))}}{{invoice.invoiceLogo}}"
                          height="150" width="150">
                 {% endif %}
             </div>           
         </div>
+
+
         <div class="col-md-6">
-            <div class="form-group text-muted text-right">
-                {{ form_label(edit_form.dateIssue, 'Data wystawienia:', { 'label_attr': {'class': 'control-label'}}) }}
-                {{ form_widget(edit_form.dateIssue, { 'attr' : {'class': 'form-control col-md-3', 'id' : 'date2', 'type' : 'date', 'name' : 'date2'}}) }}   
+            <div class="form-group text-muted text-right">                
+                <b>Data wystawienia:</b> 
+                {% if invoice.dateIssue %}{{ invoice.dateIssue|date('Y-m-d') }}{% endif %}            
             </div>
             <div class="form-group text-muted text-right">
-                {{ form_label(edit_form.dateSale, 'Data sprzedaży:', { 'label_attr': {'class': 'control-label'}}) }}
-                {{ form_widget(edit_form.dateSale, {'attr' : {'class' : 'form-control','id': 'date2', 'type' : 'date', 'name' : 'date2'}}) }}
+                <b>Data sprzedaży:</b>
+                {% if invoice.dateSale %}{{ invoice.dateSale|date('Y-m-d') }}{% endif %}
             </div>
             <div class="form-group text-muted text-right">
-                {{ form_label(edit_form.datePayment, 'Termin płatności:', { 'label_attr': {'class': 'control-label'}}) }}
-                {{ form_widget(edit_form.datePayment,{'attr' : {'class' : 'form-control','id': 'date2', 'type' : 'date', 'name' : 'date2'}}) }}
-            </div> 
+                <b>Data płatności:</b>
+                {% if invoice.datePayment %}{{ invoice.datePayment|date('Y-m-d') }}{% endif %}
+            </div>
         </div>
     </div>
     <div class="form-group">
         &nbsp;
     </div>
-    <hr>
-    <div class="row">
+    <hr>            
+    <div class="row"> 
         <div class="col-md-5">
             <div class="form-group">
-                {{ form_label(edit_form.sellerName, 'Nazwa sprzedawcy:', { 'label_attr': {'class': 'control-label'}}) }}
-                {{ form_widget(edit_form.sellerName, { 'attr': {'class': 'form-control input-sm', 'style' : 'width : 260px ; float : right'}}) }}
+                <b>Nazwa sprzedawcy:</b>
+                {{ invoice.sellerName }}                    
+            </div>
+            <div class="form-group">       
+                <b>Adres sprzedawcy:</b><br>
+                {{ invoice.sellerAddressStreet }}<br>
+                {{ invoice.sellerPostalCode }}
+                {{ invoice.sellerAddressCity }}                              
             </div>
             <div class="form-group">
-                {{ form_label(edit_form.sellerAddressStreet, 'Adres sprzedawcy:', { 'label_attr': {'class': 'control-label ; float : left'}}) }}
-                {{ form_widget(edit_form.sellerAddressStreet,{ 'attr': {'class': 'form-control input-sm', 'style' : 'width : 280px' }}) }} 
-                {{ form_widget(edit_form.sellerPostalCode, { 'attr': {'class': 'form-control input-sm', 'style' : 'width : 80px; float : left' }}) }}
-                {{ form_widget(edit_form.sellerAddressCity,{ 'attr': {'class': 'form-control input-sm', 'style' : 'width : 80px ; float : left' }}) }}
-            </div>
-            <br>
-            <div class="form-group">
-                {{ form_label(edit_form.sellerPhone, 'Telefon sprzedawcy:', { 'label_attr': {'class': 'control-label'}}) }}
-                {{ form_widget(edit_form.sellerPhone, { 'attr': {'class': 'form-control input-sm', 'style' : 'width : 120px ; float : right' }}) }}
+                <b>Telefon sprzedawcy:</b>
+                {{ invoice.sellerPhone }}                              
             </div>
             <div class="form-group">
-                {{ form_label(edit_form.sellerNip, 'NIP sprzedawcy:', { 'label_attr': {'class': 'control-label'}}) }}
-                {{ form_widget(edit_form.sellerNip, { 'attr': {'class': 'form-control input-sm', 'style' : 'width : 120px ; float : right' }}) }}
-            </div>
+                <b>NIP sprzedawcy:</b>
+                {{ invoice.sellerNip }}                     
+            </div>           
         </div>
-        <div class="col-md-2">
+        <div class="col-md-2">           
         </div>
         <div class="col-md-5">
             <div class="form-group">
-                {{ form_label(edit_form.customerName, 'Nazwa nabywcy:', { 'label_attr': {'class': 'control-label'}}) }}
-                {{ form_widget(edit_form.customerName, { 'attr': {'class': 'form-control input-sm', 'style' : 'width : 260px ; float : right'}}) }}
-            </div> 
-            <div class="form-group">
-                {{ form_label(edit_form.customerAddressStreet, 'Adres nabywcy:', { 'label_attr': {'class': 'control-label ; float : left'}}) }}
-                {{ form_widget(edit_form.customerAddressStreet,{ 'attr': {'class': 'form-control input-sm', 'style' : 'width : 280px' }}) }}              
-                {{ form_widget(edit_form.customerAddressPostalCode,{ 'attr': {'class': 'form-control input-sm', 'style' : 'width : 80px ; float : left' }}) }}
-                {{ form_widget(edit_form.customerAddressCity,{ 'attr': {'class': 'form-control input-sm', 'style' : 'width : 110px ; float : left' }}) }}
-            </div> 
-            <br>
-            <div class="form-group">
-                {{ form_label(edit_form.customerPhone, 'Telefon nabywcy:', { 'label_attr': {'class': 'control-label'}}) }}
-                {{ form_widget(edit_form.customerPhone, { 'attr': {'class': 'form-control input-sm', 'style' : 'width : 120px ; float : right' }}) }}
+                <b>Nazwa nabywcy:</b>
+                {{ invoice.customerName }}                      
             </div>
             <div class="form-group">
-                {{ form_label(edit_form.customerNip, 'NIP nabywcy:', { 'label_attr': {'class': 'control-label'}}) }}
-                {{ form_widget(edit_form.customerNip, { 'attr': {'class': 'form-control input-sm', 'style' : 'width : 120px ; float : right' }}) }}
+                <b>Adres nabywcy:</b><br>
+                {{ invoice.customerAddressStreet }}<br>
+                {{ invoice.customerAddressPostalCode }}
+                {{ invoice.customerAddressCity }}                    
             </div>
+            <div class="form-group">
+                <b>Telefon nabywcy:</b>
+                {{ invoice.customerPhone }}                    
+            </div>
+            <div class="form-group">
+                <b>NIP nabywcy:</b>
+                {{ invoice.customerNip }}                     
+            </div>           
         </div>
     </div>
     <hr>
@@ -125,39 +117,85 @@
                 <th width="120px" float="left">
                     kwota brutto
                 </th>
-            </table>
-            <div id="form-test">
-                {{ form_widget(edit_form.positions) }}
-            </div>
+
+                <div id="form-test">
+                   
+                       
+                   
+                    
+                    
+                    {% for positions in invoice.positions %}
+                  {#  {% for i in 0..5%}#}    
+                        <tr>
+                      
+                        
+                            <td> 
+                                <input class="form-control input-sm" value="{{ positions.ordinal }}" readonly="readonly">
+                            </td>
+                            <td> 
+                                <input class="form-control input-sm" value="{{ positions.productName }}" readonly="readonly"> 
+                            </td>
+                            <td> 
+                                <input class="form-control input-sm"value="{{ positions.pkwiu }}" readonly="readonly"> 
+                            </td>               
+                            <td> 
+                                <input class="form-control input-sm" id="getinvoicebundle_invoice_positions_{{positions.ordinal}}_quantity" value="{{ positions.quantity }}" readonly="readonly"> 
+                            </td>
+                            <td> 
+                                <input class="form-control input-sm" value="{{ positions.unitMeasure }}" readonly="readonly"> 
+                            </td>
+                            <td> 
+                                <input class="form-control input-sm" id="getinvoicebundle_invoice_positions_{{positions.ordinal}}_priceNet" value="{{ positions.priceNet }}" readonly="readonly"> 
+                            </td>
+                            <td> 
+                                <input class="form-control input-sm" id="getinvoicebundle_invoice_positions_{{positions.ordinal}}_valueNet" value="{{ positions.valueNet }}" readonly="readonly"> 
+                            </td>
+                            <td> 
+                                <input class="form-control input-sm" id="getinvoicebundle_invoice_positions_{{positions.ordinal}}_rateVAT" value="{{ positions.rateVat }}" readonly="readonly">
+                            </td>
+                            <td> 
+                                <input class="form-control input-sm" id="getinvoicebundle_invoice_positions_{{positions.ordinal}}_amountVAT" value="{{ positions.amountVat }}" readonly="readonly"> 
+                            </td>
+                            <td> 
+                                <input class="form-control input-sm" id="getinvoicebundle_invoice_positions_{{positions.ordinal}}_valueGross" value="{{ positions.valueGross }}" readonly="readonly"> 
+                            </td>
+                        
+                        
+                        
+                    </tr>
+                        <br>
+                    {% endfor %}
+                    </table>   
+                </div>
         </div> 
-    </div>
-    <hr>            
+    </div>           
+    <hr>
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
-                {{ form_label(edit_form.paymentMethod, 'Sposób płatności:', { 'label_attr': {'class': 'control-label'}}) }}
-                {{ form_widget(edit_form.paymentMethod, { 'attr': {'class': 'form-control input-sm', 'style' : 'width : 280px ; float : right'}}) }}
-            </div>
-            <div class="form-group">             
-                {{ form_label(edit_form.currency, 'Waluta:', { 'label_attr': {'class': 'control-label'}}) }}
-                {{ form_widget(edit_form.currency, { 'attr': {'class': 'form-control input-sm', 'style' : 'width : 280px ; float : right'}}) }}
-            </div> 
-            <div class="form-group">
-                {{ form_label(edit_form.iban, 'Nr rachunku bankowego:', { 'label_attr': {'class': 'control-label'}}) }}
-                {{ form_widget(edit_form.iban, { 'attr': {'class': 'form-control input-sm', 'style' : 'width : 280px ; float : right'}}) }}
+                <b>Sposób płatności:</b>
+                {{ invoice.paymentMethod }}              
             </div>
             <div class="form-group">
-                {{ form_label(edit_form.paid, 'zapłacono:', { 'label_attr': {'class': 'control-label'}}) }}
-                {{ form_widget(edit_form.paid, { 'attr': {'class': 'form-control input-sm', 'style' : 'width : 280px ; float : right'}}) }}
-            </div>    
+                <b>Waluta:</b>
+                {{ invoice.currency }}                
+            </div>
             <div class="form-group">
-                {{ form_label(edit_form.remainToPay, 'pozostaje do zapłaty:', { 'label_attr': {'class': 'control-label'}}) }}
-                {{ form_widget(edit_form.remainToPay, { 'attr': {'class': 'form-control input-sm', 'style' : 'width : 280px ; float : right'}}) }}
-            </div>    
+                <b>Nr rachunku bankowego:</b>
+                {{ invoice.iban }}        
+            </div>
             <div class="form-group">
-                {{ form_label(edit_form.toPayInWords, 'do zapłaty słownie:', { 'label_attr': {'class': 'control-label'}}) }}
-                {{ form_widget(edit_form.toPayInWords, { 'attr': {'class': 'form-control input-sm', 'style' : 'width : 100% ; float : right'}}) }}
-            </div>  
+                <b>zapłacono:</b>
+                {{ invoice.paid }}              
+            </div>
+            <div class="form-group">
+                <b>pozostaje do zapłaty:</b>
+                {{ invoice.remainToPay }}               
+            </div>
+            <div class="form-group">
+                <b>do zapłaty słownie</b>
+                {{ invoice.toPayInWords }}            
+            </div>
         </div>
         <div class="col-md-6">
             <div class="table-responsive">
@@ -311,73 +349,40 @@
                     </div>
                     </tbody>    
                 </table>
+
             </div>
+
+
             <div class="form-group">
-                {{ form_label(edit_form.totalValueNet, 'Razem kwota netto:', { 'label_attr': {'class': 'control-label'}}) }}
-                {{ form_widget(edit_form.totalValueNet, { 'attr': {'class': 'form-control input-sm', 'style' : 'width : 280px ; float : right'}}) }}
+                <b>Razem kwota netto:</b>
+                {{ invoice.totalValueNet }}               
             </div>    
             <div class="form-group">
-                {{ form_label(edit_form.totalAmountVAT, 'Razem kwota VAT:', { 'label_attr': {'class': 'control-label'}}) }}
-                {{ form_widget(edit_form.totalAmountVAT, { 'attr': {'class': 'form-control input-sm', 'style' : 'width : 280px ; float : right'}}) }}
+                <b>Razem kwota VAT:</b>
+                {{ invoice.totalAmountVAT }}               
             </div> 
             <div class="form-group">
-                {{ form_label(edit_form.totalValueGross, 'Razem kwota brutto:', { 'label_attr': {'class': 'control-label'}}) }}
-                {{ form_widget(edit_form.totalValueGross, { 'attr': {'class': 'form-control input-sm', 'style' : 'width : 280px ; float : right'}}) }}
-            </div>  
-        </div>
-    </div>
+                <b>Razem kwota brutto</b>
+                {{ invoice.totalValueGross }}               
+            </div>                 
+        </div>       
+    </div>        
     <hr>
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
-                {{ form_label(edit_form.authorisedToIssue, 'Osoba upoważniona do wydania faktury:', { 'label_attr': {'class': 'control-label'}}) }}
-                {{ form_widget(edit_form.authorisedToIssue, { 'attr': {'class': 'form-control input-sm', 'style' : 'width : 200px ; float : right'}}) }}
-            </div>
+                <b>Osoba upoważniona do wystawienia faktury:</b>
+                {{ invoice.authorisedToIssue }}                               
+            </div>       
         </div>
         <div class="col-md-6">
             <div class="form-group">
-                {{ form_label(edit_form.allowedToReceive, 'Osoba upoważniona do otrzymania faktury:', { 'label_attr': {'class': 'control-label'}}) }}
-                {{ form_widget(edit_form.allowedToReceive, { 'attr': {'class': 'form-control input-sm', 'style' : 'width : 200px ; float : right'}}) }}
-            </div>
-        </div>        
-    </div>         
-
-    <ul class="list-inline">   
-        <li>        
-    <input type="submit" class="btn btn-success btn-sm" value="Zapisz fakturę" />
-        </li>
-        <li>
-    <a class="btn btn-default btn-sm" href="{{ path('invoice_index') }}">Powrót do listy faktur</a>
-
-    {{ form_end(edit_form) }}
+                <b>Osoba upoważniona do otrzymania faktury:</b>
+                {{ invoice.allowedToReceive }}                      
+            </div>       
+        </div>     
+    </div>    
     
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-            <input type="submit" class="btn btn-danger btn-sm" value="Usuń fakturę">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
-
-    <script src="/js/jquery-3.1.1.js"></script>
-    <script src="/js/jquery.collection.js"></script>
-    <script src="{{ asset('js/counting.js') }}"></script>   
-    <script type="text/javascript">
-
-        $('.pozycja').collection({
-            min: 1,
-            init_with_n_elements: 1,
-            prototype_name: '{{ edit_form.positions.vars.prototype.vars.name }}',
-            allow_add: true,
-            allow_remove: true,
-            name_prefix: '{{ edit_form.positions.vars.full_name }}',
-            position_field_selector: '.my-position',
-            up: '<a href="#" class="btn btn-default"><span class="glyphicon glyphicon-arrow-up"></span></a>',
-            down: '<a href="#" class="btn btn-default"><span class="glyphicon glyphicon-arrow-down"></span></a>',
-            add: '<a href="#" class="btn btn-default"><span class="glyphicon glyphicon-plus-sign"></span></a>',
-            remove: '<a href="#" class="btn btn-default"><span class="glyphicon glyphicon-trash"></span></a>'
-        });
-
-    </script>          
-
+    
 {% endblock %}
+    
