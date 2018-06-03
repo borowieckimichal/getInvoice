@@ -84,7 +84,7 @@ knp_snappy:
         binary:     /usr/bin/wkhtmltopdf
         options:    
             - { name: 'viewport-size', value: ‘1024x768’ }
-            - { name: 'page-size', value: 'A4' }            
+            - { name: 'page-size', value: 'A4' }
     image:
         enabled:    false
         binary:     /usr/local/bin/wkhtmltoimage

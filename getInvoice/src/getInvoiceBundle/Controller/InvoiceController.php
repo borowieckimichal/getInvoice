@@ -105,7 +105,7 @@ class InvoiceController extends Controller {
     public function showAction(Invoice $invoice) {
         $deleteForm = $this->createDeleteForm($invoice);
 
-        return $this->render('invoice/show.html.twig', array(
+        return $this->render('invoice/pdf.html.twig', array(
                     'invoice' => $invoice,
                     'delete_form' => $deleteForm->createView(),
         ));
@@ -183,7 +183,14 @@ class InvoiceController extends Controller {
         ));
 
         return new Response(
-            $this->get('knp_snappy.pdf')->getOutputFromHtml($html), 200, array(
+            $this->get('knp_snappy.pdf')->getOutputFromHtml($html,
+                    array(
+                        'lowquality' => false,
+                        'encoding' => 'utf-8',
+                        'images' => true,
+                        'enable-javascript'=> true,
+                        'javascript-delay'=> 5000
+                    )), 200, array(
             'Content-Type' => 'application/pdf',
             'Content-Disposition' => 'attachment; filename="faktura.pdf"'
                 )

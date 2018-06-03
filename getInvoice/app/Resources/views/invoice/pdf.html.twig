@@ -1,14 +1,140 @@
-{#{% extends 'base.html.twig' %}#}
+    {#{% extends 'base.html.twig' %}#}
+{% block head %}
+    <meta charset="utf-8">
+    
+   {#<script src="{{ absolute_url(asset('js/jquery-3.1.1.min.js'))}}"></script>#}
+    <script>
+        
+  document.addEventListener("DOMContentLoaded", function(){  
+        var subTotalSum = 0;
+        var secondSum = 0;
+        var thirdSum = 0;
+        var fourthSum = 0;
+        var fifthSum = 0;
+        var sixthSum = 0;
+        var loop = document.getElementsByClassName("position");
+        console.log(loop.length);
+        for (var j = 1; j < loop.length +1; j++) {
+            
+            var worth = document.querySelector("#getinvoicebundle_invoice_positions_" + j + "_valueNet").value;
+           
+            console.log(worth);
+            if (!isNaN(worth) && (document.getElementById("getinvoicebundle_invoice_positions_" + j + "_rateVAT").value == 23)) {
+                subTotalSum += parseInt(worth);
+ 
+            } else if (!isNaN(worth) && ( document.getElementById("getinvoicebundle_invoice_positions_" + j + "_rateVAT").value == 8)) {
+                secondSum += parseInt(worth);
+
+            } else if (!isNaN(worth) && (document.getElementById("getinvoicebundle_invoice_positions_" + j + "_rateVAT").value == 5)) {
+                thirdSum += parseInt(worth);
+
+            } else if (!isNaN(worth) && (document.getElementById("getinvoicebundle_invoice_positions_" + j + "_rateVAT").value == 0)) {
+                fourthSum += parseInt(worth);
+
+            } else if (!isNaN(worth) && (document.getElementById("getinvoicebundle_invoice_positions_" + j + "_rateVAT").value == -1)) {
+                fifthSum += parseInt(worth);
+
+            } else if (!isNaN(worth) && (document.getElementById("getinvoicebundle_invoice_positions_" + j + "_rateVAT").value == -2)) {
+                sixthSum += parseInt(worth);
+
+            }  
+        }
+      
+   var vat0 = document.getElementById("vat0");
+   var vat1 = document.getElementById("vat1");
+   var vat2 = document.getElementById("vat2");
+   var vat3 = document.getElementById("vat3");
+   var vat4 = document.getElementById("vat4");
+   var vat5 = document.getElementById("vat5");
+    if (subTotalSum > 0) {
+      document.getElementById("invoiceSummary0-netValueSummaryForTaxRate").value = subTotalSum.toLocaleString(undefined, {minimumFractionDigits: 2});
+      vat0.style = "display: inline";  
+      document.getElementById("invoiceSummary0-taxAmountSummaryForTaxRate").value = (subTotalSum * 0.23).toLocaleString(undefined, {minimumFractionDigits: 2});
+      document.getElementById("invoiceSummary0-valueSummaryForTaxRate").value = (subTotalSum + (subTotalSum * 0.23)).toLocaleString(undefined, {minimumFractionDigits: 2});
+    }   
+    if (secondSum > 0) {
+      document.getElementById("invoiceSummary1-netValueSummaryForTaxRate").value = secondSum.toLocaleString(undefined, {minimumFractionDigits: 2});
+      vat1.style = "display: inline";
+      document.getElementById("invoiceSummary1-taxAmountSummaryForTaxRate").value = (secondSum * 0.08).toLocaleString(undefined, {minimumFractionDigits: 2});
+      document.getElementById("invoiceSummary1-valueSummaryForTaxRate").value = (secondSum + (secondSum * 0.08)).toLocaleString(undefined, {minimumFractionDigits: 2});      
+    }
+    if (thirdSum > 0) {
+      document.getElementById("invoiceSummary2-netValueSummaryForTaxRate").value = thirdSum.toLocaleString(undefined, {minimumFractionDigits: 2});
+      vat2.style = "display: inline";
+      document.getElementById("invoiceSummary2-taxAmountSummaryForTaxRate").value = (thirdSum * 0.05).toLocaleString(undefined, {minimumFractionDigits: 2});
+      document.getElementById("invoiceSummary2-valueSummaryForTaxRate").value = (thirdSum + (thirdSum * 0.05)).toLocaleString(undefined, {minimumFractionDigits: 2});      
+    }        
+    if (fourthSum > 0) {
+      document.getElementById("invoiceSummary3-netValueSummaryForTaxRate").value = fourthSum.toLocaleString(undefined, {minimumFractionDigits: 2});
+      vat3.style = "display: inline";
+      document.getElementById("invoiceSummary3-taxAmountSummaryForTaxRate").value = (fourthSum * 0).toLocaleString(undefined, {minimumFractionDigits: 2});
+      document.getElementById("invoiceSummary3-valueSummaryForTaxRate").value = fourthSum.toLocaleString(undefined, {minimumFractionDigits: 2});      
+    }         
+    if (fifthSum > 0) {
+      document.getElementById("invoiceSummary4-netValueSummaryForTaxRate").value = fifthSum.toLocaleString(undefined, {minimumFractionDigits: 2});
+      vat4.style = "display: inline";
+      document.getElementById("invoiceSummary4-taxAmountSummaryForTaxRate").value = (fifthSum * 0).toLocaleString(undefined, {minimumFractionDigits: 2});
+      document.getElementById("invoiceSummary4-valueSummaryForTaxRate").value = fifthSum.toLocaleString(undefined, {minimumFractionDigits: 2});      
+    }  
+    if (sixthSum > 0) {
+      document.getElementById("invoiceSummary5-netValueSummaryForTaxRate").value = sixthSum.toLocaleString(undefined, {minimumFractionDigits: 2});
+      vat5.style = "display: inline";
+      document.getElementById("invoiceSummary5-taxAmountSummaryForTaxRate").value = (sixthSum * 0).toLocaleString(undefined, {minimumFractionDigits: 2});
+      document.getElementById("invoiceSummary5-valueSummaryForTaxRate").value = sixthSum.toLocaleString(undefined, {minimumFractionDigits: 2});      
+    } 
+
+  });      
+
+  
+    </script>
+        
+{% endblock %}
+   
+    
+    <style>
+        
+    /* reset */
+
+    *
+    {
+        border: 0;
+        box-sizing: content-box;
+        color: inherit;
+        font-family: inherit;
+        font-size: inherit;
+        font-style: inherit;
+        font-weight: inherit;
+        line-height: inherit;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        text-decoration: none;
+        vertical-align: top;
+    }        
+        
+    table { font-size: 75%; table-layout: fixed; width: 100%; }
+    table { border-collapse: separate; border-spacing: 2px; }
+    th, td { border-width: 1px; padding: 0.5em; position: relative; text-align: left; }
+    th, td { border-radius: 0.25em; border-style: solid; }
+    th { background: #EEE; border-color: #BBB; }
+    td { border-color: #DDD; }   
 
 
-{% block pdf %}
-    <div class="text-muted text-center">           
+</style>
+    
+{% block onload %}    
+   <div onload="sum()">
+   </div>
+{% endblock onload %}    
+    
+{% block body %}    
+    <div style="text-align: center; margin-bottom: 50px;">           
         <b>Faktura Nr</b>
         {{ invoice.invoiceNo }}           
     </div>
     <div class="row">    
 
-        <div class="col-md-6">
+        <div style="float: left; margin-bottom: 150px;" class="col-md-6">
             <div class="text-muted text-left">
                 {% if invoice.invoiceLogo ends with 'b/d' or invoice.invoiceLogo is null%}
 
@@ -20,7 +146,7 @@
         </div>
 
 
-        <div class="col-md-6">
+        <div style="float: right; margin-bottom: 150px;">
             <div class="form-group text-muted text-right">                
                 <b>Data wystawienia:</b> 
                 {% if invoice.dateIssue %}{{ invoice.dateIssue|date('Y-m-d') }}{% endif %}            
@@ -38,9 +164,9 @@
     <div class="form-group">
         &nbsp;
     </div>
-    <hr>            
-    <div class="row"> 
-        <div class="col-md-5">
+    <hr style="color: #000000; background: #000000; width: 100%; height: 2px; margin-bottom: 25px;">            
+    <div style="display: inline;" class="row"> 
+        <div style="float: left; width: 50%; margin-bottom: 100px; display: inline;" class="col-md-5">
             <div class="form-group">
                 <b>Nazwa sprzedawcy:</b>
                 {{ invoice.sellerName }}                    
@@ -62,7 +188,7 @@
         </div>
         <div class="col-md-2">           
         </div>
-        <div class="col-md-5">
+        <div style="float: right; width: 50%; margin-bottom: 100px; display: inline;" class="col-md-5">
             <div class="form-group">
                 <b>Nazwa nabywcy:</b>
                 {{ invoice.customerName }}                      
@@ -83,50 +209,46 @@
             </div>           
         </div>
     </div>
-    <hr>
+    <hr style="color: #000000; background: #000000; width: 100%; height: 2px;">
     <div class="row">
-        <div class="col-md-12">
+        <div style="width: 100%; float: left; margin-bottom: 10px;" lass="col-md-12">
             <table class="control-label">
-                <th width="45px" float="left">
+                <th>
                     Lp.:
                 </th>
-                <th width="220px" float="left">
+                <th width="150px">
                     Nazwa produktu
                 </th>
-                <th width="70px" float="left">
+                <th>
                     PKWiU
                 </th>
-                <th width="70px" float="left">
+                <th>
                     ilość
                 </th>
-                <th width="45px" float="left">
+                <th>
                     JM
                 </th>
-                <th width="100px" float="left">
+                <th>
                     cena netto
                 </th>
-                <th width="120px" float="left">
+                <th>
                     wartość netto
                 </th>
-                <th width="80px" float="left">
+                <th>
                     VAT
                 </th>
-                <th width="100px" float="left">
+                <th>
                     kwota VAT
                 </th>
-                <th width="120px" float="left">
+                <th>
                     kwota brutto
                 </th>
 
                 <div id="form-test">
-                   
-                       
-                   
-                    
-                    
+                                                                                                   
                     {% for positions in invoice.positions %}
-                  {#  {% for i in 0..5%}#}    
-                        <tr>
+                     
+                        <tr class="position">
                       
                         
                             <td> 
@@ -145,19 +267,19 @@
                                 <input class="form-control input-sm" value="{{ positions.unitMeasure }}" readonly="readonly"> 
                             </td>
                             <td> 
-                                <input class="form-control input-sm" id="getinvoicebundle_invoice_positions_{{positions.ordinal}}_priceNet" value="{{ positions.priceNet }}" readonly="readonly"> 
+                                <input class="form-control input-sm" id="getinvoicebundle_invoice_positions_{{positions.ordinal}}_priceNet" value="{{ positions.priceNet}}" readonly="readonly"> 
                             </td>
                             <td> 
                                 <input class="form-control input-sm" id="getinvoicebundle_invoice_positions_{{positions.ordinal}}_valueNet" value="{{ positions.valueNet }}" readonly="readonly"> 
                             </td>
                             <td> 
-                                <input class="form-control input-sm" id="getinvoicebundle_invoice_positions_{{positions.ordinal}}_rateVAT" value="{{ positions.rateVat }}" readonly="readonly">
+                                <input class="form-control input-sm" id="getinvoicebundle_invoice_positions_{{positions.ordinal}}_rateVAT" value="{{ positions.rateVat |round}}" readonly="readonly">
                             </td>
                             <td> 
-                                <input class="form-control input-sm" id="getinvoicebundle_invoice_positions_{{positions.ordinal}}_amountVAT" value="{{ positions.amountVat }}" readonly="readonly"> 
+                                <input class="form-control input-sm" id="getinvoicebundle_invoice_positions_{{positions.ordinal}}_amountVAT" value="{{ positions.amountVat |number_format(2, ',', ' ') }}" readonly="readonly"> 
                             </td>
                             <td> 
-                                <input class="form-control input-sm" id="getinvoicebundle_invoice_positions_{{positions.ordinal}}_valueGross" value="{{ positions.valueGross }}" readonly="readonly"> 
+                                <input class="form-control input-sm" id="getinvoicebundle_invoice_positions_{{positions.ordinal}}_valueGross" value="{{ positions.valueGross| number_format(2, ',', ' ') }}" readonly="readonly"> 
                             </td>
                         
                         
@@ -169,9 +291,9 @@
                 </div>
         </div> 
     </div>           
-    <hr>
-    <div class="row">
-        <div class="col-md-6">
+    
+    <div style="display: inline;" class="row">
+        <div style="width: 50%; display: inline; float: left;" class="col-md-6">
             <div class="form-group">
                 <b>Sposób płatności:</b>
                 {{ invoice.paymentMethod }}              
@@ -181,23 +303,23 @@
                 {{ invoice.currency }}                
             </div>
             <div class="form-group">
-                <b>Nr rachunku bankowego:</b>
+                <b>Nr rachunku bankowego:</b><br>
                 {{ invoice.iban }}        
             </div>
             <div class="form-group">
                 <b>zapłacono:</b>
-                {{ invoice.paid }}              
+                {{ invoice.paid | number_format(2, ',', ' ')}}              
             </div>
             <div class="form-group">
                 <b>pozostaje do zapłaty:</b>
-                {{ invoice.remainToPay }}               
+                {{ invoice.remainToPay | number_format(2, ',', ' ')}}               
             </div>
             <div class="form-group">
-                <b>do zapłaty słownie</b>
+                <b>do zapłaty słownie</b><br>
                 {{ invoice.toPayInWords }}            
             </div>
         </div>
-        <div class="col-md-6">
+        <div style="display: inline; width: 50%; float: right;  " class="col-md-6">
             <div class="table-responsive">
 
                 <table class="table table-condensed">
@@ -355,34 +477,35 @@
 
             <div class="form-group">
                 <b>Razem kwota netto:</b>
-                {{ invoice.totalValueNet }}               
+                {{ invoice.totalValueNet |number_format(2, ',', ' ') }}               
             </div>    
             <div class="form-group">
                 <b>Razem kwota VAT:</b>
-                {{ invoice.totalAmountVAT }}               
+                {{ invoice.totalAmountVAT | number_format(2, ',', ' ')}}               
             </div> 
             <div class="form-group">
                 <b>Razem kwota brutto</b>
-                {{ invoice.totalValueGross }}               
+                {{ invoice.totalValueGross | number_format(2, ',', ' ')}}               
             </div>                 
         </div>       
     </div>        
-    <hr>
+    <hr style="color: #000000; background: #000000; width: 100%; height: 2px; margin-bottom: 25px;">
     <div class="row">
-        <div class="col-md-6">
+        <div style="float: left; width: 50%;" class="col-md-6">
             <div class="form-group">
-                <b>Osoba upoważniona do wystawienia faktury:</b>
+                <b>Osoba upoważniona <br> do wystawienia faktury:</b>
                 {{ invoice.authorisedToIssue }}                               
             </div>       
         </div>
-        <div class="col-md-6">
+        <div style="float: right; width: 50%;" class="col-md-6">
             <div class="form-group">
-                <b>Osoba upoważniona do otrzymania faktury:</b>
+                <b>Osoba upoważniona <br>do otrzymania faktury:</b>
                 {{ invoice.allowedToReceive }}                      
             </div>       
         </div>     
     </div>    
-    
-    
+  
+              
+
 {% endblock %}
     
