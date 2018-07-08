@@ -105,7 +105,7 @@ class InvoiceController extends Controller {
     public function showAction(Invoice $invoice) {
         $deleteForm = $this->createDeleteForm($invoice);
 
-        return $this->render('invoice/pdf.html.twig', array(
+        return $this->render('invoice/show.html.twig', array(
                     'invoice' => $invoice,
                     'delete_form' => $deleteForm->createView(),
         ));

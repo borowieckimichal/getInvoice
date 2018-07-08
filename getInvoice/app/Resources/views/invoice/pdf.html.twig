@@ -1,8 +1,7 @@
-    {#{% extends 'base.html.twig' %}#}
+
 {% block head %}
     <meta charset="utf-8">
     
-   {#<script src="{{ absolute_url(asset('js/jquery-3.1.1.min.js'))}}"></script>#}
     <script>
         
   document.addEventListener("DOMContentLoaded", function(){  
@@ -31,10 +30,10 @@
             } else if (!isNaN(worth) && (document.getElementById("getinvoicebundle_invoice_positions_" + j + "_rateVAT").value == 0)) {
                 fourthSum += parseInt(worth);
 
-            } else if (!isNaN(worth) && (document.getElementById("getinvoicebundle_invoice_positions_" + j + "_rateVAT").value == -1)) {
+            } else if (!isNaN(worth) && (document.getElementById("getinvoicebundle_invoice_positions_" + j + "_rateVAT").value == 'ZW')) {
                 fifthSum += parseInt(worth);
 
-            } else if (!isNaN(worth) && (document.getElementById("getinvoicebundle_invoice_positions_" + j + "_rateVAT").value == -2)) {
+            } else if (!isNaN(worth) && (document.getElementById("getinvoicebundle_invoice_positions_" + j + "_rateVAT").value == 'NP')) {
                 sixthSum += parseInt(worth);
 
             }  
@@ -213,28 +212,28 @@
     <div class="row">
         <div style="width: 100%; float: left; margin-bottom: 10px;" lass="col-md-12">
             <table class="control-label">
-                <th>
+                <th width="20px">
                     Lp.:
                 </th>
-                <th width="150px">
+                <th width="350px">
                     Nazwa produktu
                 </th>
-                <th>
+                <th width="35px">
                     PKWiU
                 </th>
-                <th>
+                <th width="25px">
                     ilość
                 </th>
-                <th>
+                <th width="35px">
                     JM
                 </th>
-                <th>
+                <th width="65px">
                     cena netto
                 </th>
                 <th>
                     wartość netto
                 </th>
-                <th>
+                <th width="65px">
                     VAT
                 </th>
                 <th>
@@ -272,8 +271,9 @@
                             <td> 
                                 <input class="form-control input-sm" id="getinvoicebundle_invoice_positions_{{positions.ordinal}}_valueNet" value="{{ positions.valueNet }}" readonly="readonly"> 
                             </td>
-                            <td> 
-                                <input class="form-control input-sm" id="getinvoicebundle_invoice_positions_{{positions.ordinal}}_rateVAT" value="{{ positions.rateVat |round}}" readonly="readonly">
+                            <td align='center'> 
+                                <div style='float:left; width: 15px;'><input class="form-control input-sm" id="getinvoicebundle_invoice_positions_{{positions.ordinal}}_rateVAT" value="{{ positions.rateVat == -1 ? 'ZW' : positions.rateVat == -2 ? 'NP' : positions.rateVat |round}}" readonly="readonly">
+                                </div> <div style="float:left; width: 20px;">{{ positions.rateVat == -1 ?  ' ' : positions.rateVat == -2 ? ' ' : ' %'}}</div>
                             </td>
                             <td> 
                                 <input class="form-control input-sm" id="getinvoicebundle_invoice_positions_{{positions.ordinal}}_amountVAT" value="{{ positions.amountVat |number_format(2, ',', ' ') }}" readonly="readonly"> 

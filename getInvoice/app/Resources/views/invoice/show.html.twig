@@ -152,7 +152,7 @@
                                 <input class="form-control input-sm" id="getinvoicebundle_invoice_positions_{{positions.ordinal}}_valueNet" value="{{ positions.valueNet }}" readonly="readonly"> 
                             </td>
                             <td> 
-                                <input class="form-control input-sm" id="getinvoicebundle_invoice_positions_{{positions.ordinal}}_rateVAT" value="{{ positions.rateVat }}" readonly="readonly">
+                                <input class="form-control input-sm" id="getinvoicebundle_invoice_positions_{{positions.ordinal}}_rateVAT" value="{{ positions.rateVat == -1 ? 'ZW' : positions.rateVat == -2 ? 'NP' : positions.rateVat }}" readonly="readonly">
                             </td>
                             <td> 
                                 <input class="form-control input-sm" id="getinvoicebundle_invoice_positions_{{positions.ordinal}}_amountVAT" value="{{ positions.amountVat }}" readonly="readonly"> 

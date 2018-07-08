@@ -47,10 +47,10 @@ $(document).ready(function () {
             } else if (!isNaN(worth) && ($("#getinvoicebundle_invoice_positions_" + j + "_rateVAT").val() == 0)) {
                 fourthSum += worth;
 
-            } else if (!isNaN(worth) && ($("#getinvoicebundle_invoice_positions_" + j + "_rateVAT").val() == -1)) {
+            } else if (!isNaN(worth) && ($("#getinvoicebundle_invoice_positions_" + j + "_rateVAT").val() == 'ZW')) {
                 fifthSum += worth;
 
-            } else if (!isNaN(worth) && ($("#getinvoicebundle_invoice_positions_" + j + "_rateVAT").val() == -2)) {
+            } else if (!isNaN(worth) && ($("#getinvoicebundle_invoice_positions_" + j + "_rateVAT").val() == 'NP')) {
                 sixthSum += worth;
 
             }
@@ -116,12 +116,12 @@ $(document).ready(function () {
                 $("#invoiceSummary3-taxAmountSummaryForTaxRate").val(fourthTotalVat.toFixed(2));
                 fourthTotalGross += gross;
                 $("#invoiceSummary3-valueSummaryForTaxRate").val(fourthTotalGross.toFixed(2));
-            } else if (!isNaN(vat) && ($("#getinvoicebundle_invoice_positions_" + k + "_rateVAT").val() == -1)) {
+            } else if (!isNaN(vat) && ($("#getinvoicebundle_invoice_positions_" + k + "_rateVAT").val() == 'ZW')) {
                 fifthTotalVat = 0;
                 $("#invoiceSummary4-taxAmountSummaryForTaxRate").val(fifthTotalVat.toFixed(2));
                 fifthTotalGross += gross;
                 $("#invoiceSummary4-valueSummaryForTaxRate").val(fifthTotalGross.toFixed(2));
-            } else if (!isNaN(vat) && ($("#getinvoicebundle_invoice_positions_" + k + "_rateVAT").val() == -2)) {
+            } else if (!isNaN(vat) && ($("#getinvoicebundle_invoice_positions_" + k + "_rateVAT").val() == 'NP')) {
                 sixthTotalVat = 0;
                 $("#invoiceSummary5-taxAmountSummaryForTaxRate").val(sixthTotalVat.toFixed(2));
                 sixthTotalGross += gross;
