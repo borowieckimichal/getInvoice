@@ -58,6 +58,7 @@ class InvoiceController extends Controller {
      * @Method({"GET", "POST"})
      */
     public function newAction(Request $request, $id) {
+        $em =$this->getDoctrine()->getManager();
         $invoice = new Invoice();
         $customerRepo = $this->getDoctrine()->getRepository("getInvoiceBundle:Customer");
         $customer = $customerRepo->find($id);
@@ -72,6 +73,7 @@ class InvoiceController extends Controller {
                         ->setCustomerAddressPostalCode($customer->getAddressPostalCode())->setCustomerAddressCity($customer->getAddressCity())->setCustomerPhone($customer->getPhone())->setCustomerNip($customer->getNip()));
         $form->handleRequest($request);
 
+        $newNumber = '/'. date('Y');    
 
         if ($form->isSubmitted() && $form->isValid()) {
 
@@ -93,6 +95,7 @@ class InvoiceController extends Controller {
                     'invoice' => $invoice,
                     'company' => $company,
                     'form' => $form->createView(),
+                    'newNumber' => $newNumber,
         ));
     }
 
@@ -123,6 +126,11 @@ class InvoiceController extends Controller {
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
+            $invoicePositions = $invoice->getPositions();
+            foreach ($invoicePositions as $invoicePosition) {
+                $invoicePosition->setInvoice($invoice);
+            }
+                       
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('invoice_edit', array('id' => $invoice->getId()));

@@ -13,7 +13,7 @@
 
     <div class="text-muted text-center">
         {{ form_label(form.invoiceNo, 'Faktura nr:', { 'label_attr': {'class': 'control-label'}}) }}
-        {{ form_widget(form.invoiceNo, { 'attr': {'class': 'form-control input-sm text-center', 'style' : 'width : 120px ; margin : auto'}}) }}
+        {{ form_widget(form.invoiceNo, { 'attr': {'class': 'form-control input-sm text-center', 'value': newNumber, 'style' : 'width : 120px ; margin : auto'}}) }}
     </div>
     <div class="row">
         <div class="col-md-6">

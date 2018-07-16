@@ -10,6 +10,11 @@ $(document).ready(function () {
         sum();
         multi();
         check();
+        ordinals();
+    });
+
+    $(":root").click(function () {
+        ordinals();
     });
 
     function sum() {
@@ -47,10 +52,10 @@ $(document).ready(function () {
             } else if (!isNaN(worth) && ($("#getinvoicebundle_invoice_positions_" + j + "_rateVAT").val() == 0)) {
                 fourthSum += worth;
 
-            } else if (!isNaN(worth) && ($("#getinvoicebundle_invoice_positions_" + j + "_rateVAT").val() == 'ZW')) {
+            } else if (!isNaN(worth) && ($("#getinvoicebundle_invoice_positions_" + j + "_rateVAT").val() == -1)) {
                 fifthSum += worth;
 
-            } else if (!isNaN(worth) && ($("#getinvoicebundle_invoice_positions_" + j + "_rateVAT").val() == 'NP')) {
+            } else if (!isNaN(worth) && ($("#getinvoicebundle_invoice_positions_" + j + "_rateVAT").val() == -2)) {
                 sixthSum += worth;
 
             }
@@ -116,12 +121,12 @@ $(document).ready(function () {
                 $("#invoiceSummary3-taxAmountSummaryForTaxRate").val(fourthTotalVat.toFixed(2));
                 fourthTotalGross += gross;
                 $("#invoiceSummary3-valueSummaryForTaxRate").val(fourthTotalGross.toFixed(2));
-            } else if (!isNaN(vat) && ($("#getinvoicebundle_invoice_positions_" + k + "_rateVAT").val() == 'ZW')) {
+            } else if (!isNaN(vat) && ($("#getinvoicebundle_invoice_positions_" + k + "_rateVAT").val() == -1)) {
                 fifthTotalVat = 0;
                 $("#invoiceSummary4-taxAmountSummaryForTaxRate").val(fifthTotalVat.toFixed(2));
                 fifthTotalGross += gross;
                 $("#invoiceSummary4-valueSummaryForTaxRate").val(fifthTotalGross.toFixed(2));
-            } else if (!isNaN(vat) && ($("#getinvoicebundle_invoice_positions_" + k + "_rateVAT").val() == 'NP')) {
+            } else if (!isNaN(vat) && ($("#getinvoicebundle_invoice_positions_" + k + "_rateVAT").val() == -2)) {
                 sixthTotalVat = 0;
                 $("#invoiceSummary5-taxAmountSummaryForTaxRate").val(sixthTotalVat.toFixed(2));
                 sixthTotalGross += gross;
@@ -139,7 +144,7 @@ $(document).ready(function () {
             $("#getinvoicebundle_invoice_remainToPay").val(totalGross.toFixed(2));
         } else if (paid > 0) {
             updatedRemain = totalGross - paid;
-            
+
             $("#getinvoicebundle_invoice_remainToPay").val(updatedRemain.toFixed(2));
         }
     }
@@ -161,7 +166,7 @@ $(document).ready(function () {
         var num = ["", " jedenaście", " dwanaście", " trzynaście", " czternaście", " piętnaście", " szesnaście", " siedemnaście", " osiemnaście", " dziewietnaście"];
         var tens = ["", " dziesięć", " dwadzieścia", " trzydzieści", " czterdzieści", " pięćdziesiąt", " sześćdziesiąt", " siedemdziesiąt", " osiemdziesiąt", " dziewięćdziesiąt"];
         var hundreds = ["", " sto", " dwieście", " trzysta", " czterysta", " pięćset", " sześćset", " siedemset", " osiemset", " dziewięćset"];
-        var groups = [   
+        var groups = [
             ["", "", ""],
             [" tysiąc", " tysiące", " tysięcy"],
             [" milion", " miliony", " milionów"],
@@ -207,7 +212,7 @@ $(document).ready(function () {
                 if (j == 1 && s + d + n == 0)
                     k = 0;
                 if (j == 2 || j == 3 || j == 4)
-                    k = 1;          
+                    k = 1;
                 if (s + d + n + j > 0)
                     output = hundreds[s] + tens[d] + num[n] + ones[j] + groups[g][k] + output;
 
@@ -217,12 +222,35 @@ $(document).ready(function () {
 
             }
             var currency = $("#getinvoicebundle_invoice_currency").val();
-            $("#getinvoicebundle_invoice_toPayInWords").val(mark + output+' '+currency + cents);
+            $("#getinvoicebundle_invoice_toPayInWords").val(mark + output + ' ' + currency + cents);
         } else {
             return false;
         }
         return false;
     }
-
-
+    function ordinals() {
+        for (var w = 0; w < 50; w++) {
+            $("#getinvoicebundle_invoice_positions_" + w + "_ordinal").val(w + 1);
+            $("#getinvoicebundle_invoice_positions_" + w + "_ordinal").prop('readonly', true);
+        }
+    }
+    
+    $("#getinvoicebundle_invoice_dateIssue").on("change", function(){
+        var saleDate = $("#getinvoicebundle_invoice_dateIssue").val();
+        var issueDate = new Date($("#getinvoicebundle_invoice_dateIssue").val());
+            
+        if (!isNaN(issueDate.getTime())) {
+            issueDate.setDate(issueDate.getDate() + 14);
+          
+            $("#getinvoicebundle_invoice_dateSale").val(saleDate);
+            $("#getinvoicebundle_invoice_datePayment").val(issueDate.toInputFormat());
+        }    
+    });
+    
+    Date.prototype.toInputFormat = function () {
+        var yyyy = this.getFullYear().toString();
+        var mm = (this.getMonth() + 1 ).toString();
+        var dd = this.getDate().toString();
+        return yyyy + "-" + (mm[1] ? mm : "0" + mm[0]) + "-" + (dd[1] ? dd : "0" + dd[0]);
+    };
 });
