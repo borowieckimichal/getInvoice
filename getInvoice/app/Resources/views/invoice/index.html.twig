@@ -50,7 +50,8 @@
                                             {{ form_start(delete_form) }}
                                             <input type="submit" class="btn btn-warning btn-sm" value="Usuń fakturę">
                                             {{ form_end(delete_form) }}                                
-                                            <a class="btn btn-primary btn-sm" href="{{ path('invoice_edit', { 'id': invoice.id }) }}">Edycja faktury</a>                                                                  
+                                            <a class="btn btn-primary btn-sm" href="{{ path('invoice_edit', { 'id': invoice.id }) }}">Edycja faktury</a>
+                                            <a class="btn btn-default btn-sm" href="{{ path('invoicecorrective_new', { 'Id_invoice': invoice.id }) }}">Wystaw korekte</a> 
                                         </td>
                                     </tr>
                                 {% endfor %}

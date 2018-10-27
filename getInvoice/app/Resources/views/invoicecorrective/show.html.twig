@@ -1,0 +1,148 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Invoicecorrective</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ invoiceCorrective.id }}</td>
+            </tr>
+            <tr>
+                <th>Invoicecorrected</th>
+                <td>{{ invoiceCorrective.invoiceCorrected }}</td>
+            </tr>
+            <tr>
+                <th>Comments</th>
+                <td>{{ invoiceCorrective.comments }}</td>
+            </tr>
+            <tr>
+                <th>Invoiceno</th>
+                <td>{{ invoiceCorrective.invoiceNo }}</td>
+            </tr>
+            <tr>
+                <th>Dateissue</th>
+                <td>{% if invoiceCorrective.dateIssue %}{{ invoiceCorrective.dateIssue|date('Y-m-d') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Datesale</th>
+                <td>{% if invoiceCorrective.dateSale %}{{ invoiceCorrective.dateSale|date('Y-m-d') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Datepayment</th>
+                <td>{% if invoiceCorrective.datePayment %}{{ invoiceCorrective.datePayment|date('Y-m-d') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Paymentmethod</th>
+                <td>{{ invoiceCorrective.paymentMethod }}</td>
+            </tr>
+            <tr>
+                <th>Currency</th>
+                <td>{{ invoiceCorrective.currency }}</td>
+            </tr>
+            <tr>
+                <th>Iban</th>
+                <td>{{ invoiceCorrective.iban }}</td>
+            </tr>
+            <tr>
+                <th>Sellername</th>
+                <td>{{ invoiceCorrective.sellerName }}</td>
+            </tr>
+            <tr>
+                <th>Selleraddressstreet</th>
+                <td>{{ invoiceCorrective.sellerAddressStreet }}</td>
+            </tr>
+            <tr>
+                <th>Sellerpostalcode</th>
+                <td>{{ invoiceCorrective.sellerPostalCode }}</td>
+            </tr>
+            <tr>
+                <th>Selleraddresscity</th>
+                <td>{{ invoiceCorrective.sellerAddressCity }}</td>
+            </tr>
+            <tr>
+                <th>Sellerphone</th>
+                <td>{{ invoiceCorrective.sellerPhone }}</td>
+            </tr>
+            <tr>
+                <th>Sellernip</th>
+                <td>{{ invoiceCorrective.sellerNip }}</td>
+            </tr>
+            <tr>
+                <th>Customername</th>
+                <td>{{ invoiceCorrective.customerName }}</td>
+            </tr>
+            <tr>
+                <th>Customeraddressstreet</th>
+                <td>{{ invoiceCorrective.customerAddressStreet }}</td>
+            </tr>
+            <tr>
+                <th>Customeraddresspostalcode</th>
+                <td>{{ invoiceCorrective.customerAddressPostalCode }}</td>
+            </tr>
+            <tr>
+                <th>Customeraddresscity</th>
+                <td>{{ invoiceCorrective.customerAddressCity }}</td>
+            </tr>
+            <tr>
+                <th>Customerphone</th>
+                <td>{{ invoiceCorrective.customerPhone }}</td>
+            </tr>
+            <tr>
+                <th>Customernip</th>
+                <td>{{ invoiceCorrective.customerNip }}</td>
+            </tr>
+            <tr>
+                <th>Totalvaluenet</th>
+                <td>{{ invoiceCorrective.totalValueNet }}</td>
+            </tr>
+            <tr>
+                <th>Totalamountvat</th>
+                <td>{{ invoiceCorrective.totalAmountVAT }}</td>
+            </tr>
+            <tr>
+                <th>Totalvaluegross</th>
+                <td>{{ invoiceCorrective.totalValueGross }}</td>
+            </tr>
+            <tr>
+                <th>Paid</th>
+                <td>{{ invoiceCorrective.paid }}</td>
+            </tr>
+            <tr>
+                <th>Remaintopay</th>
+                <td>{{ invoiceCorrective.remainToPay }}</td>
+            </tr>
+            <tr>
+                <th>Topayinwords</th>
+                <td>{{ invoiceCorrective.toPayInWords }}</td>
+            </tr>
+            <tr>
+                <th>Authorisedtoissue</th>
+                <td>{{ invoiceCorrective.authorisedToIssue }}</td>
+            </tr>
+            <tr>
+                <th>Allowedtoreceive</th>
+                <td>{{ invoiceCorrective.allowedToReceive }}</td>
+            </tr>
+            <tr>
+                <th>Invoicelogo</th>
+                <td>{{ invoiceCorrective.invoiceLogo }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('invoicecorrective_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('invoicecorrective_edit', { 'id': invoiceCorrective.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

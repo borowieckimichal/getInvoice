@@ -11,6 +11,9 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Table(name="invoice")
  * @ORM\Entity(repositoryClass="getInvoiceBundle\Repository\InvoiceRepository")
+ * @ORM\InheritanceType("JOINED")
+ * @ORM\DiscriminatorColumn(name="discr", type="string")
+ * @ORM\DiscriminatorMap({"invoice" = "Invoice", "invoicecorrective" = "InvoiceCorrective"})
  */
 class Invoice
 {
@@ -21,227 +24,229 @@ class Invoice
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
 
     /**
      * @var string
      *
      * @ORM\Column(name="invoiceNo", type="string")
      */
-    private $invoiceNo;
+    protected $invoiceNo;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="dateIssue", type="date")
      */
-    private $dateIssue;
+    protected $dateIssue;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="dateSale", type="date")
      */
-    private $dateSale;
+    protected $dateSale;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="datePayment", type="date")
      */
-    private $datePayment;
+    protected $datePayment;
 
     /**
      * @var string
      *
      * @ORM\Column(name="paymentMethod", type="string", length=255)
      */
-    private $paymentMethod;
+    protected $paymentMethod;
 
     /**
      * @var string
      *
      * @ORM\Column(name="currency", type="string", length=255)
      */
-    private $currency;
+    protected $currency;
 
     /**
      * @var string
      *
      * @ORM\Column(name="iban", type="string", length=34)
      */
-    private $iban;
+    protected $iban;
 
     /**
      * @var string
      *
      * @ORM\Column(name="sellerName", type="string", length=255)
      */
-    private $sellerName;
+    protected $sellerName;
 
     /**
      * @var string
      *
      * @ORM\Column(name="sellerAddressStreet", type="string", length=255)
      */
-    private $sellerAddressStreet;
+    protected $sellerAddressStreet;
 
     /**
      * @var string
      *
      * @ORM\Column(name="sellerPostalCode", type="string", length=255)
      */
-    private $sellerPostalCode;
+    protected $sellerPostalCode;
 
     /**
      * @var string
      *
      * @ORM\Column(name="sellerAddressCity", type="string", length=255)
      */
-    private $sellerAddressCity;
+    protected $sellerAddressCity;
 
     /**
      * @var string
      *
      * @ORM\Column(name="sellerPhone", type="string", length=255)
      */
-    private $sellerPhone;
+    protected $sellerPhone;
 
     /**
      * @var string
      *
      * @ORM\Column(name="sellerNip", type="string")
      */
-    private $sellerNip;
+    protected $sellerNip;
 
     /**
      * @var string
      *
      * @ORM\Column(name="customerName", type="string", length=255)
      */
-    private $customerName;
+    protected $customerName;
 
     /**
      * @var int
      *
      * @ORM\Column(name="customerAddressStreet", type="string")
      */
-    private $customerAddressStreet;
+    protected $customerAddressStreet;
 
     /**
      * @var string
      *
      * @ORM\Column(name="customerAddressPostalCode", type="string", length=255)
      */
-    private $customerAddressPostalCode;
+    protected $customerAddressPostalCode;
 
     /**
      * @var string
      *
      * @ORM\Column(name="customerAddressCity", type="string", length=255)
      */
-    private $customerAddressCity;
+    protected $customerAddressCity;
 
     /**
      * @var string
      *
      * @ORM\Column(name="customerPhone", type="string", length=255)
      */
-    private $customerPhone;
+    protected $customerPhone;
 
     /**
      * @var string
      *
      * @ORM\Column(name="customerNip", type="string", length=255)
      */
-    private $customerNip;
+    protected $customerNip;
 
     /**
      * @var int
      *
      * @ORM\Column(name="totalValueNet", type="decimal", precision=10,  scale=2)
      */
-    private $totalValueNet;
+    protected $totalValueNet;
 
     /**
      * @var int
      *
      * @ORM\Column(name="totalAmountVAT", type="decimal", precision=10, scale=2)
      */
-    private $totalAmountVAT;
+    protected $totalAmountVAT;
 
     /**
      * @var int
      *
      * @ORM\Column(name="totalValueGross", type="decimal", precision=10, scale=2)
      */
-    private $totalValueGross;
+    protected $totalValueGross;
 
     /**
      * @var int
      *
      * @ORM\Column(name="paid", type="decimal", precision=10, scale=2, nullable=true)
      */
-    private $paid;
+    protected $paid;
 
     /**
      * @var int
      *
      * @ORM\Column(name="remainToPay", type="decimal", precision=10, scale=2, nullable=true)
      */
-    private $remainToPay;
+    protected $remainToPay;
 
     /**
      * @var string
      *
      * @ORM\Column(name="toPayInWords", type="string", length=255)
      */
-    private $toPayInWords;
+    protected $toPayInWords;
 
     /**
      * @var string
      *
      * @ORM\Column(name="authorisedToIssue", type="string", length=255, nullable=true)
      */
-    private $authorisedToIssue;
+    protected $authorisedToIssue;
 
     /**
      * @var string
      *
      * @ORM\Column(name="allowedToReceive", type="string", length=255, nullable=true)
      */
-    private $allowedToReceive;
+    protected $allowedToReceive;
     
     /**
      * @var string
      *
      * @ORM\Column(name="invoiceLogo", type="string", nullable = true)
-     * 
-     * @Assert\Image(
-     *      mimeTypes={ "image/jpg","image/jpeg", "image/png", "image/gif"}),
-     *      mimeTypesMessage = "only image file",
-     * ) 
+     *  
      */
     
-    private $invoiceLogo;
+    protected $invoiceLogo;
     
     /**
      * @ORM\ManyToOne(targetEntity="Company", inversedBy="invoices")
      * @ORM\JoinColumn(name="company_id", referencedColumnName="id") 
      */
-    private $company;
+    protected $company;
     
     /**
      * @ORM\ManyToOne(targetEntity="Customer", inversedBy="invoices")
      * @ORM\JoinColumn(name="customer_id", referencedColumnName="id")
      */
-    private $customer;
+    protected $customer;
     
     /**
      * @ORM\OneToMany(targetEntity="InvoicePosition", mappedBy="invoice", cascade={"persist"}) 
      */
     
-    private $positions;
+    protected $positions;
+
+    /**
+     * @ORM\OneToMany(targetEntity="invoiceCorrective", mappedBy="invoices", cascade={"persist"})
+     */
+    protected $correction;
+    
     /**
      * Get id
      *
@@ -959,5 +964,28 @@ class Invoice
     public function getPositions()
     {
         return $this->positions;
+    }
+
+    /**
+     * Set invoiceLogo
+     *
+     * @param string $invoiceLogo
+     * @return Invoice
+     */
+    public function setInvoiceLogo($invoiceLogo)
+    {
+        $this->invoiceLogo = $invoiceLogo;
+
+        return $this;
+    }
+
+    /**
+     * Get invoiceLogo
+     *
+     * @return string 
+     */
+    public function getInvoiceLogo()
+    {
+        return $this->invoiceLogo;
     }
 }
