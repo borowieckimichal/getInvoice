@@ -49,7 +49,7 @@ class InvoiceCorrectiveController extends Controller
                 ->setSellerAddressCity($invoice->getSellerAddressCity())->setSellerPhone($invoice->getSellerPhone())->setSellerNip($invoice->getSellerNip())
                 ->setCustomerName($invoice->getCustomerName())->setCustomerAddressStreet($invoice->getCustomerAddressStreet())
                 ->setCustomerAddressPostalCode($invoice->getCustomerAddressPostalCode())->setCustomerAddressCity($invoice->getCustomerAddressCity())
-                ->setCustomerPhone($invoice->getCustomerPhone())->setCustomerNip($invoice->getCustomerNip()));
+                ->setCustomerPhone($invoice->getCustomerPhone())->setCustomerNip($invoice->getCustomerNip())->setIban($invoice->getIban()));
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

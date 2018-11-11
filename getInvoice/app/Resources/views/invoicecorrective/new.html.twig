@@ -100,6 +100,7 @@
     <div class="row">
         <div class="col-md-12">
             <table class="control-label">
+                <b> przed korektą: </b>
                 <th width="45px" float="left">
                     Lp.:
                 </th>
@@ -130,45 +131,55 @@
                 <th width="120px" float="left">
                     kwota brutto
                 </th>
+
+                {#  <div id="form-test">#}
+                {#  {{ form_widget(form.positions) }}#}
+
+                {% for positions in invoice.positions %}                    
+                    <tr class="position">
+                        <td> 
+                            <input class="form-control input-sm" value="{{ positions.ordinal }}" readonly="readonly">
+                        </td>
+                        <td> 
+                            <input class="form-control input-sm" value="{{ positions.productName }}" readonly="readonly"> 
+                        </td>
+                        <td> 
+                            <input class="form-control input-sm"value="{{ positions.pkwiu }}" readonly="readonly"> 
+                        </td>               
+                        <td> 
+                            <input class="form-control input-sm" id="getinvoicebundle_invoice_positions_{{positions.ordinal}}_quantity" value="{{ positions.quantity }}" readonly="readonly"> 
+                        </td>
+                        <td> 
+                            <input class="form-control input-sm" value="{{ positions.unitMeasure }}" readonly="readonly"> 
+                        </td>
+                        <td> 
+                            <input class="form-control input-sm" id="getinvoicebundle_invoice_positions_{{positions.ordinal}}_priceNet" value="{{ positions.priceNet }}" readonly="readonly"> 
+                        </td>
+                        <td> 
+                            <input class="form-control input-sm" id="getinvoicebundle_invoice_positions_{{positions.ordinal}}_valueNet" value="{{ positions.valueNet }}" readonly="readonly"> 
+                        </td>
+                        <td> 
+                            <input class="form-control input-sm" id="getinvoicebundle_invoice_positions_{{positions.ordinal}}_rateVAT" value="{{ positions.rateVat == -1 ? 'ZW' : positions.rateVat == -2 ? 'NP' : positions.rateVat }}" readonly="readonly">
+                        </td>
+                        <td> 
+                            <input class="form-control input-sm" id="getinvoicebundle_invoice_positions_{{positions.ordinal}}_amountVAT" value="{{ positions.amountVat }}" readonly="readonly"> 
+                        </td>
+                        <td> 
+                            <input class="form-control input-sm" id="getinvoicebundle_invoice_positions_{{positions.ordinal}}_valueGross" value="{{ positions.valueGross }}" readonly="readonly"> 
+                        </td>               
+                    </tr>
+                    <br>
+                {% endfor %}
             </table>
-            <div id="form-test">
-                {{ form_widget(form.positions) }}
-            </div>
-        </div> 
+        </div>
     </div>
-    <hr>    
+
     <div class="row">
         <div class="col-md-6">
-            <div class="form-group">
-                {{ form_label(form.paymentMethod, 'Sposób płatności:', { 'label_attr': {'class': 'control-label'}}) }}
-                {{ form_widget(form.paymentMethod, { 'attr': {'class': 'form-control input-sm', 'style' : 'width : 280px ; float : right'}}) }}
-            </div>
-            <div class="form-group">             
-                {{ form_label(form.currency, 'Waluta:', { 'label_attr': {'class': 'control-label'}}) }}
-                {{ form_widget(form.currency, { 'attr': {'class': 'form-control input-sm', 'style' : 'width : 280px ; float : right'}}) }}
-            </div> 
-            <div class="form-group">
-                {{ form_label(form.iban, 'Nr rachunku bankowego:', { 'label_attr': {'class': 'control-label'}}) }}
-                {{ form_widget(form.iban, { 'attr': {'class': 'form-control input-sm', 'style' : 'width : 280px ; float : right'}}) }}
-            </div>
-            <div class="form-group">
-                {{ form_label(form.paid, 'zapłacono:', { 'label_attr': {'class': 'control-label'}}) }}
-                {{ form_widget(form.paid, { 'attr': {'class': 'form-control input-sm', 'style' : 'width : 280px ; float : right'}}) }}
-            </div>    
-            <div class="form-group">
-                {{ form_label(form.remainToPay, 'pozostaje do zapłaty:', { 'label_attr': {'class': 'control-label'}}) }}
-                {{ form_widget(form.remainToPay, { 'attr': {'class': 'form-control input-sm', 'style' : 'width : 280px ; float : right'}}) }}
-            </div>    
-            <div class="form-group">
-                {{ form_label(form.toPayInWords, 'do zapłaty słownie:', { 'label_attr': {'class': 'control-label'}}) }}
-                {{ form_widget(form.toPayInWords, { 'attr': {'class': 'form-control input-sm', 'style' : 'width : 100% ; float : right'}}) }}
-            </div> 
-            <div class="form-group">
-                {{ form_label(form.comments, 'przyczyna korekty / uwagi:', { 'label_attr': {'class': 'control-label'}}) }}
-                {{ form_widget(form.comments, { 'attr': {'class': 'form-control input-sm', 'style' : 'width : 100% ; float : right'}}) }}
-            </div>            
         </div>
         <div class="col-md-6">
+
+
             <div class="table-responsive">
 
                 <table class="table table-condensed">
@@ -322,8 +333,251 @@
                 </table>
 
             </div>
+        </div>
+    </div>
 
 
+
+
+
+
+
+
+
+    <hr>  
+    <div class="row">
+        <div class="col-md-12">
+            <table class="control-label">
+                <b> Po korekcie: </b>
+                <th width="45px" float="left">
+                    Lp.:
+                </th>
+                <th width="220px" float="left">
+                    Nazwa produktu
+                </th>
+                <th width="70px" float="left">
+                    PKWiU
+                </th>
+                <th width="70px" float="left">
+                    ilość
+                </th>
+                <th width="45px" float="left">
+                    JM
+                </th>
+                <th width="100px" float="left">
+                    cena netto
+                </th>
+                <th width="120px" float="left">
+                    wartość netto
+                </th>
+                <th width="80px" float="left">
+                    VAT
+                </th>
+                <th width="100px" float="left">
+                    kwota VAT
+                </th>
+                <th width="120px" float="left">
+                    kwota brutto
+                </th>           
+
+            </table>
+        </div> 
+    </div>
+    <div class="col-md-12">
+        <div id="form-test">
+            {{ form_widget(form.positions) }}
+        </div>
+    </div>
+    <hr>    
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                {{ form_label(form.paymentMethod, 'Sposób płatności:', { 'label_attr': {'class': 'control-label'}}) }}
+                {{ form_widget(form.paymentMethod, { 'attr': {'class': 'form-control input-sm', 'style' : 'width : 280px ; float : right'}}) }}
+            </div>
+            <div class="form-group">             
+                {{ form_label(form.currency, 'Waluta:', { 'label_attr': {'class': 'control-label'}}) }}
+                {{ form_widget(form.currency, { 'attr': {'class': 'form-control input-sm', 'style' : 'width : 280px ; float : right'}}) }}
+            </div> 
+            <div class="form-group">
+                {{ form_label(form.iban, 'Nr rachunku bankowego:', { 'label_attr': {'class': 'control-label'}}) }}
+                {{ form_widget(form.iban, { 'attr': {'class': 'form-control input-sm', 'style' : 'width : 280px ; float : right'}}) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(form.paid, 'zapłacono:', { 'label_attr': {'class': 'control-label'}}) }}
+                {{ form_widget(form.paid, { 'attr': {'class': 'form-control input-sm', 'style' : 'width : 280px ; float : right'}}) }}
+            </div>    
+            <div class="form-group">
+                {{ form_label(form.remainToPay, 'pozostaje do zapłaty:', { 'label_attr': {'class': 'control-label'}}) }}
+                {{ form_widget(form.remainToPay, { 'attr': {'class': 'form-control input-sm', 'style' : 'width : 280px ; float : right'}}) }}
+            </div>    
+            <div class="form-group">
+                {{ form_label(form.toPayInWords, 'do zapłaty słownie:', { 'label_attr': {'class': 'control-label'}}) }}
+                {{ form_widget(form.toPayInWords, { 'attr': {'class': 'form-control input-sm', 'style' : 'width : 100% ; float : right'}}) }}
+            </div> 
+            <div class="form-group">
+                {{ form_label(form.comments, 'przyczyna korekty / uwagi:', { 'label_attr': {'class': 'control-label'}}) }}
+                {{ form_widget(form.comments, { 'attr': {'class': 'form-control input-sm', 'style' : 'width : 100% ; float : right'}}) }}
+            </div>            
+        </div>
+        <div class="col-md-6">
+            <div class="table-responsive">
+
+                <table class="table table-condensed">
+
+                    <thead class="thead-default">
+                        <tr>
+                            <th scope="row"></th>
+                            <th scope="row">
+                                Wartość
+                                <br>
+                                Netto
+                            </th>
+                            <th scope="row">
+                                Wartość
+                                <br>
+                                VAT
+                            </th>
+                            <th scope="row">
+                                Wartość
+                                <br>
+                                Brutto                       
+                            </th>                  
+                        </tr>
+                    </thead>
+                    <tbody>
+                   
+                        <tr style="display: none;"  id="vatCorrective0">
+                            <td>
+                                <input type="text" name="invoiceSummary0[taxName]" id="invoiceCorrectiveSummary0-taxName"
+                                       class="form-control input-sm" value="23%" title="Stawka VAT" readonly="readonly">
+                            </td>
+
+                            <td>
+                                <input type="text" name="invoiceSummary0[netValueSummaryForTaxRate]" id="invoiceCorrectiveSummary0-netValueSummaryForTaxRate"
+                                       class="form-control input-sm" value="0" title="Wartość Netto" readonly="readonly">   
+                            </td>
+                            <td>
+                                <input type="text" name="invoiceSummary0[taxAmountSummaryForTaxRate]" id="invoiceCorrectiveSummary0-taxAmountSummaryForTaxRate"
+                                       class="form-control input-sm" value="0" title="Wartość VAT" readonly="readonly">
+                            </td>
+                            <td>
+                                <input type="text" name="invoiceSummary0[valueSummaryForTaxRate]" id="invoiceCorrectiveSummary0-valueSummaryForTaxRate"
+                                       class="form-control input-sm" value="0" readonly="readonly">
+                            </td>
+
+                        </tr>
+                        <tr  style="display: none;" id="vatCorrective1">
+                            <td>
+                                <input type="text" name="invoiceSummary1[taxName]" id="invoiceCorrectiveSummary1-taxName"
+                                       class="form-control input-sm" value="8%" title="Stawka VAT" readonly="readonly">                                                
+                            </td>
+
+
+                            <td>
+                                <input type="text" name="invoiceSummary1[netValueSummaryForTaxRate]" id="invoiceCorrectiveSummary1-netValueSummaryForTaxRate"
+                                       class="form-control input-sm" value="0" title="Wartość Netto" readonly="readonly">                     
+                            </td>
+                            <td>
+                                <input type="text" name="invoiceSummary1[taxAmountSummaryForTaxRate]" id="invoiceCorrectiveSummary1-taxAmountSummaryForTaxRate"
+                                       class="form-control input-sm" value="0" title="Wartość VAT" readonly="readonly">
+                            </td>
+                            <td>
+                                <input type="text" name="invoiceSummary1[valueSummaryForTaxRate]" id="invoiceCorrectiveSummary1-valueSummaryForTaxRate"
+                                       class="form-control input-sm" value="0" readonly="readonly">                    
+                            </td>
+
+                        </tr>
+                        <tr style="display: none;" id="vatCorrective2">                   
+                            <td>
+                                <input type="text" name="invoiceSummary2[taxName]" id="invoiceCorrectiveSummary2-taxName"
+                                       class="form-control input-sm" value="5%" title="Stawka VAT" readonly="readonly"> 
+                            </td>
+
+
+                            <td>
+                                <input type="text" name="invoiceSummary2[netValueSummaryForTaxRate]" id="invoiceCorrectiveSummary2-netValueSummaryForTaxRate"
+                                       class="form-control input-sm" value="0" title="Wartość Netto" readonly="readonly">                     
+                            </td>
+                            <td>
+                                <input type="text" name="invoiceSummary2[taxAmountSummaryForTaxRate]" id="invoiceCorrectiveSummary2-taxAmountSummaryForTaxRate"
+                                       class="form-control input-sm" value="0" title="Wartość VAT" readonly="readonly">                    
+                            </td>
+                            <td>
+                                <input type="text" name="invoiceSummary2[valueSummaryForTaxRate]" id="invoiceCorrectiveSummary2-valueSummaryForTaxRate"
+                                       class="form-control input-sm" value="0" readonly="readonly">                  
+                            </td>
+
+                        </tr>
+                        <tr style="display: none;" id="vatCorrective3">
+                            <td>
+                                <input type="text" name="invoiceSummary3[taxName]" id="invoiceCorrectiveSummary3-taxName"
+                                       class="form-control input-sm" value="0%" title="Stawka VAT" readonly="readonly">                        
+                            </td>
+
+                            <td>
+                                <input type="text" name="invoiceSummary3[netValueSummaryForTaxRate]" id="invoiceCorrectiveSummary3-netValueSummaryForTaxRate"
+                                       class="form-control input-sm" value="0" title="Wartość Netto" readonly="readonly">                    
+                            </td>
+                            <td>
+                                <input type="text" name="invoiceSummary3[taxAmountSummaryForTaxRate]" id="invoiceCorrectiveSummary3-taxAmountSummaryForTaxRate"
+                                       class="form-control input-sm" value="0" title="Wartość VAT" readonly="readonly">                      
+                            </td>
+                            <td>
+                                <input type="text" name="invoiceSummary3[valueSummaryForTaxRate]" id="invoiceCorrectiveSummary3-valueSummaryForTaxRate"
+                                       class="form-control input-sm" value="0" readonly="readonly">                      
+                            </td>
+
+                        </tr>
+                        <tr style="display: none;" id="vatCorrective4">
+                            <td>
+                                <input type="text" name="invoiceSummary4[taxName]" id="invoiceCorrectiveSummary4-taxName"
+                                       class="form-control input-sm" value="ZW" title="Stawka VAT" readonly="readonly">                         
+                            </td>
+
+                            <td>
+                                <input type="text" name="invoiceSummary4[netValueSummaryForTaxRate]" id="invoiceCorrectiveSummary4-netValueSummaryForTaxRate"
+                                       class="form-control input-sm" value="0" title="Wartość Netto" readonly="readonly">                      
+                            </td>
+                            <td>
+                                <input type="text" name="invoiceSummary4[taxAmountSummaryForTaxRate]" id="invoiceCorrectiveSummary4-taxAmountSummaryForTaxRate"
+                                       class="form-control input-sm" value="0" title="Wartość VAT" readonly="readonly">                         
+                            </td>
+                            <td>
+                                <input type="text" name="invoiceSummary4[valueSummaryForTaxRate]" id="invoiceCorrectiveSummary4-valueSummaryForTaxRate"
+                                       class="form-control input-sm" value="0" readonly="readonly">                       
+                            </td>
+
+                        </tr>
+                        <tr style="display: none;" id="vatCorrective5">
+                            <td>
+                                <input type="text" name="invoiceSummary5[taxName]" id="invoiceCorrectiveSummary5-taxName"
+                                       class="form-control input-sm" value="NP" title="Stawka VAT" readonly="readonly">                          
+                            </td>
+
+                            <td>
+                                <input type="text" name="invoiceSummary5[netValueSummaryForTaxRate]" id="invoiceCorrectiveSummary5-netValueSummaryForTaxRate"
+                                       class="form-control input-sm" value="0" title="Wartość Netto" readonly="readonly">                                            
+                            </td>
+                            <td>
+                                <input type="text" name="invoiceSummary5[taxAmountSummaryForTaxRate]" id="invoiceCorrectiveSummary5-taxAmountSummaryForTaxRate"
+                                       class="form-control input-sm" value="0" title="Wartość VAT" readonly="readonly">                       
+                            </td>
+                            <td>
+                                <input type="text" name="invoiceSummary5[valueSummaryForTaxRate]" id="invoiceCorrectiveSummary5-valueSummaryForTaxRate"
+                                       class="form-control input-sm" value="0" readonly="readonly">                                           
+                            </td>
+
+                        </tr>
+                   
+                    </tbody>    
+                </table>
+
+            </div>
+            <div class="form-group">
+                <b> różnica kwot pomiędzy dok. sprzedaży a korektą: </b>               
+            </div>
+            <hr>
             <div class="form-group">
                 {{ form_label(form.totalValueNet, 'Razem kwota netto:', { 'label_attr': {'class': 'control-label'}}) }}
                 {{ form_widget(form.totalValueNet, { 'attr': {'class': 'form-control input-sm', 'style' : 'width : 280px ; float : right'}}) }}
@@ -362,7 +616,8 @@
     <hr>
     <script src="/js/jquery-3.1.1.js"></script>
     <script src="/js/jquery.collection.js"></script>
-    <script src="{{ asset('js/counting.js') }}"></script>   
+    <script src="{{ asset('js/countingCorrective.js') }}"></script> 
+    <script src="{{ asset('js/counting.js') }}"></script> 
     <script type="text/javascript">
 
         $('.pozycja').collection({
@@ -380,5 +635,5 @@
         });
 
     </script>           
-    
+
 {% endblock %}
