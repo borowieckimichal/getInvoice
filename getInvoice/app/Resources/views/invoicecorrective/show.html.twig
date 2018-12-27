@@ -1,148 +1,657 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Invoicecorrective</h1>
+    <h3>Twoja faktura korygująca</h3>
+    {# {% block pdf %} #}
+    <div class="text-muted text-center">           
+        <b>Faktura korygująca Nr</b>
+        {{ invoiceCorrective.invoiceNo }}
+        <b> Faktura korygowana Nr</b> {{ invoiceCorrective.invoiceCorrected }} z dnia {% if invoiceCorrective.invoices.dateIssue %}{{ invoiceCorrective.invoices.dateIssue| date('Y-m-d') }}{% endif %}  
+    </div>
+    <div class="row">    
 
-    <table>
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ invoiceCorrective.id }}</td>
-            </tr>
-            <tr>
-                <th>Invoicecorrected</th>
-                <td>{{ invoiceCorrective.invoiceCorrected }}</td>
-            </tr>
-            <tr>
-                <th>Comments</th>
-                <td>{{ invoiceCorrective.comments }}</td>
-            </tr>
-            <tr>
-                <th>Invoiceno</th>
-                <td>{{ invoiceCorrective.invoiceNo }}</td>
-            </tr>
-            <tr>
-                <th>Dateissue</th>
-                <td>{% if invoiceCorrective.dateIssue %}{{ invoiceCorrective.dateIssue|date('Y-m-d') }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Datesale</th>
-                <td>{% if invoiceCorrective.dateSale %}{{ invoiceCorrective.dateSale|date('Y-m-d') }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Datepayment</th>
-                <td>{% if invoiceCorrective.datePayment %}{{ invoiceCorrective.datePayment|date('Y-m-d') }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Paymentmethod</th>
-                <td>{{ invoiceCorrective.paymentMethod }}</td>
-            </tr>
-            <tr>
-                <th>Currency</th>
-                <td>{{ invoiceCorrective.currency }}</td>
-            </tr>
-            <tr>
-                <th>Iban</th>
-                <td>{{ invoiceCorrective.iban }}</td>
-            </tr>
-            <tr>
-                <th>Sellername</th>
-                <td>{{ invoiceCorrective.sellerName }}</td>
-            </tr>
-            <tr>
-                <th>Selleraddressstreet</th>
-                <td>{{ invoiceCorrective.sellerAddressStreet }}</td>
-            </tr>
-            <tr>
-                <th>Sellerpostalcode</th>
-                <td>{{ invoiceCorrective.sellerPostalCode }}</td>
-            </tr>
-            <tr>
-                <th>Selleraddresscity</th>
-                <td>{{ invoiceCorrective.sellerAddressCity }}</td>
-            </tr>
-            <tr>
-                <th>Sellerphone</th>
-                <td>{{ invoiceCorrective.sellerPhone }}</td>
-            </tr>
-            <tr>
-                <th>Sellernip</th>
-                <td>{{ invoiceCorrective.sellerNip }}</td>
-            </tr>
-            <tr>
-                <th>Customername</th>
-                <td>{{ invoiceCorrective.customerName }}</td>
-            </tr>
-            <tr>
-                <th>Customeraddressstreet</th>
-                <td>{{ invoiceCorrective.customerAddressStreet }}</td>
-            </tr>
-            <tr>
-                <th>Customeraddresspostalcode</th>
-                <td>{{ invoiceCorrective.customerAddressPostalCode }}</td>
-            </tr>
-            <tr>
-                <th>Customeraddresscity</th>
-                <td>{{ invoiceCorrective.customerAddressCity }}</td>
-            </tr>
-            <tr>
-                <th>Customerphone</th>
-                <td>{{ invoiceCorrective.customerPhone }}</td>
-            </tr>
-            <tr>
-                <th>Customernip</th>
-                <td>{{ invoiceCorrective.customerNip }}</td>
-            </tr>
-            <tr>
-                <th>Totalvaluenet</th>
-                <td>{{ invoiceCorrective.totalValueNet }}</td>
-            </tr>
-            <tr>
-                <th>Totalamountvat</th>
-                <td>{{ invoiceCorrective.totalAmountVAT }}</td>
-            </tr>
-            <tr>
-                <th>Totalvaluegross</th>
-                <td>{{ invoiceCorrective.totalValueGross }}</td>
-            </tr>
-            <tr>
-                <th>Paid</th>
-                <td>{{ invoiceCorrective.paid }}</td>
-            </tr>
-            <tr>
-                <th>Remaintopay</th>
-                <td>{{ invoiceCorrective.remainToPay }}</td>
-            </tr>
-            <tr>
-                <th>Topayinwords</th>
-                <td>{{ invoiceCorrective.toPayInWords }}</td>
-            </tr>
-            <tr>
-                <th>Authorisedtoissue</th>
-                <td>{{ invoiceCorrective.authorisedToIssue }}</td>
-            </tr>
-            <tr>
-                <th>Allowedtoreceive</th>
-                <td>{{ invoiceCorrective.allowedToReceive }}</td>
-            </tr>
-            <tr>
-                <th>Invoicelogo</th>
-                <td>{{ invoiceCorrective.invoiceLogo }}</td>
-            </tr>
-        </tbody>
-    </table>
+        <div class="col-md-6">
+            <div class="text-muted text-left">
+                {% if invoiceCorrective.invoiceLogo ends with 'b/d' or invoiceCorrective.invoiceLogo is null%}
 
-    <ul>
-        <li>
-            <a href="{{ path('invoicecorrective_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a href="{{ path('invoicecorrective_edit', { 'id': invoiceCorrective.id }) }}">Edit</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
-{% endblock %}
+                {% else %}
+                    <img src="{{ absolute_url(asset('uploads/logos/'))}}{{invoiceCorrective.invoiceLogo}}"
+                         height="150" width="150">
+                {% endif %}
+            </div>           
+        </div>
+
+
+        <div class="col-md-6">
+            <div class="form-group text-muted text-right">                
+                <b>Data wystawienia:</b> 
+                {% if invoiceCorrective.dateIssue %}{{ invoiceCorrective.dateIssue|date('Y-m-d') }}{% endif %}            
+            </div>
+            <div class="form-group text-muted text-right">
+                <b>Data sprzedaży:</b>
+                {% if invoiceCorrective.dateSale %}{{ invoiceCorrective.dateSale|date('Y-m-d') }}{% endif %}
+            </div>
+            <div class="form-group text-muted text-right">
+                <b>Data płatności:</b>
+                {% if invoiceCorrective.datePayment %}{{ invoiceCorrective.datePayment|date('Y-m-d') }}{% endif %}
+            </div>
+        </div>
+    </div>    
+    <div class="form-group">
+        &nbsp;
+    </div>
+    <hr>   
+    <div class="row"> 
+        <div class="col-md-5">
+            <div class="form-group">
+                <b>Nazwa sprzedawcy:</b>
+                {{ invoiceCorrective.sellerName }}                    
+            </div>
+            <div class="form-group">       
+                <b>Adres sprzedawcy:</b><br>
+                {{ invoiceCorrective.sellerAddressStreet }}<br>
+                {{ invoiceCorrective.sellerPostalCode }}
+                {{ invoiceCorrective.sellerAddressCity }}                              
+            </div>
+            <div class="form-group">
+                <b>Telefon sprzedawcy:</b>
+                {{ invoiceCorrective.sellerPhone }}                              
+            </div>
+            <div class="form-group">
+                <b>NIP sprzedawcy:</b>
+                {{ invoiceCorrective.sellerNip }}                     
+            </div>           
+        </div>
+        <div class="col-md-2">           
+        </div>
+        <div class="col-md-5">
+            <div class="form-group">
+                <b>Nazwa nabywcy:</b>
+                {{ invoiceCorrective.customerName }}                      
+            </div>
+            <div class="form-group">
+                <b>Adres nabywcy:</b><br>
+                {{ invoiceCorrective.customerAddressStreet }}<br>
+                {{ invoiceCorrective.customerAddressPostalCode }}
+                {{ invoiceCorrective.customerAddressCity }}                    
+            </div>
+            <div class="form-group">
+                <b>Telefon nabywcy:</b>
+                {{ invoiceCorrective.customerPhone }}                    
+            </div>
+            <div class="form-group">
+                <b>NIP nabywcy:</b>
+                {{ invoiceCorrective.customerNip }}                     
+            </div>           
+        </div>
+    </div>    
+    <hr>
+    <div class="row">
+        <div class="col-md-12">
+            <b> Przed korektą: </b>
+            <table class="control-label">
+                <th width="45px" float="left">
+                    Lp.:
+                </th>
+                <th width="220px" float="left">
+                    Nazwa produktu
+                </th>
+                <th width="70px" float="left">
+                    PKWiU
+                </th>
+                <th width="70px" float="left">
+                    ilość
+                </th>
+                <th width="45px" float="left">
+                    JM
+                </th>
+                <th width="100px" float="left">
+                    cena netto
+                </th>
+                <th width="120px" float="left">
+                    wartość netto
+                </th>
+                <th width="80px" float="left">
+                    VAT
+                </th>
+                <th width="100px" float="left">
+                    kwota VAT
+                </th>
+                <th width="120px" float="left">
+                    kwota brutto
+                </th>
+
+                <div id="form-test">
+
+                    {% for positions in invoiceCorrective.invoices.positions %}
+
+                        <tr class="position">                      
+
+                            <td> 
+                                <input class="form-control input-sm" value="{{ positions.ordinal }}" readonly="readonly">
+                            </td>
+                            <td> 
+                                <input class="form-control input-sm" value="{{ positions.productName }}" readonly="readonly"> 
+                            </td>
+                            <td> 
+                                <input class="form-control input-sm"value="{{ positions.pkwiu }}" readonly="readonly"> 
+                            </td>               
+                            <td> 
+                                <input class="form-control input-sm" id="getinvoicebundle_invoice_positions_{{positions.ordinal}}_quantity" value="{{ positions.quantity }}" readonly="readonly"> 
+                            </td>
+                            <td> 
+                                <input class="form-control input-sm" value="{{ positions.unitMeasure }}" readonly="readonly"> 
+                            </td>
+                            <td> 
+                                <input class="form-control input-sm" id="getinvoicebundle_invoice_positions_{{positions.ordinal}}_priceNet" value="{{ positions.priceNet }}" readonly="readonly"> 
+                            </td>
+                            <td> 
+                                <input class="form-control input-sm" id="getinvoicebundle_invoice_positions_{{positions.ordinal}}_valueNet" value="{{ positions.valueNet }}" readonly="readonly"> 
+                            </td>
+                            <td> 
+                                <input class="form-control input-sm" id="getinvoicebundle_invoice_positions_{{positions.ordinal}}_rateVAT" value="{{ positions.rateVat == -1 ? 'ZW' : positions.rateVat == -2 ? 'NP' : positions.rateVat }}" readonly="readonly">
+                            </td>
+                            <td> 
+                                <input class="form-control input-sm" id="getinvoicebundle_invoice_positions_{{positions.ordinal}}_amountVAT" value="{{ positions.amountVat }}" readonly="readonly"> 
+                            </td>
+                            <td> 
+                                <input class="form-control input-sm" id="getinvoicebundle_invoice_positions_{{positions.ordinal}}_valueGross" value="{{ positions.valueGross }}" readonly="readonly"> 
+                            </td>
+
+                        </tr>
+                        <br>
+                    {% endfor %}
+                    </table>   
+                </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+            </div>
+            <div class="col-md-6">
+                <div class="table-responsive">
+
+                    <table class="table table-condensed">
+
+                        <thead class="thead-default">
+                            <tr>
+                                <th scope="row"></th>
+                                <th scope="row">
+                                    Wartość
+                                    <br>
+                                    Netto
+                                </th>
+                                <th scope="row">
+                                    Wartość
+                                    <br>
+                                    VAT
+                                </th>
+                                <th scope="row">
+                                    Wartość
+                                    <br>
+                                    Brutto                       
+                                </th>                  
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <div id="vat">
+                            <tr style="display: none;" id="vat0">
+                                <td>
+                                    <input type="text" name="invoiceSummary0[taxName]" id="invoiceSummary0-taxName"
+                                           class="form-control input-sm" value="23%" title="Stawka VAT" readonly="readonly">
+                                </td>
+
+                                <td>
+                                    <input type="text" name="invoiceSummary0[netValueSummaryForTaxRate]" id="invoiceSummary0-netValueSummaryForTaxRate"
+                                           class="form-control input-sm" value="0" title="Wartość Netto" readonly="readonly">   
+                                </td>
+                                <td>
+                                    <input type="text" name="invoiceSummary0[taxAmountSummaryForTaxRate]" id="invoiceSummary0-taxAmountSummaryForTaxRate"
+                                           class="form-control input-sm" value="0" title="Wartość VAT" readonly="readonly">
+                                </td>
+                                <td>
+                                    <input type="text" name="invoiceSummary0[valueSummaryForTaxRate]" id="invoiceSummary0-valueSummaryForTaxRate"
+                                           class="form-control input-sm" value="0" readonly="readonly">
+                                </td>
+
+                            </tr>
+                            <tr style="display: none;" id="vat1">
+                                <td>
+                                    <input type="text" name="invoiceSummary1[taxName]" id="invoiceSummary1-taxName"
+                                           class="form-control input-sm" value="8%" title="Stawka VAT" readonly="readonly">                                                
+                                </td>
+
+
+                                <td>
+                                    <input type="text" name="invoiceSummary1[netValueSummaryForTaxRate]" id="invoiceSummary1-netValueSummaryForTaxRate"
+                                           class="form-control input-sm" value="0" title="Wartość Netto" readonly="readonly">                     
+                                </td>
+                                <td>
+                                    <input type="text" name="invoiceSummary1[taxAmountSummaryForTaxRate]" id="invoiceSummary1-taxAmountSummaryForTaxRate"
+                                           class="form-control input-sm" value="0" title="Wartość VAT" readonly="readonly">
+                                </td>
+                                <td>
+                                    <input type="text" name="invoiceSummary1[valueSummaryForTaxRate]" id="invoiceSummary1-valueSummaryForTaxRate"
+                                           class="form-control input-sm" value="0" readonly="readonly">                    
+                                </td>
+
+                            </tr>
+                            <tr style="display: none;" id="vat2">                   
+                                <td>
+                                    <input type="text" name="invoiceSummary2[taxName]" id="invoiceSummary2-taxName"
+                                           class="form-control input-sm" value="5%" title="Stawka VAT" readonly="readonly"> 
+                                </td>
+
+
+                                <td>
+                                    <input type="text" name="invoiceSummary2[netValueSummaryForTaxRate]" id="invoiceSummary2-netValueSummaryForTaxRate"
+                                           class="form-control input-sm" value="0" title="Wartość Netto" readonly="readonly">                     
+                                </td>
+                                <td>
+                                    <input type="text" name="invoiceSummary2[taxAmountSummaryForTaxRate]" id="invoiceSummary2-taxAmountSummaryForTaxRate"
+                                           class="form-control input-sm" value="0" title="Wartość VAT" readonly="readonly">                    
+                                </td>
+                                <td>
+                                    <input type="text" name="invoiceSummary2[valueSummaryForTaxRate]" id="invoiceSummary2-valueSummaryForTaxRate"
+                                           class="form-control input-sm" value="0" readonly="readonly">                  
+                                </td>
+
+                            </tr>
+                            <tr style="display: none;" id="vat3">
+                                <td>
+                                    <input type="text" name="invoiceSummary3[taxName]" id="invoiceSummary3-taxName"
+                                           class="form-control input-sm" value="0%" title="Stawka VAT" readonly="readonly">                        
+                                </td>
+
+                                <td>
+                                    <input type="text" name="invoiceSummary3[netValueSummaryForTaxRate]" id="invoiceSummary3-netValueSummaryForTaxRate"
+                                           class="form-control input-sm" value="0" title="Wartość Netto" readonly="readonly">                    
+                                </td>
+                                <td>
+                                    <input type="text" name="invoiceSummary3[taxAmountSummaryForTaxRate]" id="invoiceSummary3-taxAmountSummaryForTaxRate"
+                                           class="form-control input-sm" value="0" title="Wartość VAT" readonly="readonly">                      
+                                </td>
+                                <td>
+                                    <input type="text" name="invoiceSummary3[valueSummaryForTaxRate]" id="invoiceSummary3-valueSummaryForTaxRate"
+                                           class="form-control input-sm" value="0" readonly="readonly">                      
+                                </td>
+
+                            </tr>
+                            <tr style="display: none;" id="vat4">
+                                <td>
+                                    <input type="text" name="invoiceSummary4[taxName]" id="invoiceSummary4-taxName"
+                                           class="form-control input-sm" value="ZW" title="Stawka VAT" readonly="readonly">                         
+                                </td>
+
+                                <td>
+                                    <input type="text" name="invoiceSummary4[netValueSummaryForTaxRate]" id="invoiceSummary4-netValueSummaryForTaxRate"
+                                           class="form-control input-sm" value="0" title="Wartość Netto" readonly="readonly">                      
+                                </td>
+                                <td>
+                                    <input type="text" name="invoiceSummary4[taxAmountSummaryForTaxRate]" id="invoiceSummary4-taxAmountSummaryForTaxRate"
+                                           class="form-control input-sm" value="0" title="Wartość VAT" readonly="readonly">                         
+                                </td>
+                                <td>
+                                    <input type="text" name="invoiceSummary4[valueSummaryForTaxRate]" id="invoiceSummary4-valueSummaryForTaxRate"
+                                           class="form-control input-sm" value="0" readonly="readonly">                       
+                                </td>
+
+                            </tr>
+                            <tr style="display: none;" id="vat5">
+                                <td>
+                                    <input type="text" name="invoiceSummary5[taxName]" id="invoiceSummary5-taxName"
+                                           class="form-control input-sm" value="NP" title="Stawka VAT" readonly="readonly">                          
+                                </td>
+
+                                <td>
+                                    <input type="text" name="invoiceSummary5[netValueSummaryForTaxRate]" id="invoiceSummary5-netValueSummaryForTaxRate"
+                                           class="form-control input-sm" value="0" title="Wartość Netto" readonly="readonly">                                            
+                                </td>
+                                <td>
+                                    <input type="text" name="invoiceSummary5[taxAmountSummaryForTaxRate]" id="invoiceSummary5-taxAmountSummaryForTaxRate"
+                                           class="form-control input-sm" value="0" title="Wartość VAT" readonly="readonly">                       
+                                </td>
+                                <td>
+                                    <input type="text" name="invoiceSummary5[valueSummaryForTaxRate]" id="invoiceSummary5-valueSummaryForTaxRate"
+                                           class="form-control input-sm" value="0" readonly="readonly">                                           
+                                </td>
+
+                            </tr>
+                        </div>
+                        </tbody>    
+                    </table>
+                </div>
+                </div>                    
+        </div>
+
+
+
+
+
+
+                <hr>       
+                <div class="row">
+                    <div class="col-md-12">
+                        <b> Po korekcie: </b>
+                        <table class="control-label">
+                            <th width="45px" float="left">
+                                Lp.:
+                            </th>
+                            <th width="220px" float="left">
+                                Nazwa produktu
+                            </th>
+                            <th width="70px" float="left">
+                                PKWiU
+                            </th>
+                            <th width="70px" float="left">
+                                ilość
+                            </th>
+                            <th width="45px" float="left">
+                                JM
+                            </th>
+                            <th width="100px" float="left">
+                                cena netto
+                            </th>
+                            <th width="120px" float="left">
+                                wartość netto
+                            </th>
+                            <th width="80px" float="left">
+                                VAT
+                            </th>
+                            <th width="100px" float="left">
+                                kwota VAT
+                            </th>
+                            <th width="120px" float="left">
+                                kwota brutto
+                            </th>
+
+                            <div id="form-test">
+
+                                {% for positions in invoiceCorrective.positions %}
+
+                                    <tr class="position">                      
+
+                                        <td> 
+                                            <input class="form-control input-sm" value="{{ positions.ordinal }}" readonly="readonly">
+                                        </td>
+                                        <td> 
+                                            <input class="form-control input-sm" value="{{ positions.productName }}" readonly="readonly"> 
+                                        </td>
+                                        <td> 
+                                            <input class="form-control input-sm"value="{{ positions.pkwiu }}" readonly="readonly"> 
+                                        </td>               
+                                        <td> 
+                                            <input class="form-control input-sm" id="getinvoicebundle_invoicecorrective_positions_{{positions.ordinal}}_quantity" value="{{ positions.quantity }}" readonly="readonly"> 
+                                        </td>
+                                        <td> 
+                                            <input class="form-control input-sm" value="{{ positions.unitMeasure }}" readonly="readonly"> 
+                                        </td>
+                                        <td> 
+                                            <input class="form-control input-sm" id="getinvoicebundle_invoicecorrective_positions_{{positions.ordinal}}_priceNet" value="{{ positions.priceNet }}" readonly="readonly"> 
+                                        </td>
+                                        <td> 
+                                            <input class="form-control input-sm" id="getinvoicebundle_invoicecorrective_positions_{{positions.ordinal}}_valueNet" value="{{ positions.valueNet }}" readonly="readonly"> 
+                                        </td>
+                                        <td> 
+                                            <input class="form-control input-sm" id="getinvoicebundle_invoicecorrective_positions_{{positions.ordinal}}_rateVAT" value="{{ positions.rateVat == -1 ? 'ZW' : positions.rateVat == -2 ? 'NP' : positions.rateVat }}" readonly="readonly">
+                                        </td>
+                                        <td> 
+                                            <input class="form-control input-sm" id="getinvoicebundle_invoicecorrective_positions_{{positions.ordinal}}_amountVAT" value="{{ positions.amountVat }}" readonly="readonly"> 
+                                        </td>
+                                        <td> 
+                                            <input class="form-control input-sm" id="getinvoicebundle_invoicecorrective_positions_{{positions.ordinal}}_valueGross" value="{{ positions.valueGross }}" readonly="readonly"> 
+                                        </td>                                                                     
+                                    </tr>
+                                    <br>
+                                {% endfor %}
+                                </table>   
+                            </div>
+                    </div>
+                    </div>          
+                    <hr>   
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <b>Sposób płatności:</b>
+                                {{ invoiceCorrective.paymentMethod }}              
+                            </div>
+                            <div class="form-group">
+                                <b>Waluta:</b>
+                                {{ invoiceCorrective.currency }}                
+                            </div>
+                            <div class="form-group">
+                                <b>Nr rachunku bankowego:</b>
+                                {{ invoiceCorrective.iban }}        
+                            </div>
+                            <div class="form-group">
+                                <b>zapłacono:</b>
+                                {{ invoiceCorrective.paid }}              
+                            </div>
+                            <div class="form-group">
+                                <b>pozostaje do zapłaty:</b>
+                                {{ invoiceCorrective.remainToPay }}               
+                            </div>
+                            <div class="form-group">
+                                <b>do zapłaty słownie</b>
+                                {{ invoiceCorrective.toPayInWords }}            
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="table-responsive">
+
+                                <table class="table table-condensed">
+
+                                    <thead class="thead-default">
+                                        <tr>
+                                            <th scope="row"></th>
+                                            <th scope="row">
+                                                Wartość
+                                                <br>
+                                                Netto
+                                            </th>
+                                            <th scope="row">
+                                                Wartość
+                                                <br>
+                                                VAT
+                                            </th>
+                                            <th scope="row">
+                                                Wartość
+                                                <br>
+                                                Brutto                       
+                                            </th>                  
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                 
+                                        <tr style="display: none;" id="vatCorrective0">
+                                            <td>
+                                                <input type="text" name="invoiceSummary0[taxName]" id="invoiceCorrectiveSummary0-taxName"
+                                                       class="form-control input-sm" value="23%" title="Stawka VAT" readonly="readonly">
+                                            </td>
+
+                                            <td>
+                                                <input type="text" name="invoiceSummary0[netValueSummaryForTaxRate]" id="invoiceCorrectiveSummary0-netValueSummaryForTaxRate"
+                                                       class="form-control input-sm" value="0" title="Wartość Netto" readonly="readonly">   
+                                            </td>
+                                            <td>
+                                                <input type="text" name="invoiceSummary0[taxAmountSummaryForTaxRate]" id="invoiceCorrectiveSummary0-taxAmountSummaryForTaxRate"
+                                                       class="form-control input-sm" value="0" title="Wartość VAT" readonly="readonly">
+                                            </td>
+                                            <td>
+                                                <input type="text" name="invoiceSummary0[valueSummaryForTaxRate]" id="invoiceCorrectiveSummary0-valueSummaryForTaxRate"
+                                                       class="form-control input-sm" value="0" readonly="readonly">
+                                            </td>
+
+                                        </tr>
+                                        <tr style="display: none;" id="vatCorrective1">
+                                            <td>
+                                                <input type="text" name="invoiceSummary1[taxName]" id="invoiceCorrectiveSummary1-taxName"
+                                                       class="form-control input-sm" value="8%" title="Stawka VAT" readonly="readonly">                                                
+                                            </td>
+
+
+                                            <td>
+                                                <input type="text" name="invoiceSummary1[netValueSummaryForTaxRate]" id="invoiceCorrectiveSummary1-netValueSummaryForTaxRate"
+                                                       class="form-control input-sm" value="0" title="Wartość Netto" readonly="readonly">                     
+                                            </td>
+                                            <td>
+                                                <input type="text" name="invoiceSummary1[taxAmountSummaryForTaxRate]" id="invoiceCorrectiveSummary1-taxAmountSummaryForTaxRate"
+                                                       class="form-control input-sm" value="0" title="Wartość VAT" readonly="readonly">
+                                            </td>
+                                            <td>
+                                                <input type="text" name="invoiceSummary1[valueSummaryForTaxRate]" id="invoiceCorrectiveSummary1-valueSummaryForTaxRate"
+                                                       class="form-control input-sm" value="0" readonly="readonly">                    
+                                            </td>
+
+                                        </tr>
+                                        <tr style="display: none;" id="vatCorrective2">                   
+                                            <td>
+                                                <input type="text" name="invoiceSummary2[taxName]" id="invoiceCorrectiveSummary2-taxName"
+                                                       class="form-control input-sm" value="5%" title="Stawka VAT" readonly="readonly"> 
+                                            </td>
+
+
+                                            <td>
+                                                <input type="text" name="invoiceSummary2[netValueSummaryForTaxRate]" id="invoiceCorrectiveSummary2-netValueSummaryForTaxRate"
+                                                       class="form-control input-sm" value="0" title="Wartość Netto" readonly="readonly">                     
+                                            </td>
+                                            <td>
+                                                <input type="text" name="invoiceSummary2[taxAmountSummaryForTaxRate]" id="invoiceCorrectiveSummary2-taxAmountSummaryForTaxRate"
+                                                       class="form-control input-sm" value="0" title="Wartość VAT" readonly="readonly">                    
+                                            </td>
+                                            <td>
+                                                <input type="text" name="invoiceSummary2[valueSummaryForTaxRate]" id="invoiceCorrectiveSummary2-valueSummaryForTaxRate"
+                                                       class="form-control input-sm" value="0" readonly="readonly">                  
+                                            </td>
+
+                                        </tr>
+                                        <tr style="display: none;" id="vatCorrective3">
+                                            <td>
+                                                <input type="text" name="invoiceSummary3[taxName]" id="invoiceCorrectiveSummary3-taxName"
+                                                       class="form-control input-sm" value="0%" title="Stawka VAT" readonly="readonly">                        
+                                            </td>
+
+                                            <td>
+                                                <input type="text" name="invoiceSummary3[netValueSummaryForTaxRate]" id="invoiceCorrectiveSummary3-netValueSummaryForTaxRate"
+                                                       class="form-control input-sm" value="0" title="Wartość Netto" readonly="readonly">                    
+                                            </td>
+                                            <td>
+                                                <input type="text" name="invoiceSummary3[taxAmountSummaryForTaxRate]" id="invoiceCorectiveSummary3-taxAmountSummaryForTaxRate"
+                                                       class="form-control input-sm" value="0" title="Wartość VAT" readonly="readonly">                      
+                                            </td>
+                                            <td>
+                                                <input type="text" name="invoiceSummary3[valueSummaryForTaxRate]" id="invoiceCorrectiveSummary3-valueSummaryForTaxRate"
+                                                       class="form-control input-sm" value="0" readonly="readonly">                      
+                                            </td>
+
+                                        </tr>
+                                        <tr style="display: none;" id="vatCorrective4">
+                                            <td>
+                                                <input type="text" name="invoiceSummary4[taxName]" id="invoiceCorrectiveSummary4-taxName"
+                                                       class="form-control input-sm" value="ZW" title="Stawka VAT" readonly="readonly">                         
+                                            </td>
+
+                                            <td>
+                                                <input type="text" name="invoiceSummary4[netValueSummaryForTaxRate]" id="invoiceCorrectiveSummary4-netValueSummaryForTaxRate"
+                                                       class="form-control input-sm" value="0" title="Wartość Netto" readonly="readonly">                      
+                                            </td>
+                                            <td>
+                                                <input type="text" name="invoiceSummary4[taxAmountSummaryForTaxRate]" id="invoiceCorrectiveSummary4-taxAmountSummaryForTaxRate"
+                                                       class="form-control input-sm" value="0" title="Wartość VAT" readonly="readonly">                         
+                                            </td>
+                                            <td>
+                                                <input type="text" name="invoiceSummary4[valueSummaryForTaxRate]" id="invoiceCorrectiveSummary4-valueSummaryForTaxRate"
+                                                       class="form-control input-sm" value="0" readonly="readonly">                       
+                                            </td>
+
+                                        </tr>
+                                        <tr style="display: none;" id="vatCorrective5">
+                                            <td>
+                                                <input type="text" name="invoiceSummary5[taxName]" id="invoiceCorrectiveSummary5-taxName"
+                                                       class="form-control input-sm" value="NP" title="Stawka VAT" readonly="readonly">                          
+                                            </td>
+
+                                            <td>
+                                                <input type="text" name="invoiceSummary5[netValueSummaryForTaxRate]" id="invoiceCorrectiveSummary5-netValueSummaryForTaxRate"
+                                                       class="form-control input-sm" value="0" title="Wartość Netto" readonly="readonly">                                            
+                                            </td>
+                                            <td>
+                                                <input type="text" name="invoiceSummary5[taxAmountSummaryForTaxRate]" id="invoiceCorrectiveSummary5-taxAmountSummaryForTaxRate"
+                                                       class="form-control input-sm" value="0" title="Wartość VAT" readonly="readonly">                       
+                                            </td>
+                                            <td>
+                                                <input type="text" name="invoiceSummary5[valueSummaryForTaxRate]" id="invoiceCorrectiveSummary5-valueSummaryForTaxRate"
+                                                       class="form-control input-sm" value="0" readonly="readonly">                                           
+                                            </td>
+
+                                        </tr>
+                                    </div>
+                                    </tbody>    
+                                </table>
+
+                            </div>
+                            <div class="form-group">
+                                <b>Wartość korekty </b>
+                            </div>
+                            <div class="form-group">
+                                <b>Razem kwota netto:</b>
+                                {{ invoiceCorrective.totalValueNet }}               
+                            </div>    
+                            <div class="form-group">
+                                <b>Razem kwota VAT:</b>
+                                {{ invoiceCorrective.totalAmountVAT }}               
+                            </div> 
+                            <div class="form-group">
+                                <b>Razem kwota brutto</b>
+                                {{ invoiceCorrective.totalValueGross }}               
+                            </div>                 
+                        </div>       
+                    </div>  
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <b>Przyczyna wystawienia faktury korygującej:</b>
+                                {{ invoiceCorrective.comments }}                               
+                            </div>       
+                        </div>
+
+                    </div>    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <b>Osoba upoważniona do wystawienia faktury:</b>
+                                {{ invoiceCorrective.authorisedToIssue }}                               
+                            </div>       
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <b>Osoba upoważniona do otrzymania faktury:</b>
+                                {{ invoiceCorrective.allowedToReceive }}                      
+                            </div>       
+                        </div>     
+                    </div>    
+
+
+
+
+                    <ul class="list-inline">
+                        <li>
+                            <a class="btn btn-default btn-sm" href="{{ path('invoicecorrective_index') }}">Powrót do listy faktur korygujących</a>
+                        </li>
+                        <li>
+                            <a class="btn btn-primary btn-sm" href="{{ path('invoicecorrective_edit', { 'id': invoiceCorrective.id }) }}">Eycja faktury korygującej</a>
+                        </li>
+                        <li>
+                            {{ form_start(delete_form) }}
+                            <input type="submit" class="btn btn-danger btn-sm" value="Usuń fakturę korygującą">
+                            {{ form_end(delete_form) }}
+                        </li>
+                        <li>
+                            {#<a class="btn btn-warning btn-sm" href="{{ path('invoice_pdf', { 'id': invoice.id }) }} "> PDF</a>#}
+                        </li>
+                    </ul>
+                    <script src="{{ absolute_url(asset('js/jquery-3.1.1.js'))}}"></script>
+                    <script src="{{ absolute_url(asset('js/jquery.collection.js'))}}"></script>        
+                    <script src="{{ absolute_url(asset('js/counting.js')) }}"></script>
+                    <script src="{{ absolute_url(asset('js/countingCorrective.js')) }}"></script>
+                {% endblock %}

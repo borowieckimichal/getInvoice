@@ -1,8 +1,86 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Invoicecorrectives list</h1>
+    
+    <ul class="nav nav-tabs">
+        {% set active="active" %}
+        {% for company in companies %}
+            <li class={{ active }}><a data-toggle="tab" href="#{{ company.id }}">{{ company.name }}</a></li>
+                {% set active="" %}
+            {% endfor %}
+    </ul>
+   <div class="tab-content">
+        {% set inactive="in active" %}
+        {% for company in companies %}   
+            <div id="{{ company.id }}" class="tab-pane fade {{ inactive }}">
+                {% set inactive="" %}   
+                {% if company.invoices |length > 0 %}
+                    <div id="borderedTable" class="body collapse in">
 
+                        <table class="table table-bordered responsive-table">
+                            <thead>
+                                <tr>                   
+                                    <th>Nr faktury korygującej</th>
+                                    <th>Nr faktury korygowanej</th>
+                                    <th>Data wystawienia</th> 
+                                    <th>Data płatności</th>                       
+                                    <th>Waluta</th>                       
+                                    <th>Sprzedawcy</th>                                                                     
+                                    <th>Nabywca</th>                        
+                                    <th>Kwota netto</th>
+                                    <th>VAT</th>
+                                    <th>Brutto</th>
+                                    <th>Przyczyna korekty</th>
+                                    <th>Akcje</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for invoiceCorrective in invoiceCorrectives %}
+                                    <tr>
+                                        <td><a class="btn btn-info btn-sm" href="{{ path('invoicecorrective_show', { 'id': invoiceCorrective.id }) }}">{{ invoiceCorrective.invoiceNo }}</a></td>                        
+                                        <td>{{ invoiceCorrective.invoiceCorrected }}</td>
+                                        <td>{% if invoiceCorrective.dateIssue %}{{ invoiceCorrective.dateIssue|date('Y-m-d') }}{% endif %}</td>                         
+                                        <td>{% if invoiceCorrective.datePayment %}{{ invoiceCorrective.datePayment|date('Y-m-d') }}{% endif %}</td>                         
+                                        <td>{{ invoiceCorrective.currency }}</td>                     
+                                        <td>{{ invoiceCorrective.sellerName }}</td>                       
+                                        <td>{{ invoiceCorrective.customerName }}</td>                           
+                                        <td>{{ invoiceCorrective.totalValueNet }}</td>
+                                        <td>{{ invoiceCorrective.totalAmountVAT }}</td>
+                                        <td>{{ invoiceCorrective.totalValueGross }}</td>
+                                        <td>{{ invoiceCorrective.comments }} </td>
+                                        <td>   
+                                            {% if invoiceCorrective is defined %}
+                                          {{ form_start(delete_form) }} 
+                                           <input type="submit" class="btn btn-warning btn-sm" value="Usuń fakturę korygującą">
+                                          {{ form_end(delete_form) }} 
+                                          {% else %}
+                                              {% endif %}
+                                            <a class="btn btn-primary btn-sm" href="{{ path('invoicecorrective_edit', { 'id': invoiceCorrective.id }) }}">Edycja faktury</a>                                            
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+
+                    </div>
+                {% else %}
+                    <p class="text-center">brak faktur korygujących w bazie dla firmy {{ company.name }}<p>
+                    {% endif %}
+            </div>
+        {% endfor %}
+    </div>    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+ {#   
+    
+    
     <table>
         <thead>
             <tr>
@@ -89,9 +167,5 @@
         </tbody>
     </table>
 
-    <ul>
-        <li>
-            <a href="{{ path('invoicecorrective_new') }}">Create a new invoiceCorrective</a>
-        </li>
-    </ul>
+ #}
 {% endblock %}

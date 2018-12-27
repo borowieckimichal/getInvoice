@@ -6,30 +6,48 @@ use getInvoiceBundle\Entity\InvoiceCorrective;
 use getInvoiceBundle\Entity\Invoice;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Invoicecorrective controller.
  *
  * @Route("invoicecorrective")
  */
-class InvoiceCorrectiveController extends Controller
-{
+class InvoiceCorrectiveController extends Controller {
+
     /**
      * Lists all invoiceCorrective entities.
      *
      * @Route("/", name="invoicecorrective_index")
      * @Method("GET")
      */
-    public function indexAction()
-    {
+    public function indexAction() {
         $em = $this->getDoctrine()->getManager();
+        $customerRepo = $this->getDoctrine()->getRepository('getInvoiceBundle:Customer');
+        $companyRepo = $this->getDoctrine()->getRepository('getInvoiceBundle:Company');
+        $user = $this->container
+                ->get('security.context')
+                ->getToken()
+                ->getUser();
+        $user->getId();
 
         $invoiceCorrectives = $em->getRepository('getInvoiceBundle:InvoiceCorrective')->findAll();
+        foreach ($invoiceCorrectives as $invoiceCorrective) {
+            $deleteForm = $this->createDeleteForm($invoiceCorrective);
+        }
 
-        return $this->render('invoicecorrective/index.html.twig', array(
-            'invoiceCorrectives' => $invoiceCorrectives,
-        ));
+        //if ($user instanceof User) {
+            $customers = $customerRepo->getAllcustomersByUserId($user);
+            $companies = $companyRepo->findByUser($user);
+            return $this->render('invoicecorrective/index.html.twig', array(
+                        'invoiceCorrectives' => $invoiceCorrectives,
+                        'customers' => $customers,
+                        'companies' => $companies,
+                        'delete_form' => $deleteForm->createView(),
+            ));
+       // }
+        //return $this->redirectToRoute("getinvoice_default_index");
     }
 
     /**
@@ -38,18 +56,18 @@ class InvoiceCorrectiveController extends Controller
      * @Route("/{Id_invoice}/new", name="invoicecorrective_new")
      * @Method({"GET", "POST"})
      */
-    public function newAction(Request $request, $Id_invoice)
-    {
+    public function newAction(Request $request, $Id_invoice) {
         $em = $this->getDoctrine()->getManager();
         $invoice = $em->getRepository('getInvoiceBundle:Invoice')->find($Id_invoice);
-        
+
         $invoiceCorrective = new Invoicecorrective();
         $form = $this->createForm('getInvoiceBundle\Form\InvoiceCorrectiveType', $invoiceCorrective->setInvoiceCorrected($invoice->getInvoiceNo())
-                ->setSellerName($invoice->getSellerName())->setSellerAddressStreet($invoice->getSellerAddressStreet())->setSellerPostalCode($invoice->getSellerPostalCode())
-                ->setSellerAddressCity($invoice->getSellerAddressCity())->setSellerPhone($invoice->getSellerPhone())->setSellerNip($invoice->getSellerNip())
-                ->setCustomerName($invoice->getCustomerName())->setCustomerAddressStreet($invoice->getCustomerAddressStreet())
-                ->setCustomerAddressPostalCode($invoice->getCustomerAddressPostalCode())->setCustomerAddressCity($invoice->getCustomerAddressCity())
-                ->setCustomerPhone($invoice->getCustomerPhone())->setCustomerNip($invoice->getCustomerNip())->setIban($invoice->getIban()));
+                        ->setSellerName($invoice->getSellerName())->setSellerAddressStreet($invoice->getSellerAddressStreet())->setSellerPostalCode($invoice->getSellerPostalCode())
+                        ->setSellerAddressCity($invoice->getSellerAddressCity())->setSellerPhone($invoice->getSellerPhone())->setSellerNip($invoice->getSellerNip())
+                        ->setCustomerName($invoice->getCustomerName())->setCustomerAddressStreet($invoice->getCustomerAddressStreet())
+                        ->setCustomerAddressPostalCode($invoice->getCustomerAddressPostalCode())->setCustomerAddressCity($invoice->getCustomerAddressCity())
+                        ->setCustomerPhone($invoice->getCustomerPhone())->setCustomerNip($invoice->getCustomerNip())->setIban($invoice->getIban())
+                        ->setInvoices($invoice)->setInvoiceLogo($invoice->getInvoiceLogo()));
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -65,9 +83,9 @@ class InvoiceCorrectiveController extends Controller
         }
 
         return $this->render('invoicecorrective/new.html.twig', array(
-            'invoiceCorrective' => $invoiceCorrective,
-            'form' => $form->createView(),
-            'invoice' => $invoice,
+                    'invoiceCorrective' => $invoiceCorrective,
+                    'form' => $form->createView(),
+                    'invoice' => $invoice,
         ));
     }
 
@@ -77,13 +95,14 @@ class InvoiceCorrectiveController extends Controller
      * @Route("/{id}", name="invoicecorrective_show")
      * @Method("GET")
      */
-    public function showAction(InvoiceCorrective $invoiceCorrective)
-    {
+    public function showAction(InvoiceCorrective $invoiceCorrective) {
         $deleteForm = $this->createDeleteForm($invoiceCorrective);
 
+        
         return $this->render('invoicecorrective/show.html.twig', array(
-            'invoiceCorrective' => $invoiceCorrective,
-            'delete_form' => $deleteForm->createView(),
+                    'invoiceCorrective' => $invoiceCorrective,
+                    'delete_form' => $deleteForm->createView(),
+                   // 'invoiceCorrected' => $invoiceCorrected,
         ));
     }
 
@@ -93,8 +112,7 @@ class InvoiceCorrectiveController extends Controller
      * @Route("/{id}/edit", name="invoicecorrective_edit")
      * @Method({"GET", "POST"})
      */
-    public function editAction(Request $request, InvoiceCorrective $invoiceCorrective)
-    {
+    public function editAction(Request $request, InvoiceCorrective $invoiceCorrective) {
         $deleteForm = $this->createDeleteForm($invoiceCorrective);
         $editForm = $this->createForm('getInvoiceBundle\Form\InvoiceCorrectiveType', $invoiceCorrective);
         $editForm->handleRequest($request);
@@ -106,9 +124,9 @@ class InvoiceCorrectiveController extends Controller
         }
 
         return $this->render('invoicecorrective/edit.html.twig', array(
-            'invoiceCorrective' => $invoiceCorrective,
-            'edit_form' => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+                    'invoiceCorrective' => $invoiceCorrective,
+                    'edit_form' => $editForm->createView(),
+                    'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -118,8 +136,7 @@ class InvoiceCorrectiveController extends Controller
      * @Route("/{id}", name="invoicecorrective_delete")
      * @Method("DELETE")
      */
-    public function deleteAction(Request $request, InvoiceCorrective $invoiceCorrective)
-    {
+    public function deleteAction(Request $request, InvoiceCorrective $invoiceCorrective) {
         $form = $this->createDeleteForm($invoiceCorrective);
         $form->handleRequest($request);
 
@@ -139,12 +156,12 @@ class InvoiceCorrectiveController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm(InvoiceCorrective $invoiceCorrective)
-    {
+    private function createDeleteForm(InvoiceCorrective $invoiceCorrective) {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('invoicecorrective_delete', array('id' => $invoiceCorrective->getId())))
-            ->setMethod('DELETE')
-            ->getForm()
+                        ->setAction($this->generateUrl('invoicecorrective_delete', array('id' => $invoiceCorrective->getId())))
+                        ->setMethod('DELETE')
+                        ->getForm()
         ;
     }
+
 }

@@ -19,4 +19,5 @@ class InvoiceRepository extends EntityRepository
         $query = $em->createQuery(
                 "SELECT p FROM getInvoiceBundle:Invoice");
     }
+
 }

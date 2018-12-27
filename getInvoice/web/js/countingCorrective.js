@@ -60,7 +60,7 @@ $(document).ready(function () {
 
             }
 
-        }
+        }  
         $("#invoiceCorrectiveSummary0-netValueSummaryForTaxRate").val(subTotalSum.toFixed(2));
         $("#invoiceCorrectiveSummary1-netValueSummaryForTaxRate").val(secondSum.toFixed(2));
         $("#invoiceCorrectiveSummary2-netValueSummaryForTaxRate").val(thirdSum.toFixed(2));
@@ -143,26 +143,22 @@ $(document).ready(function () {
                 $("#invoiceCorrectiveSummary5-taxAmountSummaryForTaxRate").val(sixthTotalVat.toFixed(2));
                 sixthTotalGross += gross;
                 $("#invoiceCorrectiveSummary5-valueSummaryForTaxRate").val(sixthTotalGross.toFixed(2));
-            }
+            }   
         }
-
+        
         $("#getinvoicebundle_invoicecorrective_totalAmountVAT").val(totalVat.toFixed(2));
         $("#getinvoicebundle_invoicecorrective_totalValueGross").val(totalGross.toFixed(2));
 
-        var updatedRemain = 0;
-        var paid = $("#getinvoicebundle_invoicecorrective_paid").val();
-        if (paid == 0) {
-
-            $("#getinvoicebundle_invoicecorrective_remainToPay").val(totalGross.toFixed(2));
-        } else if (paid > 0) {
-            updatedRemain = totalGross - paid;
-
-            $("#getinvoicebundle_invoicecorrective_remainToPay").val(updatedRemain.toFixed(2));
-        }
+        var correctiveVatSummary = totalVat - invoiceVatSummary;
+        var correctiveGrossSummary = totalGross - invoiceGrossSummary;
+        
+        $("#getinvoicebundle_invoicecorrective_totalAmountVAT").val(correctiveVatSummary.toFixed(2));
+        $("#getinvoicebundle_invoicecorrective_totalValueGross").val(correctiveGrossSummary.toFixed(2));
+        
 
         var invoiceVatSummary = 0;
         var invoiceGrossSummary = 0;
-        for (var y = 0; y < 6; y++) {
+       for (var y = 0; y < 6; y++) {
 
             var sub1 = $("#invoiceSummary" + y + "-taxAmountSummaryForTaxRate").val();
             var sub2 = $("#invoiceSummary" + y + "-valueSummaryForTaxRate").val();
@@ -177,6 +173,23 @@ $(document).ready(function () {
         $("#getinvoicebundle_invoicecorrective_totalAmountVAT").val(correctiveVatSummary.toFixed(2));
         $("#getinvoicebundle_invoicecorrective_totalValueGross").val(correctiveGrossSummary.toFixed(2));
 
+        var updatedRemain = 0;
+        var paid = $("#getinvoicebundle_invoicecorrective_paid").val();
+        if (paid == 0) {
+
+            $("#getinvoicebundle_invoicecorrective_remainToPay").val(correctiveGrossSummary.toFixed(2));
+        } else if (paid > 0 && correctiveGrossSummary < 0) {
+            updatedRemain = -correctiveGrossSummary - paid;
+
+            $("#getinvoicebundle_invoicecorrective_remainToPay").val(-updatedRemain.toFixed(2));
+        } else if (paid > 0) {
+            updatedRemain = correctiveGrossSummary - paid;
+
+            $("#getinvoicebundle_invoicecorrective_remainToPay").val(updatedRemain.toFixed(2));            
+        }
+               
+        
+        
     }
 
     function check() {
@@ -206,15 +219,22 @@ $(document).ready(function () {
             [" biliard", " biliardy", " biliardów"],
             [" trylion", " tryliony", " trylionów"]];
         var cents = '';
-        if ((amount - Math.floor(amount)) > 0) {
-            var gr = (amount - Math.floor(amount));
-
+        if (amount < 0 && !isNaN(-amount - Math.floor(-amount))) {
+            var gr = (-amount - Math.floor(-amount));
+            console.log(gr);    
             var dd = Math.floor((gr.toFixed(2) * 100) / 10);
             var jj = Math.floor((gr.toFixed(2) * 100) - dd * 10);
 
             cents = ' i ' + dd + jj + '/100';
 
-        }
+        } else {
+            var gr = (amount - Math.floor(amount));
+            console.log(gr);    
+            var dd = Math.floor((gr.toFixed(2) * 100) / 10);
+            var jj = Math.floor((gr.toFixed(2) * 100) - dd * 10);
+
+            cents = ' i ' + dd + jj + '/100';            
+        } 
 
         if (!isNaN(amount)) {
 
@@ -224,11 +244,11 @@ $(document).ready(function () {
                 output = "zero";
             if (amount < 0) {
                 mark = "minus";
-                amount = amount;
+                amount = -amount;
             }
 
             var g = 0;
-            while (amount > 0) {
+            while (amount > 0 ) {
                 var s = Math.floor((amount % 1000) / 100);
                 var n = 0;
                 var d = Math.floor((amount % 100) / 10);
@@ -252,6 +272,8 @@ $(document).ready(function () {
                 amount = Math.floor(amount / 1000);
 
             }
+            console.log(output);
+            console.log(amount);
             var currency = $("#getinvoicebundle_invoicecorrective_currency").val();
             $("#getinvoicebundle_invoicecorrective_toPayInWords").val(mark + output + ' ' + currency + cents);
         } else {
