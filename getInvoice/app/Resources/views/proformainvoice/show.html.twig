@@ -1,0 +1,196 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h3>Faktura Pro forma</h3>
+    <div class="text-muted text-center">           
+        <b>Faktura Pro Forma Nr</b>
+        {{ proFormaInvoice.invoiceNo }}           
+    </div>
+    <div class="row">    
+
+        <div class="col-md-6">
+            <div class="text-muted text-left">
+                {% if proFormaInvoice.invoiceLogo ends with 'b/d' or proFormaInvoice.invoiceLogo is null%}
+
+                {% else %}
+                    <img src="{{ absolute_url(asset('uploads/logos/'))}}{{proFormaInvoice.invoiceLogo}}"
+                         height="150" width="150">
+                {% endif %}
+            </div>           
+        </div>
+        <div class="col-md-6">
+            <div class="form-group text-muted text-right">                
+                <b>Data wystawienia:</b> 
+                {% if proFormaInvoice.dateIssue %}{{ proFormaInvoice.dateIssue|date('Y-m-d') }}{% endif %}            
+            </div>
+            <div class="form-group text-muted text-right">
+                <b>Data sprzedaży:</b>
+                {% if proFormaInvoice.dateSale %}{{ proFormaInvoice.dateSale|date('Y-m-d') }}{% endif %}
+            </div>
+            <div class="form-group text-muted text-right">
+                <b>Data płatności:</b>
+                {% if proFormaInvoice.datePayment %}{{ proFormaInvoice.datePayment|date('Y-m-d') }}{% endif %}
+            </div>
+        </div>
+    </div>    
+    <div class="form-group">
+        &nbsp;
+    </div>
+    <hr>     
+    <div class="row"> 
+        <div class="col-md-5">
+            <div class="form-group">
+                <b>Nazwa sprzedawcy:</b>
+                {{ proFormaInvoice.sellerName }}                    
+            </div>
+            <div class="form-group">       
+                <b>Adres sprzedawcy:</b><br>
+                {{ proFormaInvoice.sellerAddressStreet }}<br>
+                {{ proFormaInvoice.sellerPostalCode }}
+                {{ proFormaInvoice.sellerAddressCity }}                              
+            </div>
+            <div class="form-group">
+                <b>Telefon sprzedawcy:</b>
+                {{ proFormaInvoice.sellerPhone }}                              
+            </div>
+            <div class="form-group">
+                <b>NIP sprzedawcy:</b>
+                {{ proFormaInvoice.sellerNip }}                     
+            </div>           
+        </div>
+        <div class="col-md-2">           
+        </div>
+        <div class="col-md-5">
+            <div class="form-group">
+                <b>Nazwa nabywcy:</b>
+                {{ proFormaInvoice.customerName }}                      
+            </div>
+            <div class="form-group">
+                <b>Adres nabywcy:</b><br>
+                {{ proFormaInvoice.customerAddressStreet }}<br>
+                {{ proFormaInvoice.customerAddressPostalCode }}
+                {{ proFormaInvoice.customerAddressCity }}                    
+            </div>
+            <div class="form-group">
+                <b>Telefon nabywcy:</b>
+                {{ proFormaInvoice.customerPhone }}                    
+            </div>
+            <div class="form-group">
+                <b>NIP nabywcy:</b>
+                {{ proFormaInvoice.customerNip }}                     
+            </div>           
+        </div>
+    </div>   
+    <hr>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="control-label">
+                <th width="45px" float="left">
+                    Lp.:
+                </th>
+                <th width="220px" float="left">
+                    Nazwa produktu
+                </th>
+                <th width="70px" float="left">
+                    PKWiU
+                </th>
+                <th width="70px" float="left">
+                    ilość
+                </th>
+                <th width="45px" float="left">
+                    JM
+                </th>
+                <th width="100px" float="left">
+                    cena netto
+                </th>
+                <th width="120px" float="left">
+                    wartość netto
+                </th>
+                <th width="80px" float="left">
+                    VAT
+                </th>
+                <th width="100px" float="left">
+                    kwota VAT
+                </th>
+                <th width="120px" float="left">
+                    kwota brutto
+                </th>
+
+                <div id="form-test">
+                   
+                   
+                    {% for positions in proFormaInvoice.positions %}
+                  {#  {% for i in 0..5%}#}    
+                        <tr class="position">
+                      
+                        
+                            <td> 
+                                <input class="form-control input-sm" value="{{ positions.ordinal }}" readonly="readonly">
+                            </td>
+                            <td> 
+                                <input class="form-control input-sm" value="{{ positions.productName }}" readonly="readonly"> 
+                            </td>
+                            <td> 
+                                <input class="form-control input-sm"value="{{ positions.pkwiu }}" readonly="readonly"> 
+                            </td>               
+                            <td> 
+                                <input class="form-control input-sm" id="getinvoicebundle_invoice_positions_{{positions.ordinal}}_quantity" value="{{ positions.quantity }}" readonly="readonly"> 
+                            </td>
+                            <td> 
+                                <input class="form-control input-sm" value="{{ positions.unitMeasure }}" readonly="readonly"> 
+                            </td>
+                            <td> 
+                                <input class="form-control input-sm" id="getinvoicebundle_invoice_positions_{{positions.ordinal}}_priceNet" value="{{ positions.priceNet }}" readonly="readonly"> 
+                            </td>
+                            <td> 
+                                <input class="form-control input-sm" id="getinvoicebundle_invoice_positions_{{positions.ordinal}}_valueNet" value="{{ positions.valueNet }}" readonly="readonly"> 
+                            </td>
+                            <td> 
+                                <input class="form-control input-sm" id="getinvoicebundle_invoice_positions_{{positions.ordinal}}_rateVAT" value="{{ positions.rateVat == -1 ? 'ZW' : positions.rateVat == -2 ? 'NP' : positions.rateVat }}" readonly="readonly">
+                            </td>
+                            <td> 
+                                <input class="form-control input-sm" id="getinvoicebundle_invoice_positions_{{positions.ordinal}}_amountVAT" value="{{ positions.amountVat }}" readonly="readonly"> 
+                            </td>
+                            <td> 
+                                <input class="form-control input-sm" id="getinvoicebundle_invoice_positions_{{positions.ordinal}}_valueGross" value="{{ positions.valueGross }}" readonly="readonly"> 
+                            </td>
+                        
+                        
+                        
+                    </tr>
+                        <br>
+                    {% endfor %}
+                    </table>   
+                </div>
+        </div>     
+                    <hr>
+    
+    
+    
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ proFormaInvoice.id }}</td>
+            </tr>
+            <tr>
+                <th>Comments</th>
+                <td>{{ proFormaInvoice.comments }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('proformainvoice_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('proformainvoice_edit', { 'id': proFormaInvoice.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

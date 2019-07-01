@@ -9,14 +9,17 @@
                 {% set active="" %}
             {% endfor %}
     </ul>
+    
    <div class="tab-content">
         {% set inactive="in active" %}
-        {% for company in companies %}   
+        {% for company in companies %} 
+             
             <div id="{{ company.id }}" class="tab-pane fade {{ inactive }}">
                 {% set inactive="" %}   
-                {% if company.invoices |length > 0 %}
+                 
+                        {% if company.invoiceCorrectives |length > 0 %}
                     <div id="borderedTable" class="body collapse in">
-
+                       
                         <table class="table table-bordered responsive-table">
                             <thead>
                                 <tr>                   
@@ -35,9 +38,11 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {% for invoiceCorrective in invoiceCorrectives %}
+
+                               {% for invoiceCorrective in company.invoiceCorrectives %}
+                                         
                                     <tr>
-                                        <td><a class="btn btn-info btn-sm" href="{{ path('invoicecorrective_show', { 'id': invoiceCorrective.id }) }}">{{ invoiceCorrective.invoiceNo }}</a></td>                        
+                                       <td><a class="btn btn-info btn-sm" href="{{ path('invoicecorrective_show', { 'id': invoiceCorrective.id }) }}">{{ invoiceCorrective.invoiceNo }}</a></td>                     
                                         <td>{{ invoiceCorrective.invoiceCorrected }}</td>
                                         <td>{% if invoiceCorrective.dateIssue %}{{ invoiceCorrective.dateIssue|date('Y-m-d') }}{% endif %}</td>                         
                                         <td>{% if invoiceCorrective.datePayment %}{{ invoiceCorrective.datePayment|date('Y-m-d') }}{% endif %}</td>                         
@@ -49,123 +54,19 @@
                                         <td>{{ invoiceCorrective.totalValueGross }}</td>
                                         <td>{{ invoiceCorrective.comments }} </td>
                                         <td>   
-                                            {% if invoiceCorrective is defined %}
-                                          {{ form_start(delete_form) }} 
-                                           <input type="submit" class="btn btn-warning btn-sm" value="Usuń fakturę korygującą">
-                                          {{ form_end(delete_form) }} 
-                                          {% else %}
-                                              {% endif %}
-                                            <a class="btn btn-primary btn-sm" href="{{ path('invoicecorrective_edit', { 'id': invoiceCorrective.id }) }}">Edycja faktury</a>                                            
+                                          <a class="btn btn-default btn-sm" href="{{ path('invoicecorrective_edit', { 'id': invoiceCorrective.id }) }}">Edycja faktury</a>                                           
                                         </td>
-                                    </tr>
-                                {% endfor %}
+                                    </tr>   
+                                  {% endfor %}                     
                             </tbody>
                         </table>
-
                     </div>
-                {% else %}
+                    {% else %}
                     <p class="text-center">brak faktur korygujących w bazie dla firmy {{ company.name }}<p>
                     {% endif %}
             </div>
         {% endfor %}
     </div>    
-    
-    
-    
-    
-    
-    
-    
-    
-    
- {#   
-    
-    
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Invoicecorrected</th>
-                <th>Comments</th>
-                <th>Invoiceno</th>
-                <th>Dateissue</th>
-                <th>Datesale</th>
-                <th>Datepayment</th>
-                <th>Paymentmethod</th>
-                <th>Currency</th>
-                <th>Iban</th>
-                <th>Sellername</th>
-                <th>Selleraddressstreet</th>
-                <th>Sellerpostalcode</th>
-                <th>Selleraddresscity</th>
-                <th>Sellerphone</th>
-                <th>Sellernip</th>
-                <th>Customername</th>
-                <th>Customeraddressstreet</th>
-                <th>Customeraddresspostalcode</th>
-                <th>Customeraddresscity</th>
-                <th>Customerphone</th>
-                <th>Customernip</th>
-                <th>Totalvaluenet</th>
-                <th>Totalamountvat</th>
-                <th>Totalvaluegross</th>
-                <th>Paid</th>
-                <th>Remaintopay</th>
-                <th>Topayinwords</th>
-                <th>Authorisedtoissue</th>
-                <th>Allowedtoreceive</th>
-                <th>Invoicelogo</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for invoiceCorrective in invoiceCorrectives %}
-            <tr>
-                <td><a href="{{ path('invoicecorrective_show', { 'id': invoiceCorrective.id }) }}">{{ invoiceCorrective.id }}</a></td>
-                <td>{{ invoiceCorrective.invoiceCorrected }}</td>
-                <td>{{ invoiceCorrective.comments }}</td>
-                <td>{{ invoiceCorrective.invoiceNo }}</td>
-                <td>{% if invoiceCorrective.dateIssue %}{{ invoiceCorrective.dateIssue|date('Y-m-d') }}{% endif %}</td>
-                <td>{% if invoiceCorrective.dateSale %}{{ invoiceCorrective.dateSale|date('Y-m-d') }}{% endif %}</td>
-                <td>{% if invoiceCorrective.datePayment %}{{ invoiceCorrective.datePayment|date('Y-m-d') }}{% endif %}</td>
-                <td>{{ invoiceCorrective.paymentMethod }}</td>
-                <td>{{ invoiceCorrective.currency }}</td>
-                <td>{{ invoiceCorrective.iban }}</td>
-                <td>{{ invoiceCorrective.sellerName }}</td>
-                <td>{{ invoiceCorrective.sellerAddressStreet }}</td>
-                <td>{{ invoiceCorrective.sellerPostalCode }}</td>
-                <td>{{ invoiceCorrective.sellerAddressCity }}</td>
-                <td>{{ invoiceCorrective.sellerPhone }}</td>
-                <td>{{ invoiceCorrective.sellerNip }}</td>
-                <td>{{ invoiceCorrective.customerName }}</td>
-                <td>{{ invoiceCorrective.customerAddressStreet }}</td>
-                <td>{{ invoiceCorrective.customerAddressPostalCode }}</td>
-                <td>{{ invoiceCorrective.customerAddressCity }}</td>
-                <td>{{ invoiceCorrective.customerPhone }}</td>
-                <td>{{ invoiceCorrective.customerNip }}</td>
-                <td>{{ invoiceCorrective.totalValueNet }}</td>
-                <td>{{ invoiceCorrective.totalAmountVAT }}</td>
-                <td>{{ invoiceCorrective.totalValueGross }}</td>
-                <td>{{ invoiceCorrective.paid }}</td>
-                <td>{{ invoiceCorrective.remainToPay }}</td>
-                <td>{{ invoiceCorrective.toPayInWords }}</td>
-                <td>{{ invoiceCorrective.authorisedToIssue }}</td>
-                <td>{{ invoiceCorrective.allowedToReceive }}</td>
-                <td>{{ invoiceCorrective.invoiceLogo }}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('invoicecorrective_show', { 'id': invoiceCorrective.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('invoicecorrective_edit', { 'id': invoiceCorrective.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+        {% endblock %}    
+  
 
- #}
-{% endblock %}

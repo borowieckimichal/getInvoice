@@ -1,6 +1,7 @@
 
 {% block head %}
     <meta charset="utf-8">
+ 
     
     <script>
         
@@ -138,8 +139,10 @@
                 {% if invoice.invoiceLogo ends with 'b/d' or invoice.invoiceLogo is null%}
 
                 {% else %}
-                    <img src="{{ absolute_url(asset('uploads/logos/'))}}{{invoice.invoiceLogo}}"
-                         height="150" width="150">
+                   
+                    <img src="{{ absolute_url(asset('uploads/logos/'~invoice.invoiceLogo ))}}" alt="logo"
+                            height="150" width="150"/>
+                   
                 {% endif %}
             </div>           
         </div>

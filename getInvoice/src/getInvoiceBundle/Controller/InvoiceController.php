@@ -33,10 +33,7 @@ class InvoiceController extends Controller {
                 ->getUser();
         $user->getId();
         $invoices = $em->getRepository('getInvoiceBundle:Invoice')->findAll();
-        foreach ($invoices as $invoice) {
-            $deleteForm = $this->createDeleteForm($invoice);
-        }
-
+                
 
         if ($user instanceof User) {
             $customers = $customerRepo->getAllCustomersByUserId($user);
@@ -45,7 +42,7 @@ class InvoiceController extends Controller {
                         'invoices' => $invoices,
                         'customers' => $customers,
                         'companies' => $companies,
-                        'delete_form' => $deleteForm->createView(),
+                      
             ));
         }
         return $this->redirectToRoute("getinvoice_default_index");

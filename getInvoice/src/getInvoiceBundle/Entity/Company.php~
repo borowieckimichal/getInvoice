@@ -113,7 +113,7 @@ class Company {
         return $invoiceCorrectives;
     }
     
-    public function getinvoiceProformas(){
+    public function getinvoiceProForma(){
         
         $invoiceProformas = [];
         foreach ($this->getInvoices() as $eq ) {

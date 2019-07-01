@@ -33,21 +33,18 @@ class InvoiceCorrectiveController extends Controller {
         $user->getId();
 
         $invoiceCorrectives = $em->getRepository('getInvoiceBundle:InvoiceCorrective')->findAll();
-        foreach ($invoiceCorrectives as $invoiceCorrective) {
-            $deleteForm = $this->createDeleteForm($invoiceCorrective);
-        }
 
-        //if ($user instanceof User) {
+     //   if ($user instanceof User) {
             $customers = $customerRepo->getAllcustomersByUserId($user);
             $companies = $companyRepo->findByUser($user);
             return $this->render('invoicecorrective/index.html.twig', array(
                         'invoiceCorrectives' => $invoiceCorrectives,
                         'customers' => $customers,
                         'companies' => $companies,
-                        'delete_form' => $deleteForm->createView(),
+                        
             ));
-       // }
-        //return $this->redirectToRoute("getinvoice_default_index");
+      //  }
+      //  return $this->redirectToRoute("getinvoice_default_index");
     }
 
     /**
@@ -71,6 +68,9 @@ class InvoiceCorrectiveController extends Controller {
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            
+            $invoiceCorrective->setCustomer($invoice->getCustomer());
+            $invoiceCorrective->setCompany($invoice->getCompany());
             $em = $this->getDoctrine()->getManager();
             $em->persist($invoiceCorrective);
             $invoicePositions = $invoiceCorrective->getPositions();
@@ -102,7 +102,7 @@ class InvoiceCorrectiveController extends Controller {
         return $this->render('invoicecorrective/show.html.twig', array(
                     'invoiceCorrective' => $invoiceCorrective,
                     'delete_form' => $deleteForm->createView(),
-                   // 'invoiceCorrected' => $invoiceCorrected,
+                   
         ));
     }
 
@@ -116,7 +116,7 @@ class InvoiceCorrectiveController extends Controller {
         $deleteForm = $this->createDeleteForm($invoiceCorrective);
         $editForm = $this->createForm('getInvoiceBundle\Form\InvoiceCorrectiveType', $invoiceCorrective);
         $editForm->handleRequest($request);
-
+        $invoice = $invoiceCorrective->getInvoices();
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
@@ -127,6 +127,7 @@ class InvoiceCorrectiveController extends Controller {
                     'invoiceCorrective' => $invoiceCorrective,
                     'edit_form' => $editForm->createView(),
                     'delete_form' => $deleteForm->createView(),
+                    'invoice' => $invoice,
         ));
     }
 

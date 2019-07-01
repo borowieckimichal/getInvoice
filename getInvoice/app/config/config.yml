@@ -37,6 +37,8 @@ framework:
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
+    globals:
+        uploads/logos/: "%kernel.root_dir%/../web"
 
 # Doctrine Configuration
 doctrine:
@@ -86,7 +88,7 @@ knp_snappy:
             - { name: 'viewport-size', value: ‘1024x768’ }
             - { name: 'page-size', value: 'A4' }
     image:
-        enabled:    false
-        binary:     /usr/local/bin/wkhtmltoimage
+        enabled:    true
+        binary:     /usr/bin/wkhtmltoimage
         options:    []
     temporary_folder: %kernel.cache_dir%/snappy

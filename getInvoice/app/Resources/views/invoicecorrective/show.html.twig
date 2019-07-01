@@ -2,7 +2,7 @@
 
 {% block body %}
     <h3>Twoja faktura korygująca</h3>
-    {# {% block pdf %} #}
+     {% block pdf %} 
     <div class="text-muted text-center">           
         <b>Faktura korygująca Nr</b>
         {{ invoiceCorrective.invoiceNo }}
@@ -633,7 +633,7 @@
 
 
 
-
+                    {% endblock %}
                     <ul class="list-inline">
                         <li>
                             <a class="btn btn-default btn-sm" href="{{ path('invoicecorrective_index') }}">Powrót do listy faktur korygujących</a>
@@ -647,7 +647,7 @@
                             {{ form_end(delete_form) }}
                         </li>
                         <li>
-                            {#<a class="btn btn-warning btn-sm" href="{{ path('invoice_pdf', { 'id': invoice.id }) }} "> PDF</a>#}
+                            <a class="btn btn-warning btn-sm" href="{{ path('invoice_pdf', { 'id': invoiceCorrective.id }) }} "> PDF</a>
                         </li>
                     </ul>
                     <script src="{{ absolute_url(asset('js/jquery-3.1.1.js'))}}"></script>

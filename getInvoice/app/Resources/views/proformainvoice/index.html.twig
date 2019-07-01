@@ -8,19 +8,20 @@
             <li class={{ active }}><a data-toggle="tab" href="#{{ company.id }}">{{ company.name }}</a></li>
                 {% set active="" %}
             {% endfor %}
-    </ul>
-    <div class="tab-content">
+    </ul>    
+
+   <div class="tab-content">
         {% set inactive="in active" %}
         {% for company in companies %}   
             <div id="{{ company.id }}" class="tab-pane fade {{ inactive }}">
                 {% set inactive="" %}   
-                {% if company.invoiceVat |length > 0 %}
+                {% if company.invoiceProformas |length > 0 %}
                     <div id="borderedTable" class="body collapse in">
 
                         <table class="table table-bordered responsive-table">
                             <thead>
                                 <tr>                   
-                                    <th>Nr faktury</th>
+                                    <th>Nr faktury Pro Forma</th>
                                     <th>Data wystawienia</th> 
                                     <th>Data płatności</th>                       
                                     <th>Waluta</th>                       
@@ -33,9 +34,9 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {% for invoice in company.invoiceVat %}
+                                {% for invoice in company.invoiceProformas %}
                                     <tr>
-                                        <td><a class="btn btn-info btn-sm" href="{{ path('invoice_show', { 'id': invoice.id }) }}">{{ invoice.invoiceNo }}</a></td>                        
+                                        <td><a class="btn btn-info btn-sm" href="{{ path('proformainvoice_show', { 'id': invoice.id }) }}">{{ invoice.invoiceNo }}</a></td>                        
                                         <td>{% if invoice.dateIssue %}{{ invoice.dateIssue|date('Y-m-d') }}{% endif %}</td>                         
                                         <td>{% if invoice.datePayment %}{{ invoice.datePayment|date('Y-m-d') }}{% endif %}</td>                         
                                         <td>{{ invoice.currency }}</td>                     
@@ -44,10 +45,8 @@
                                         <td>{{ invoice.totalValueNet }}</td>
                                         <td>{{ invoice.totalAmountVAT }}</td>
                                         <td>{{ invoice.totalValueGross }}</td>                           
-                                        <td>                                                                  
-                               
-                                            <a class="btn btn-primary btn-sm" href="{{ path('invoice_edit', { 'id': invoice.id }) }}">Edycja faktury</a>
-                                            <a class="btn btn-default btn-sm" href="{{ path('invoicecorrective_new', { 'Id_invoice': invoice.id }) }}">Wystaw korekte</a> 
+                                        <td>                                                                                                 
+                                            <a class="btn btn-primary btn-sm" href="{{ path('proformainvoice_edit', { 'id': invoice.id }) }}">Edycja faktury</a>                                           
                                         </td>
                                     </tr>
                                 {% endfor %}
@@ -56,16 +55,18 @@
 
                         <ul>
 
-                            {% for customer in company.customers %}
-                                <a class="btn btn-success btn-sm" href="{{ path('invoice_new', {'id' : customer.id }) }}">Wystaw fakturę dla {{customer.name}}</a> 
+                           {% for customer in company.customers %}
+                                <a class="btn btn-success btn-sm" href="{{ path('proformainvoice_new', {'id' : customer.id }) }}">Wystaw Pro formę dla {{customer.name}}</a> 
                             {% endfor %}
-
+                            
                         </ul>
                     </div>
                 {% else %}
-                    <p class="text-center">brak faktur w bazie dla firmy {{ company.name }}<p>
+                    <p class="text-center">brak faktur Pro Forma w bazie dla firmy {{ company.name }}<p>
                     {% endif %}
             </div>
         {% endfor %}
-    </div>
+    </div>    
+    
+
 {% endblock %}

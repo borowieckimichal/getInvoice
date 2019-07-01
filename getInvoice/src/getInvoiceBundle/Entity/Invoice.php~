@@ -1026,37 +1026,4 @@ class Invoice
     {
         return $this->correction;
     }
-
-    /**
-     * Add proforma
-     *
-     * @param \getInvoiceBundle\Entity\ProFormaInvoice $proforma
-     * @return Invoice
-     */
-    public function addProforma(\getInvoiceBundle\Entity\ProFormaInvoice $proforma)
-    {
-        $this->proforma[] = $proforma;
-
-        return $this;
-    }
-
-    /**
-     * Remove proforma
-     *
-     * @param \getInvoiceBundle\Entity\ProFormaInvoice $proforma
-     */
-    public function removeProforma(\getInvoiceBundle\Entity\ProFormaInvoice $proforma)
-    {
-        $this->proforma->removeElement($proforma);
-    }
-
-    /**
-     * Get proforma
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getProforma()
-    {
-        return $this->proforma;
-    }
 }
